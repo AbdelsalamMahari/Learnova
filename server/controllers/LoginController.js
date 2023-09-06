@@ -2,6 +2,7 @@ const { Student } = require("../models/StudentsModel");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
+//Student
 module.exports.login = async (req, res) => {
 	try {
 		const { error } = validate(req.body);
@@ -37,3 +38,5 @@ const validate = (data) => {
 	});
 	return schema.validate(data);
 };
+
+//Teacher

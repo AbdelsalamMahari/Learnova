@@ -3,6 +3,8 @@ const Token = require("../models/TokenModel");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
+
+//Student
 module.exports.signup = async (req, res) => {
   try {
     const { error } = validate(req.body);
@@ -56,3 +58,6 @@ module.exports.link = async (req, res) => {
     console.error(error);
   }
 };
+
+
+//Teacher

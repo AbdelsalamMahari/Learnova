@@ -40,6 +40,24 @@ export default function Navbar() {
         <div
           className={`toggle ${menuOpen ? 'block' : 'hidden'} w-full md:w-auto md:flex text-right text-bold mt-5 md:mt-0 border-t-2 border-blue-900 md:border-none`}
         >
+                    <Link
+            to="/"
+            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+          >
+            All Courses
+          </Link>
+          <Link
+            to="/"
+            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+          >
+            Instructors
+          </Link>
+          <Link
+            to="/contact"
+            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+          >
+            Pricing & FAQ
+          </Link>
           <Link
             to="/contact"
             className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
@@ -51,12 +69,6 @@ export default function Navbar() {
             className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
           >
             About
-          </Link>
-          <Link
-            to=""
-            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
-          >
-            Courses
           </Link>
         </div>
       </nav>

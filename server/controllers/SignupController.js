@@ -1,5 +1,5 @@
 const { Student, validate: validateStudent } = require("../models/StudentsModel");
-const { Teacher, validate: validateTeacher } = require("../models/TeacherModel");
+const { Teacher, validate: validateTeacher } = require("../models/TeachersModel");
 const Token = require("../models/TokenModel");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");

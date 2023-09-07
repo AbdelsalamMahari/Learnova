@@ -1,10 +1,10 @@
 const { Student } = require("../models/StudentsModel");
-const { Teacher } = require("../models/TeacherModel");
+const { Teacher } = require("../models/TeachersModel");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
 // Student
-module.exports.login = async (req, res) => {
+module.exports.loginStudent = async (req, res) => {
     try {
         const { error } = validateStudent(req.body); // Rename the validate function
         if (error)

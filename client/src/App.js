@@ -5,6 +5,7 @@ import Navbar from "./layout/navbar/Navbar";
 import Home from "./pages/home/Home";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
+import Instructors from "./pages/instructors/Instructors";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="instructors" element={<Instructors />} />
         </Route>
       </Routes>
     </BrowserRouter>

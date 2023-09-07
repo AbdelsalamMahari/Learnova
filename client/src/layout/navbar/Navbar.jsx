@@ -47,7 +47,7 @@ export default function Navbar() {
             All Courses
           </Link>
           <Link
-            to="/"
+            to="/instructors"
             className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
           >
             Instructors

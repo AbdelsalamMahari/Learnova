@@ -1,13 +1,13 @@
-const { Student, validate } = require("../models/StudentsModel");
+const { Student, validate: validateStudent } = require("../models/StudentsModel");
+const { Teacher, validate: validateTeacher } = require("../models/TeacherModel");
 const Token = require("../models/TokenModel");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
-
-//Student
-module.exports.signup = async (req, res) => {
+// Student Signup
+module.exports.signupStudent = async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validateStudent(req.body); // Use validateStudent for student validation
     if (error)
       return res.status(400).send({ message: error.details[0].message });
 
@@ -59,5 +59,58 @@ module.exports.link = async (req, res) => {
   }
 };
 
+// Teacher Signup
+module.exports.signupTeacher = async (req, res) => {
+  try {
+    const { error } = validateTeacher(req.body); // Use validateTeacher for teacher validation
+    if (error)
+      return res.status(400).send({ message: error.details[0].message });
 
-//Teacher
+    let teacher = await Teacher.findOne({ email: req.body.email });
+    if (teacher)
+      return res
+        .status(409)
+        .send({ message: "Teacher with given email already exists!" });
+
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+    teacher = await new Teacher({ ...req.body, password: hashPassword }).save();
+
+    const token = await new Token({
+      teacherId: teacher._id,
+      token: crypto.randomBytes(32).toString("hex"),
+    }).save();
+
+    res.status(201).send({
+      message:
+        "An email has been sent to your account. Please verify your email.",
+    });
+    console.log(req.body);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+};
+
+// Teacher Email Verification
+module.exports.linkTeacher = async (req, res) => {
+  try {
+    const teacher = await Teacher.findOne({ _id: req.params.id });
+    if (!teacher) return res.status(400).send({ message: "Invalid link" });
+
+    const token = await Token.findOne({
+      teacherId: teacher._id,
+      token: req.params.token,
+    });
+
+    if (!token) return res.status(400).send({ message: "Invalid link" });
+
+    await Teacher.updateOne({ _id: teacher._id }, { $set: { verified: true } });
+
+    res.status(200).send({ message: "Email verified successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+    console.error(error);
+  }
+};

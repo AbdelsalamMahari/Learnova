@@ -7,5 +7,7 @@ const router = Router();
 router.post('/login/student', login);
 
 //Teacher
+router.post('/login/teacher', login);
+
 
 module.exports = router;

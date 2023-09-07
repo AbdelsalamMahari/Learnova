@@ -4,6 +4,8 @@ const cors = require('cors');
 
 const signupRoutes = require('./routes/SignupRoute');
 const loginRoutes = require('./routes/LoginRoute');
+const surveyRoutes = require('./routes/SurveyRoute');
+
 
 require('dotenv').config();
 
@@ -13,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-app.use(signupRoutes, loginRoutes);
+app.use(signupRoutes, loginRoutes, surveyRoutes);
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(() => console.log('Connected To MongoDB, Server Works!'))

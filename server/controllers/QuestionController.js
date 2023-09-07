@@ -1,0 +1,66 @@
+const Question = require('../models/QuestionModel');
+
+// Create a new question
+module.exports.createQuestion = async (req, res) => {
+  try {
+    const question = new Question(req.body);
+    await question.save();
+    res.status(201).json(question);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while creating the question.' });
+  }
+};
+
+// Get all questions
+module.exports.getAllQuestions = async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json(questions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching questions.' });
+  }
+};
+
+// Get one question by ID
+module.exports.getOneQuestion = async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id);
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found.' });
+    }
+    res.json(question);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching the question.' });
+  }
+};
+
+// Update a question by ID
+module.exports.updateQuestion = async (req, res) => {
+  try {
+    const question = await Question.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found.' });
+    }
+    res.json(question);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while updating the question.' });
+  }
+};
+
+// Delete a question by ID
+module.exports.deleteQuestion = async (req, res) => {
+  try {
+    const question = await Question.findByIdAndRemove(req.params.id);
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found.' });
+    }
+    res.json({ message: 'Question deleted successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while deleting the question.' });
+  }
+};

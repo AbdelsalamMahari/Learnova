@@ -68,6 +68,13 @@ module.exports.loginTeacher = async (req, res) => {
     if (!validPassword)
       return res.status(401).send({ message: "Invalid Email or Password" });
 
+      if (!teacher.verified) {
+        // User is not verified, send the verification message
+        return res
+          .status(400)
+          .send({ message: "Please verify your email" });
+      }
+
     const token = teacher.generateAuthToken();
     res.status(200).send({ data: token, message: "Logged in successfully" });
   } catch (error) {

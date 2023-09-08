@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex flex-wrap items-center justify-between p-5 bg-blue-600">
+      <nav className="flex flex-wrap items-center justify-between p-5 bg-transparent fixed w-full z-50">
         <div className="flex md:hidden">
           <button id="hamburger" onClick={toggleMenu}>
             <img
@@ -33,9 +33,9 @@ export default function Navbar() {
         </div>
         <Link
           to="/"
-          className="toggle hidden md:flex w-full md:w-auto px-4 text-right"
+          className="toggle hidden md:flex w-full md:w-auto text-right"
         >
-          <img src={Logo} alt="learnova" width="150px" />
+          <img src={Logo} alt="learnova" width="170px" />
         </Link>
         <div
           className={`toggle ${
@@ -71,6 +71,12 @@ export default function Navbar() {
             className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
           >
             About
+          </Link>
+          <Link
+            to="/about"
+            className="block md:inline-block text-white bg-[#FFA500] rounded-full px-6 py-2 mx-4 font-bold"
+          >
+            START LEARNING
           </Link>
         </div>
       </nav>

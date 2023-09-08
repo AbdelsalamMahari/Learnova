@@ -1,0 +1,28 @@
+.backdrop-image::after {
+    content: "";
+    background-image: url(../../assets//images/first-img-girl.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    width: 100%;
+    filter: grayscale(100%); /* Apply grayscale filter to the pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-bottom-right-radius: 150px;
+}
+
+.backdrop-section {
+    height: 100vh;
+    background-color: #007991a8;
+    border-bottom-right-radius: 150px;
+    position: relative;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    padding: 0 30px;
+}
+

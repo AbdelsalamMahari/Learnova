@@ -2,7 +2,8 @@ const { Schema, model } = require("mongoose");
 
 const FeedbackSchema = new Schema({
   studentId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "student", // Reference to the "student" model
     required: true,
   },
   text: {

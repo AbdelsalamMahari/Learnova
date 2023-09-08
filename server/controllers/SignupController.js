@@ -1,6 +1,7 @@
 const { Student, validate: validateStudent } = require("../models/StudentsModel");
 const { Teacher, validate: validateTeacher } = require("../models/TeachersModel");
-const Token = require("../models/TokenModel");
+const SToken = require("../models/STokenModel");
+const TToken = require("../models/TTokenModel");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendEmail");
@@ -23,7 +24,7 @@ module.exports.signupStudent = async (req, res) => {
 
     student = await new Student({ ...req.body, password: hashPassword }).save();
 
-    const token = await new Token({
+    const token = await new SToken({
       studentId: student._id,
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
@@ -43,12 +44,12 @@ module.exports.signupStudent = async (req, res) => {
   }
 };
 
-module.exports.link = async (req, res) => {
+module.exports.linkStudent = async (req, res) => {
   try {
     const student = await Student.findOne({ _id: req.params.id });
     if (!student) return res.status(400).send({ message: "Invalid link" });
 
-    const token = await Token.findOne({
+    const token = await SToken.findOne({
       studentId: student._id,
       token: req.params.token,
     });
@@ -83,7 +84,7 @@ module.exports.signupTeacher = async (req, res) => {
 
     teacher = await new Teacher({ ...req.body, password: hashPassword }).save();
 
-    const token = await new Token({
+    const token = await new TToken({
       teacherId: teacher._id,
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
@@ -109,7 +110,7 @@ module.exports.linkTeacher = async (req, res) => {
     const teacher = await Teacher.findOne({ _id: req.params.id });
     if (!teacher) return res.status(400).send({ message: "Invalid link" });
 
-    const token = await Token.findOne({
+    const token = await TToken.findOne({
       teacherId: teacher._id,
       token: req.params.token,
     });

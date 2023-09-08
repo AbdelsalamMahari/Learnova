@@ -37,7 +37,7 @@ const SurveySchema = new Schema({
   },
   surveyCreator: {
     type: Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model (for the creator)
+    ref: "students", // Reference to the User model (for the creator)
     required: true,
   },
 });

@@ -6,6 +6,8 @@ const signupRoutes = require('./routes/SignupRoute');
 const loginRoutes = require('./routes/LoginRoute');
 const surveyRoutes = require('./routes/SurveyRoute');
 const examRoutes = require('./routes/ExamsRoute');
+const feedbackRoutes = require("./routes/FeedbackRoute");
+
 
 const QuestionRoute = require('./routes/QuestionRoute');
 require('dotenv').config();
@@ -16,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-app.use(signupRoutes, loginRoutes, surveyRoutes, QuestionRoute, examRoutes);
+app.use(signupRoutes, loginRoutes, surveyRoutes, QuestionRoute, examRoutes, feedbackRoutes);
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(() => console.log('Connected To MongoDB, Server Works!'))

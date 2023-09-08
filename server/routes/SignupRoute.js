@@ -8,7 +8,7 @@ router.get('/students/:id/verify/:token/', link);
 router.post('/signup/student', signupStudent);
 
 //Teacher
-router.get('/:id/verify/:token/', link);
+router.get('/teachers/:id/verify/:token/', link);
 router.post('/signup/teacher', signupTeacher);
 
 module.exports = router;

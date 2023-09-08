@@ -88,6 +88,10 @@ module.exports.signupTeacher = async (req, res) => {
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
+    const url = `${process.env.BASE_URL}/teachers/${teacher.id}/verify/${token.token}`;
+
+    await sendEmail(teacher.email, "Verify Email", url);
+
     res.status(201).send({
       message:
         "An email has been sent to your account. Please verify your email.",

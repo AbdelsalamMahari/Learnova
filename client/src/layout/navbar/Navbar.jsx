@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex flex-wrap items-center justify-between p-5 bg-blue-600">
+      <nav className="flex flex-wrap items-center justify-between p-5 bg-transparent fixed w-full z-50">
         <div className="flex md:hidden">
           <button id="hamburger" onClick={toggleMenu}>
             <img

@@ -1,0 +1,23 @@
+.backdrop-image::after {
+    content: "";
+    background-image: url(https://media.istockphoto.com/id/1301492606/photo/think-idea-student-lifestyle-puzzled-woman.jpg?s=612x612&w=0&k=20&c=B2fBe0MY2g1pP6u5NjsUMIC5JEZ2-eX1FPWwwLcwv9Y=);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    width: 100%;
+    filter: grayscale(100%); /* Apply grayscale filter to the pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-bottom-right-radius: 150px;
+}
+
+.backdrop-section {
+    height: 100vh;
+    background-color: #007991a8;
+    border-bottom-right-radius: 150px;
+    position: relative;
+}

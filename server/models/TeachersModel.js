@@ -12,6 +12,7 @@ const TeacherSchema = new mongoose.Schema({
   profilePic: { type: String, default: "" },
   verified: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
+  isTeacher: { type: Boolean, default: true },
 },
 { timestamps: true }
 );
@@ -19,7 +20,7 @@ const TeacherSchema = new mongoose.Schema({
 TeacherSchema.methods.generateAuthToken = function () {
   // Generate access token
   const token = jwt.sign(
-    { id: this._id, role: "teacher"},
+    { id: this._id, isTeacher: this._id},
     process.env.SECRET_KEY,
     { expiresIn: "5d" }
   );

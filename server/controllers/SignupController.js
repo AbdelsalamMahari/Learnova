@@ -3,6 +3,7 @@ const { Teacher, validate: validateTeacher } = require("../models/TeachersModel"
 const Token = require("../models/TokenModel");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const sendEmail = require("../utils/sendEmail");
 
 // Student Signup
 module.exports.signupStudent = async (req, res) => {
@@ -26,6 +27,10 @@ module.exports.signupStudent = async (req, res) => {
       studentId: student._id,
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
+
+    const url = `${process.env.BASE_URL}/students/${student.id}/verify/${token.token}`;
+
+    await sendEmail(student.email, "Verify Email", url);
 
     res.status(201).send({
       message:
@@ -53,6 +58,7 @@ module.exports.link = async (req, res) => {
     await Student.updateOne({ _id: student._id }, { $set: { verified: true } });
 
     res.status(200).send({ message: "Email verified successfully" });
+    console.log(res)
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
     console.error(error);

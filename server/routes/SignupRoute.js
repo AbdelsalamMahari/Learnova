@@ -4,7 +4,7 @@ const { signupStudent, signupTeacher, link } = require('../controllers/SignupCon
 const router = Router();
 
 //Student
-router.get('/:id/verify/:token/', link);
+router.get('/students/:id/verify/:token/', link);
 router.post('/signup/student', signupStudent);
 
 //Teacher

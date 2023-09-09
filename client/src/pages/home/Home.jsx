@@ -132,7 +132,7 @@ export default function Home() {
           </div>
         </section>
         <section className="therd-section">
-          <div className="py-[120px]">hello</div>
+          <div className="py-[120px] relative z-10">hello</div>
         </section>
         <section className="h-screen">
           <div>hello</div>

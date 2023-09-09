@@ -1,10 +1,10 @@
 const { Teacher } = require("../models/TeachersModel");
 
 // Update a teacher
-const updateTeacher = async (req, res) => {
+module.exports.updateTeacher = async (req, res) => {
   try {
     // Check if the user is allowed to update
-    if (req.user.id.toString() === req.params.id.toString() || req.user.isAdmin) {
+    if (req.user.id === req.params.id || req.user.isAdmin) {
       const updatedTeacher = await Teacher.findByIdAndUpdate(
         req.params.id,
         {
@@ -27,10 +27,10 @@ const updateTeacher = async (req, res) => {
 };
 
 // Delete a teacher
-const deleteTeacher = async (req, res) => {
+module.exports.deleteTeacher = async (req, res) => {
   try {
     // Check if the user is allowed to delete
-    if (req.user.id.toString() === req.params.id.toString() || req.user.isAdmin) {
+    if (req.user.id === req.params.id || req.user.isAdmin) {
       const deletedTeacher = await Teacher.findByIdAndDelete(req.params.id);
 
       if (!deletedTeacher) {
@@ -47,7 +47,7 @@ const deleteTeacher = async (req, res) => {
 };
 
 // Get a teacher's information
-const getTeacherById = async (req, res) => {
+module.exports.getTeacherById = async (req, res) => {
   try {
     const teacher = await Teacher.findById(req.params.id);
 
@@ -62,7 +62,7 @@ const getTeacherById = async (req, res) => {
 };
 
 // Get all teachers (only for admins)
-const getAllTeachers = async (req, res) => {
+module.exports.getAllTeachers = async (req, res) => {
     if (req.user.isAdmin) {
       try {
         const teachers = await Teacher.find();
@@ -80,9 +80,4 @@ const getAllTeachers = async (req, res) => {
     }
   };
 
-module.exports = {
-  updateTeacher,
-  deleteTeacher,
-  getTeacherById,
-  getAllTeachers,
-};
+

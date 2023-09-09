@@ -20,7 +20,7 @@ const TeacherSchema = new mongoose.Schema({
 TeacherSchema.methods.generateAuthToken = function () {
   // Generate access token
   const token = jwt.sign(
-    { id: this._id, isTeacher: this._id},
+    { id: this._id, isTeacher: this._id, isAdmin: this.isAdmin},
     process.env.SECRET_KEY,
     { expiresIn: "5d" }
   );

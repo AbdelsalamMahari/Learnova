@@ -131,6 +131,12 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section className="therd-section">
+          <div className="py-[120px]">hello</div>
+        </section>
+        <section className="h-screen">
+          <div>hello</div>
+        </section>
       </div>
     </>
   );

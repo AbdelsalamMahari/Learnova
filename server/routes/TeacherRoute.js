@@ -1,13 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const {updateTeacher,deleteTeacher,getTeacherById,getAllTeachers,} = require("../controllers/TeacherController");
+const verify = require("../verifyToken");
+const {
+  updateTeacher,
+  deleteTeacher,
+  getTeacherById,
+  getAllTeachers,
+} = require("../controllers/TeacherController");
 
-router.put("/update/:id", updateTeacher);
+router.put("/teacher/update/:id", verify, updateTeacher);
 
-router.delete("/:id", deleteTeacher);
+router.delete("/teacher/:id", verify, deleteTeacher);
 
-router.get("/:id", getTeacherById);
+router.get("/teacher/:id", getTeacherById);
 
-router.get("/", getAllTeachers);
+router.get("/teacher", verify, getAllTeachers);
 
 module.exports = router;

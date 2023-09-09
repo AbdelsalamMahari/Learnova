@@ -74,7 +74,7 @@ export default function Navbar() {
           </Link>
           <Link
             to="/about"
-            className="block md:inline-block text-white bg-[#FFA500] rounded-full px-6 py-2 mx-4 font-bold"
+            className="block md:inline-block text-white bg-orange rounded-full px-6 py-2 mx-4 font-bold"
           >
             START LEARNING
           </Link>

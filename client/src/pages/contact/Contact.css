@@ -1,37 +1,36 @@
-.backdrop-image{
-    height: 100vh;
+.backdrop-image-contact{
+    height: 60vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
-.backdrop-image::before {
+.backdrop-image-contact::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    background-image: url(../../assets/images/first-img-girl.jpg);
-    background-position: center;
+    height: 60vh;
+    background-image: url(https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg);
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    filter: grayscale(90%); /* Apply black and white effect */
+    filter: grayscale(50%); /* Apply black and white effect */
     z-index: 0;
     border-bottom-right-radius: 150px;
   }
-  
-  .backdrop-image::after {
+  .backdrop-image-contact::after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 60vh;
     background-color: #007991a8; /* Set the desired background color */
     border-bottom-right-radius: 150px;
   }
 
-  .backdrop-section{
+  .backdrop-section-contact{
     position: relative;
     z-index: 1;
     width: 50%;

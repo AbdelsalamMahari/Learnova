@@ -6,9 +6,9 @@ export default function About() {
   return (
     <>
       <div className="scroll-container">
-        <section className="backdrop-image-all">
+        <section className="backdrop-image-about">
           <Navbar/>
-          <div className="backdrop-section-all">
+          <div className="backdrop-section-about">
             <div className=" px-[30px]">
               <h1 className="lg:text-6xl font-bold text-white my-8">About Us</h1>
               <p className="text-lg text-white">Your portal to a world of knowledge and growth. Explore, learn, and thrive with Learnova</p>

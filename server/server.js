@@ -7,6 +7,7 @@ const loginRoutes = require("./routes/LoginRoute");
 const surveyRoutes = require("./routes/SurveyRoute");
 const examRoutes = require("./routes/ExamsRoute");
 const feedbackRoutes = require("./routes/FeedbackRoute");
+const teacherRoutes = require("./routes/TeacherRoute");
 
 const QuestionRoute = require("./routes/QuestionRoute");
 const EnrollemntRoute = require("./routes/EnrollentRoute");
@@ -26,6 +27,7 @@ app.use(
   QuestionRoute,
   examRoutes,
   feedbackRoutes,
+  teacherRoutes,
   EnrollemntRoute,
   PaymentEnrollemntRoute
 );

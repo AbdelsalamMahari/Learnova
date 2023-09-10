@@ -8,7 +8,7 @@ const surveyRoutes = require("./routes/SurveyRoute");
 const examRoutes = require("./routes/ExamsRoute");
 const feedbackRoutes = require("./routes/FeedbackRoute");
 const teacherRoutes = require("./routes/TeacherRoute");
-
+const coursesRoutes = require("./routes/CourseRoutes");
 const QuestionRoute = require("./routes/QuestionRoute");
 const EnrollemntRoute = require("./routes/EnrollentRoute");
 const PaymentEnrollemntRoute = require("./routes/PaymentEnrollemntRoute");
@@ -31,7 +31,7 @@ app.use(
   EnrollemntRoute,
   PaymentEnrollemntRoute
 );
-
+app.use("/course", coursesRoutes);
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected To MongoDB, Server Works!"))

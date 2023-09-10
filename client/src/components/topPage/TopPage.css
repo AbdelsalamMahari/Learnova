@@ -1,0 +1,40 @@
+.backdrop-image-topPage{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+:root {
+    --background-image-url: url(https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg);
+  }
+.backdrop-image-topPage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-image: var(--background-image-url);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: grayscale(50%); /* Apply black and white effect */
+    z-index: 0;
+    border-bottom-right-radius: 150px;
+  }
+  .backdrop-image-topPage::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-color: #007991a8; /* Set the desired background color */
+    border-bottom-right-radius: 150px;
+  }
+
+  .backdrop-section-topPage{
+    position: relative;
+    z-index: 1;
+    width: 50%;
+  }

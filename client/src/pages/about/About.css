@@ -2,15 +2,15 @@
   /* section 2 */
 
   .section2-about{
-    margin: 80px 130px;
+    margin: 80px 30px 40px 30px;
   }
   .container-about {
     display: flex; 
   }
   .first-about{
-    font-size:45px;
+    font-size:40px;
     font-weight: bolder;
-    max-width: 30%;
+    max-width: 25%;
     padding: auto;
   }
   .second-about {
@@ -27,7 +27,7 @@
   /* section 3 */
 
   .section3-about{
-    padding:70px 130px 70px 60px;
+    padding:20px 130px 20px 30px;
   }
   .container2-about{
     display: flex;
@@ -36,12 +36,145 @@
     margin-top: 50px;
   }
   .first2-about img{
-   width:330vh;
+   width:400vh;
+  }
+  .second2-about{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 40px;
+  }
+  .second2-about h1{
+    font-size:40px;
+    margin-bottom: 20px;
+  }
+  .tilted-box {
+    transform: skewx(var(--skew-angle));
+    border: 4px dashed orange;
+    width: 20%; 
+    margin-bottom: 20px;
+  }
+ 
+  /* section 4 */
+
+  .section4-about{
+    margin: 80px 30px;
+  }
+  .container3-about{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .first3-about{
+    width: 30%;
+    padding-bottom: 190px;
+    padding-left: 100px;
+  }
+  .first3-about h3{
+    font-weight: bold;
+  }
+  .first3-about h1{
+    font-weight: bolder;
+    font-size: xx-large;
+  }
+  .second3-about{
+    width: 60%;
+    margin-right: 150px;
+  }
+  .second3-about h2{
+    font-weight: bolder;
+    font-size: xx-large;
+    padding-bottom: 20px;
+  }
+  .second3-about p{
+    padding-bottom: 20px;
   }
   .second2-about-pro{
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 0px 40px;
+    justify-content: space-between;
   }
+
+  /* section 5 */
+
+  .section4 {
+    background-image: url(https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?cs=srgb&dl=pexels-fauxels-3183150.jpg&fm=jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative; /* Add this to make sure the pseudo-element is positioned relative to this container */
+    margin-bottom: 50px;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  
+  .section4::before {
+    content: "";
+    background-color: #007991de; /* Set the desired background color */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Adjust the z-index to control the stacking order */
+  }
+  .icons-about{
+   color: orange;
+   font-size: 2rem;
+  }
+
+  /* section 6 */
+
+  .feedback-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    background-image: url('https://images.unsplash.com/photo-1531256379416-9f000e90aacc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG5vdGV8ZW58MHx8MHx8fDA%3D&w=1000&q=80'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    max-width: 1200px;
+    height: 50vh; 
+    margin-bottom: 50px;
+  }
+
+
+  .feedback-form {
+    margin: 40px;
+    width: 70%;
+  }
+  
+  .feedback-form h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .feedback-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feedback-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    resize: vertical;
+  }
+  
+  .feedback-form button {
+    background-color: orange;    
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .feedback-form button:hover {
+    background-color: #007991de;
+  }
+
+

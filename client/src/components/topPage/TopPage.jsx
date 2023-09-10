@@ -18,7 +18,6 @@ export default function TopPage({ title, backgroundImageUrl }) {
               </div>
           </div>
         </section>
-        <section className="h-screen">hii</section>
       </div>
     </>
   );

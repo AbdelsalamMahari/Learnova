@@ -20,7 +20,8 @@ body{
     width: 100%;
     height: 100vh;
     background-image: url(../../assets/images/first-img-girl.jpg);
-    background-position: center;
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     filter: grayscale(90%); /* Apply black and white effect */
@@ -63,3 +64,8 @@ body{
     height: 100%;
     z-index: 1; /* Adjust the z-index to control the stacking order */
   }
+  @media screen and (max-width: 780px){
+  .cont-course, .popular-top, .exp-blue-sec{
+    flex-direction: column;
+  }
+}

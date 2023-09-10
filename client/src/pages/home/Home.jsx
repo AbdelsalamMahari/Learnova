@@ -22,24 +22,25 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="min-h-screen">
-          <div className="flex p-[30px]">
-            <div className="w-[35%]">
+        <section className="">
+          <div className="flex p-[30px] popular-top">
+            <div className="flex-1">
               <h4>Top Categories</h4>
               <h1 className="lg:text-5xl">Popular Courses</h1>
             </div>
-            <div className="w-[45%] border-l-2 border-orange pl-8">
+            <div className="flex-1 border-l-2 border-orange pl-8">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim.
               </p>
             </div>
-            <div className="w-[20%]">
+            <div className="flex-1">
               <Button text="VIEW ALL COURSES" className="float-right"></Button>
             </div>
           </div>
-          <div className="flex p-[30px] gap-6">
+          <div className="flex p-[30px] gap-6 cont-course">
+            {/* 1 */}
             <div className="flex-1 shadow-2xl">
               <div>
                 <img
@@ -50,7 +51,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col p-5 gap-5 bg-white border">
                 <div>
-                  <h1 className="lg:text-4xl w-full h-[80px]">
+                  <h1 className="lg:text-4xl w-full ">
                     HTML5/CSS3 Essentials
                   </h1>
                 </div>
@@ -70,6 +71,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            {/* 2 */}
             <div className="flex-1 shadow-2xl">
               <div>
                 <img
@@ -80,7 +82,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col p-5 gap-5 bg-white border">
                 <div>
-                  <h1 className="lg:text-4xl w-full h-[80px]">
+                  <h1 className="lg:text-4xl w-full ">
                     WordPress Basic Tutorial
                   </h1>
                 </div>
@@ -100,6 +102,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            {/* 3 */}
             <div className="flex-1 shadow-2xl">
               <div>
                 <img
@@ -110,7 +113,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col p-5 gap-5 bg-white border">
                 <div>
-                  <h1 className="lg:text-4xl w-full h-[80px]">
+                  <h1 className="lg:text-4xl w-full ">
                     E-Commerce Course
                   </h1>
                 </div>
@@ -134,7 +137,7 @@ export default function Home() {
         </section>
         <section className="therd-section p-[30px] text-white">
           <div className="relative z-10 my-10">
-            <div className="flex gap-5">
+            <div className="flex gap-5 exp-blue-sec">
               <div className="flex-1">
                 <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
                 <h1 className="text-2xl font-bold my-3">Experience</h1>

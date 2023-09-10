@@ -4,7 +4,7 @@
   font-family: 'Poppins',sans-serif;
 }
 body{
-  background-color: #f5f5f5;
+  background-color: #ecf0f2;
 }
 .backdrop-image{
     height: 100vh;
@@ -65,10 +65,15 @@ body{
     z-index: 1; /* Adjust the z-index to control the stacking order */
   }
   @media screen and (max-width: 780px){
-  .cont-course, .popular-top, .exp-blue-sec{
+  .cont-course, .popular-top, .exp-blue-sec, .choose-us{
     flex-direction: column;
   }
   .backdrop-image, .backdrop-image::after, .backdrop-image::before{
     height: 70vh;
+  }
+}
+@media screen and (max-width: 900px){
+  .exp-blue-sec, .choose-us{
+    flex-direction: column;
   }
 }

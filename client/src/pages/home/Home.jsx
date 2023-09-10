@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
+import Icons from "../../assets/icons/icons";
 
 export default function Home() {
   return (
@@ -168,19 +169,56 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="h-screen p-[30px] flex items-center">
-          <div className="flex">
+        <section className="p-[30px] flex items-center">
+          <div className="flex choose-us">
             <div className="flex-1">
-              <div className="">
+              <div className="w-[550px]">
                 <h4>Features of Our Courses</h4>
-                <h1 className="lg:text-4xl">Why Choose Us?</h1>
+                <h1 className="lg:text-4xl font-bold my-5">Why Choose Us?</h1>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </div>
             </div>
-            <div className="flex-1">by</div>
+            <div className="flex-1 flex flex-col gap-6">
+              <div className="flex gap-5">
+                <div>
+                <Icons.Crown size={30} className="text-orange" />
+                </div>
+                <div>
+                <h1 className="text-xl font-bold">Best Industry Leaders</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                  elit tellus, luctus nec ullamcorper.
+                </p>
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <div>
+                <Icons.Clock size={30} className="text-orange" />
+                </div>
+                <div>
+                <h1 className="text-xl font-bold">Learn Online at Your Own Pace</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                  elit tellus, luctus nec ullamcorper.
+                </p>
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <div>
+                <Icons.Certificate size={30} className="text-orange" />
+                </div>
+                <div>
+                <h1 className="text-xl font-bold">Professional Certification</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                  elit tellus, luctus nec ullamcorper.
+                </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>

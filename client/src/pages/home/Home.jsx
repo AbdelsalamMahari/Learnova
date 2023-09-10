@@ -51,9 +51,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col p-5 gap-5 bg-white border">
                 <div>
-                  <h1 className="lg:text-4xl w-full ">
-                    HTML5/CSS3 Essentials
-                  </h1>
+                  <h1 className="lg:text-4xl w-full ">HTML5/CSS3 Essentials</h1>
                 </div>
                 <div>
                   <button className="bg-blue rounded w-full p-1 text-white">
@@ -113,9 +111,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col p-5 gap-5 bg-white border">
                 <div>
-                  <h1 className="lg:text-4xl w-full ">
-                    E-Commerce Course
-                  </h1>
+                  <h1 className="lg:text-4xl w-full ">E-Commerce Course</h1>
                 </div>
                 <div>
                   <button className="bg-blue rounded w-full p-1 text-white">
@@ -147,7 +143,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex-1">
-              <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
+                <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
                 <h1 className="text-2xl font-bold my-3">Education</h1>
                 <p>
                   Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -155,7 +151,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex-1">
-              <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
+                <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
                 <h1 className="text-2xl font-bold my-3">Certificate</h1>
                 <p>
                   Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -164,14 +160,28 @@ export default function Home() {
               </div>
               <div className="bg-white text-black p-5 w-96">
                 <h3>Study at Your Own Pace</h3>
-                <h1 className="lg:text-2xl font-bold my-4">Boost Your Career by Learning Skills in High Demand</h1>
+                <h1 className="lg:text-2xl font-bold my-4">
+                  Boost Your Career by Learning Skills in High Demand
+                </h1>
                 <a href="/">GET STARTED</a>
               </div>
             </div>
           </div>
         </section>
-        <section className="h-screen">
-          <div>hello</div>
+        <section className="h-screen p-[30px] flex items-center">
+          <div className="flex">
+            <div className="flex-1">
+              <div className="">
+                <h4>Features of Our Courses</h4>
+                <h1 className="lg:text-4xl">Why Choose Us?</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+              </div>
+            </div>
+            <div className="flex-1">by</div>
+          </div>
         </section>
       </div>
     </>

@@ -4,7 +4,7 @@ import TopPage from "../../components/topPage/TopPage";
 import Icons from "../../assets/icons/icons";
 
 export default function About() {
-  
+
   return (
     <>
       <TopPage
@@ -18,7 +18,9 @@ export default function About() {
           </div>
           <div className="second-about">
             <div className="second-about-pro">
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam minima autem libero reiciendis fuga mollitia alias molestias iure, fugiat consectetur dolorem repellendus tempora, ipsam magni deserunt.</p>
+              <p>
+                Explore a comprehensive online course management system designed to empower both educators and learners. Our platform offers a seamless educational experience with advanced features that simplify the learning journey.
+              </p>
             </div>
           </div>
         </div>
@@ -31,7 +33,9 @@ export default function About() {
           <div className="second2-about">
             <h1>Learn Something Every Day</h1>
             <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam minima autem libero reiciendis fuga mollitia alias molestias iure, fugiat consectetur dolorem repellendus tempora, ipsam magni deserunt.</p>
+            <p>
+              Discover our user-friendly online course management system, carefully crafted to provide you with the tools you need to excel in your studies. Whether you're a student or an instructor, our platform is here to support your educational goals.
+            </p>
           </div>
         </div>
       </section>
@@ -43,63 +47,72 @@ export default function About() {
           </div>
           <div className="second3-about">
             <h2>"It is impossible for a man to learn what he thinks he already knows."</h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam minima autem libero reiciendis fuga mollitia alias molestias iure, fugiat consectetur dolorem repellendus tempora.</p>
+            <p>
+              At the core of our online course management system is a commitment to continuous improvement. We believe that learning is a lifelong endeavor, and our platform is dedicated to helping you acquire knowledge at your own pace.
+            </p>
             <div className="second2-about-pro">
               <div className="first-div-about">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam minima autem libero reiciendis fuga mollitia alias molestias iure, fugiat consectetur dolorem repellendus tempora.</p>
+                <p>
+                  Our vision for the online course management system is simple: to foster a dynamic learning environment where individuals can expand their horizons and challenge their preconceptions. Join us on this educational journey.
+                </p>
               </div>
               <div className="second-div-about">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam minima autem libero reiciendis fuga mollitia alias molestias iure, fugiat consectetur dolorem repellendus tempora.</p>
+                <p>
+                  Our system ensures a seamless learning journey, equipped with advanced features that simplify the educational process.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
       <section className="section4 p-[30px] text-white">
-        <div className="relative z-10 my-10">
-          <div className="flex gap-5">
+    <div className="relative z-10 my-10">
+        <div className="flex flex-col gap-5 md:flex-row">
             <div className="flex-1">
-              <Icons.Crown className="icons-about"/>
-              <h1 className="text-2xl font-bold my-3">Learn From Industry Leaders</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
-                elit tellus, luctus nec ullam corper mattis, pulvinar dapibus.
-              </p>
+                <Icons.Crown className="icons-about" />
+                <h1 className="text-2xl font-bold my-3">Learn From Industry Leaders</h1>
+                <p>
+                    Our platform allows you to learn from industry leaders, giving you the opportunity to benefit from their expertise and knowledge in various fields. Start your educational journey with us today.
+                </p>
             </div>
             <div className="flex-1">
-              <Icons.Clock className="icons-about"/>
-              <h1 className="text-2xl font-bold my-3">Learn at Your Own Pace</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
-                elit tellus, luctus nec ullam corper mattis, pulvinar dapibus.
-              </p>
+                <Icons.Clock className="icons-about" />
+                <h1 className="text-2xl font-bold my-3">Learn at Your Own Pace</h1>
+                <p>
+                    We provide you with the opportunity to learn at your own pace. Choose when and how you study, and we'll be here to support you in achieving your educational goals in the best way possible.
+                </p>
             </div>
             <div className="flex-1">
-              <Icons.Certificate className="icons-about"/>
-              <h1 className="text-2xl font-bold my-3">Professional Certification</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
-                elit tellus, luctus nec ullam corper mattis, pulvinar dapibus.
-              </p>
+                <Icons.Certificate className="icons-about" />
+                <h1 className="text-2xl font-bold my-3">Professional Certification</h1>
+                <p>
+                    Earn a professional certification that enhances your career prospects. Through our online course management system, you'll have the chance to obtain recognized certificates that boost your job opportunities and success.
+                </p>
             </div>
-          </div>
         </div>
-      </section>
+    </div>
+</section>
+
       <section className="feedback-container">
-          <div className="feedback-form">
+        <div className="feedback-form">
+          <div className="feedback-form-about">
             <h2>
               <b>Give Us Your Feedback</b>
             </h2>
+            <p>"we value your input to make our website even better."</p>
             <form onSubmit="">
               <textarea
                 placeholder="Your feedback..."
                 value=""
                 onChange=""
               />
-              <button type="submit">Submit</button>
             </form>
           </div>
-        </section>
+          <div className="feedback-submit">
+            <button type="submit">Submit</button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

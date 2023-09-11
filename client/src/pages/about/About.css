@@ -66,7 +66,7 @@
   }
   .first3-about{
     width: 30%;
-    padding-bottom: 190px;
+    padding-bottom: 230px;
     padding-left: 100px;
   }
   .first3-about h3{
@@ -103,7 +103,6 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative; /* Add this to make sure the pseudo-element is positioned relative to this container */
-    margin-bottom: 50px;
     padding-left: 80px;
     padding-right: 80px;
   }
@@ -126,55 +125,156 @@
   /* section 6 */
 
   .feedback-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0 auto;
-    background-image: url('https://images.unsplash.com/photo-1531256379416-9f000e90aacc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG5vdGV8ZW58MHx8MHx8fDA%3D&w=1000&q=80'); 
+    background-color: #e1dfdf;
     background-size: cover;
     background-repeat: no-repeat;
-    border-radius: 20px;
-    max-width: 1200px;
     height: 50vh; 
     margin-bottom: 50px;
   }
-
-
   .feedback-form {
-    margin: 40px;
-    width: 70%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
   }
   
   .feedback-form h2 {
-    font-size: 24px;
+    font-size: xx-large;
     margin-bottom: 15px;
+    text-align: center;
+  }
+  .feedback-form p {
+    margin-bottom: 15px;
+    text-align: center;
   }
   
-  .feedback-form form {
-    display: flex;
-    flex-direction: column;
-  }
   
-  .feedback-form textarea {
+  .feedback-form-about textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 15px;
-    resize: vertical;
+    width: 100%;
   }
   
-  .feedback-form button {
+  .feedback-submit button {
     background-color: orange;    
     color: #fff;
     border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
+    border-radius: 20px;
+    padding: 10px 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .feedback-form button:hover {
+  .feedback-submit button:hover {
     background-color: #007991de;
   }
+
+  @media screen and (max-width: 1200px) {
+    .container3-about{
+      flex-direction: column;
+    }
+    .first3-about{
+      width: 100%;
+      padding-bottom: 10px;
+      padding-left: 0px;
+      text-align: center;
+    }
+
+    .second3-about {
+        width: 100%;
+        margin-right: 0;
+    }
+  }
+  @media screen and (max-width: 1090px) {
+    .container2-about {
+      flex-direction: column;
+  }
+
+  .first2-about img {
+      max-width: 85%;
+      margin-left: 40px;
+      margin-bottom: 50px;
+  }
+  }
+  @media screen and (max-width: 800px) {
+    /* Modify styles as needed */
+    .container-about{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .first-about {
+        font-size: 32px;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .second-about {
+        border-left: none;
+    }
+
+    .container2-about {
+        flex-direction: column;
+    }
+
+    .first2-about img {
+        max-width: 100%;
+        margin-left: 40px;
+    }
+    .container3-about{
+      flex-direction: column;
+    }
+    .first3-about{
+      width: 100%;
+      padding-bottom: 10px;
+      padding-left: 0px;
+      text-align: center;
+    }
+
+    .second3-about {
+        width: 100%;
+        margin-right: 0;
+    }
+    .second2-about-pro{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    .feedback-form-about {
+        width: 70%;
+    }
+}
+
+/* Adjust styles for screens with a maximum width of 480px */
+@media screen and (max-width: 480px) {
+
+  .second2-about{
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+  }
+  .section4-about{
+    margin-left: 40px;
+  }
+  .second3-about{
+    width: 100%;
+    margin-right: 0px;
+  }
+    .section4 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .feedback-form-about {
+        width: 90%;
+    }
+}
 
 

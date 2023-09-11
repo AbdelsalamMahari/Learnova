@@ -102,20 +102,20 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    position: relative; /* Add this to make sure the pseudo-element is positioned relative to this container */
+    position: relative;
     padding-left: 80px;
     padding-right: 80px;
   }
   
   .section4::before {
     content: "";
-    background-color: #007991de; /* Set the desired background color */
+    background-color: #007991de; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Adjust the z-index to control the stacking order */
+    z-index: 1; 
   }
   .icons-about{
    color: orange;
@@ -252,7 +252,6 @@
     }
 }
 
-/* Adjust styles for screens with a maximum width of 480px */
 @media screen and (max-width: 480px) {
 
   .second2-about{

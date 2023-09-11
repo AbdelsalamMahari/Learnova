@@ -66,32 +66,32 @@ export default function About() {
         </div>
       </section>
       <section className="section4 p-[30px] text-white">
-    <div className="relative z-10 my-10">
-        <div className="flex flex-col gap-5 md:flex-row">
+        <div className="relative z-10 my-10">
+          <div className="flex flex-col gap-5 md:flex-row">
             <div className="flex-1">
-                <Icons.Crown className="icons-about" />
-                <h1 className="text-2xl font-bold my-3">Learn From Industry Leaders</h1>
-                <p>
-                    Our platform allows you to learn from industry leaders, giving you the opportunity to benefit from their expertise and knowledge in various fields. Start your educational journey with us today.
-                </p>
+              <Icons.Crown className="icons-about" />
+              <h1 className="text-2xl font-bold my-3">Learn From Industry Leaders</h1>
+              <p>
+                Our platform allows you to learn from industry leaders, giving you the opportunity to benefit from their expertise and knowledge in various fields. Start your educational journey with us today.
+              </p>
             </div>
             <div className="flex-1">
-                <Icons.Clock className="icons-about" />
-                <h1 className="text-2xl font-bold my-3">Learn at Your Own Pace</h1>
-                <p>
-                    We provide you with the opportunity to learn at your own pace. Choose when and how you study, and we'll be here to support you in achieving your educational goals in the best way possible.
-                </p>
+              <Icons.Clock className="icons-about" />
+              <h1 className="text-2xl font-bold my-3">Learn at Your Own Pace</h1>
+              <p>
+                We provide you with the opportunity to learn at your own pace. Choose when and how you study, and we'll be here to support you in achieving your educational goals in the best way possible.
+              </p>
             </div>
             <div className="flex-1">
-                <Icons.Certificate className="icons-about" />
-                <h1 className="text-2xl font-bold my-3">Professional Certification</h1>
-                <p>
-                    Earn a professional certification that enhances your career prospects. Through our online course management system, you'll have the chance to obtain recognized certificates that boost your job opportunities and success.
-                </p>
+              <Icons.Certificate className="icons-about" />
+              <h1 className="text-2xl font-bold my-3">Professional Certification</h1>
+              <p>
+                Earn a professional certification that enhances your career prospects. Through our online course management system, you'll have the chance to obtain recognized certificates that boost your job opportunities and success.
+              </p>
             </div>
+          </div>
         </div>
-    </div>
-</section>
+      </section>
 
       <section className="feedback-container">
         <div className="feedback-form">

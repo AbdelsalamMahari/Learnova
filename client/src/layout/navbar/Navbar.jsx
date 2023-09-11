@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="flex items-center justify-between p-5 bg-transparent w-full z-[999] absolute top-0">
+      <header className="flex items-center justify-between p-5 bg-transparent text-white w-full z-[999] absolute top-0">
         <div className="logo">
         <Link
           to="/"
@@ -26,37 +26,37 @@ export default function Navbar() {
         <nav ref={navRef}>
           <Link
             to="/allCourses"
-            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+            className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"
           >
             All Courses
           </Link>
           <Link
             to="/instructors"
-            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+            className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"
           >
             Instructors
           </Link>
           <Link
             to="/pricing"
-            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+            className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"
           >
             Pricing & FAQ
           </Link>
           <Link
             to="/contact"
-            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+            className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"
           >
             Contact
           </Link>
           <Link
             to="/about"
-            className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
+            className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"
           >
             About
           </Link>
           <Link
             to="/about"
-            className="block md:inline-block text-white bg-orange rounded-full px-6 py-2 mx-4 font-bold"
+            className="block md:inline-block bg-orange rounded-full px-6 py-2 mx-4 font-bold"
           >
             START LEARNING
           </Link>

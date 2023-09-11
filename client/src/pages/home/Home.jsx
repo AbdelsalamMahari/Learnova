@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
@@ -6,6 +7,7 @@ import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <>
       <section className="backdrop-image">
@@ -55,7 +57,7 @@ export default function Home() {
                 <h1 className="lg:text-4xl w-full ">HTML5/CSS3 Essentials</h1>
               </div>
               <div>
-                <button className="bg-blue rounded w-full p-1 text-white">
+                <button onClick={() => navigate(`/courseInfo`)} className="bg-blue rounded w-full p-1 text-white">
                   See more...
                 </button>
               </div>

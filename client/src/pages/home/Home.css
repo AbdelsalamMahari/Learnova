@@ -3,6 +3,10 @@
   padding: 0;
   font-family: 'Poppins',sans-serif;
 }
+::selection {
+  color: white;
+  background: #FFA500;
+}
 body{
   background-color: #ecf0f2;
 }

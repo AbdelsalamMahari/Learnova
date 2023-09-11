@@ -2,6 +2,8 @@ import React from "react";
 import "./About.css";
 import TopPage from "../../components/topPage/TopPage";
 import Icons from "../../assets/icons/icons";
+import Footer from "../../layout/footer/Footer";
+
 
 export default function About() {
 
@@ -113,6 +115,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

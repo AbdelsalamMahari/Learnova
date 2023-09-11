@@ -1,47 +1,29 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Outlet, Link } from "react-router-dom";
 import "../../input.css";
 import Logo from "../../assets/images/LearnovaLogo.png";
+import './Navbar.css'
+import Icons from '../../assets/icons/icons'
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef();
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const showNavbar = () =>{
+    navRef.current.classList.toggle("responsive_nav");
+  }
 
   return (
     <>
-      <nav className="flex flex-wrap items-center justify-between p-5 bg-transparent w-full z-[999] absolute top-0">
-        <div className="flex md:hidden">
-          <button id="hamburger" onClick={toggleMenu}>
-            <img
-              className={`toggle ${menuOpen ? "hidden" : "block"}`}
-              src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png"
-              width="40"
-              height="40"
-              alt="menu"
-            />
-            <img
-              className={`toggle ${menuOpen ? "block" : "hidden"}`}
-              src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
-              width="40"
-              height="40"
-              alt="menu"
-            />
-          </button>
-        </div>
+      <header className="flex items-center justify-between p-5 bg-transparent w-full z-[999] absolute top-0">
+        <div className="logo">
         <Link
           to="/"
-          className="toggle hidden md:flex w-full md:w-auto text-right"
+          className=""
         >
           <img src={Logo} alt="learnova" width="170px" />
         </Link>
-        <div
-          className={`toggle ${
-            menuOpen ? "block" : "hidden"
-          } w-full md:w-auto md:flex text-right text-bold mt-5 md:mt-0 border-t-2 border-blue-900 md:border-none`}
-        >
+        </div>
+        <nav ref={navRef}>
           <Link
             to="/allCourses"
             className="block md:inline-block text-white hover:text-blue-200 px-3 py-2"
@@ -78,8 +60,11 @@ export default function Navbar() {
           >
             START LEARNING
           </Link>
-        </div>
-      </nav>
+          <button className="nav-btn nav-close-btn" onClick={showNavbar}><Icons.Close className="text-orange"/></button>
+          </nav>
+
+          <button className="nav-btn" onClick={showNavbar}><Icons.Bars className="text-orange"/></button>
+      </header>
 
       <Outlet />
     </>

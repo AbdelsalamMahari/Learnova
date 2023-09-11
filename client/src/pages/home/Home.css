@@ -4,7 +4,7 @@
   font-family: 'Poppins',sans-serif;
 }
 body{
-  background-color: #f5f5f5;
+  background-color: #ecf0f2;
 }
 .backdrop-image{
     height: 100vh;
@@ -19,8 +19,9 @@ body{
     left: 0;
     width: 100%;
     height: 100vh;
-    background-image: url(../../assets/images/first-img-girl.jpg);
-    background-position: center;
+    background-image: url(https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg);
+    background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     filter: grayscale(90%); /* Apply black and white effect */
@@ -63,3 +64,16 @@ body{
     height: 100%;
     z-index: 1; /* Adjust the z-index to control the stacking order */
   }
+  @media screen and (max-width: 780px){
+  .cont-course, .popular-top, .exp-blue-sec, .choose-us{
+    flex-direction: column;
+  }
+  .backdrop-image, .backdrop-image::after, .backdrop-image::before{
+    height: 70vh;
+  }
+}
+@media screen and (max-width: 900px){
+  .exp-blue-sec, .choose-us{
+    flex-direction: column;
+  }
+}

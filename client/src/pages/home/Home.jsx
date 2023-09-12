@@ -13,7 +13,7 @@ export default function Home() {
       <section className="backdrop-image">
         <Navbar />
         <div className="backdrop-section">
-          <div className="px-[30px]">
+          <div className="px-[40px]">
             <h1 className="lg:text-6xl font-bold text-white my-8">
               Learning Fuels Creative Thinking
             </h1>
@@ -26,7 +26,7 @@ export default function Home() {
         </div>
       </section>
       <section className="">
-        <div className="flex p-[30px] popular-top">
+        <div className="flex p-[40px] popular-top">
           <div className="flex-1">
             <h4>Top Categories</h4>
             <h1 className="lg:text-5xl">Popular Courses</h1>
@@ -42,7 +42,7 @@ export default function Home() {
             <Button text="VIEW ALL COURSES" className="float-right"></Button>
           </div>
         </div>
-        <div className="flex p-[30px] gap-6 cont-course">
+        <div className="flex p-[40px] gap-6 cont-course">
           {/* 1 */}
           <div className="flex-1 shadow-2xl">
             <div>
@@ -134,7 +134,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="therd-section p-[30px] text-white">
+      <section className="therd-section p-[40px] text-white">
         <div className="relative z-10 my-10">
           <div className="flex gap-5 exp-blue-sec">
             <div className="flex-1">
@@ -171,7 +171,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="p-[30px] flex items-center overflow-x-auto">
+      <section className="p-[40px] flex items-center overflow-x-auto">
         <div className="flex choose-us">
           <div className="flex-1">
             <div>
@@ -227,7 +227,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="p-[30px]">
+      <section className="p-[40px]">
         <div className="w-1/2">
           <h4>Testimonials</h4>
           <h1 className="lg:text-4xl font-bold my-5">Trusted by Thousand of Students and Tutors</h1>

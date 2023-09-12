@@ -7,6 +7,7 @@ import Contact from "./pages/contact/Contact";
 import Instructors from "./pages/instructors/Instructors";
 import Pricing from "./pages/pricing/Pricing";
 import AllCourses from "./pages/allCourses/AllCourses";
+import Survey from "./pages/survey/Survey";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route path="instructors" element={<Instructors />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="allCourses" element={<AllCourses />} />
+          <Route path="survey" element={<Survey />} />
+
 
       </Routes>
     </BrowserRouter>

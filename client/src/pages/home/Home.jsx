@@ -232,6 +232,43 @@ export default function Home() {
           <h4>Testimonials</h4>
           <h1 className="lg:text-4xl font-bold my-5">Trusted by Thousand of Students and Tutors</h1>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+    {/* First Grid Item */}
+    <div className="bg-white p-4">
+      <div className="profile-image">
+        {/* Add your image source here */}
+        <img src="profile_image_1.jpg" alt="Profile 1" />
+      </div>
+      <p>Description for the first person.</p>
+    </div>
+
+    {/* Second Grid Item */}
+    <div className="bg-white p-4">
+      <div className="profile-image">
+        {/* Add your image source here */}
+        <img src="profile_image_2.jpg" alt="Profile 2" />
+      </div>
+      <p>Description for the second person.</p>
+    </div>
+
+    {/* Third Grid Item */}
+    <div className="bg-white p-4">
+      <div className="profile-image">
+        {/* Add your image source here */}
+        <img src="profile_image_3.jpg" alt="Profile 3" />
+      </div>
+      <p>Description for the third person.</p>
+    </div>
+
+    {/* Fourth Grid Item */}
+    <div className="bg-white p-4">
+      <div className="profile-image">
+        {/* Add your image source here */}
+        <img src="profile_image_4.jpg" alt="Profile 4" />
+      </div>
+      <p>Description for the fourth person.</p>
+    </div>
+  </div>
       </section>
       <Footer />
     </>

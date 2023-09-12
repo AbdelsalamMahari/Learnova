@@ -138,7 +138,7 @@ export default function Home() {
         <div className="relative z-10 my-10">
           <div className="flex gap-5 exp-blue-sec">
             <div className="flex-1">
-              <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
+            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
               <h1 className="text-2xl font-bold my-3">Experience</h1>
               <p>
                 Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -146,7 +146,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex-1">
-              <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
+            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
               <h1 className="text-2xl font-bold my-3">Education</h1>
               <p>
                 Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -154,7 +154,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex-1">
-              <div className="border-4 w-1/4 border-dashed border-orange transform skew-x-12"></div>
+            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
               <h1 className="text-2xl font-bold my-3">Certificate</h1>
               <p>
                 Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut

@@ -12,6 +12,7 @@ const coursesRoutes = require("./routes/CourseRoutes");
 const QuestionRoute = require("./routes/QuestionRoute");
 const EnrollemntRoute = require("./routes/EnrollentRoute");
 const PaymentEnrollemntRoute = require("./routes/PaymentEnrollemntRoute");
+const studentRoutes = require("./routes/StudentsRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -29,7 +30,8 @@ app.use(
   feedbackRoutes,
   teacherRoutes,
   EnrollemntRoute,
-  PaymentEnrollemntRoute
+  PaymentEnrollemntRoute,
+  studentRoutes
 );
 app.use("/course", coursesRoutes);
 mongoose

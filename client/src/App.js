@@ -8,12 +8,15 @@ import Instructors from "./pages/instructors/Instructors";
 import Pricing from "./pages/pricing/Pricing";
 import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
+import CourseInfo from "./pages/courseInfo/CourseInfo";
+import CourseStart from "./pages/courseStart/CourseStart"
+import ScrollToTopButton from './components/scroll/Scroll'
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTopButton/>
       <Routes>
-
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
@@ -23,6 +26,8 @@ function App() {
           <Route path="survey" element={<Survey />} />
 
 
+          <Route path="courseInfo" element={<CourseInfo />} />
+          <Route path="courseStart" element={<CourseStart />} />
       </Routes>
     </BrowserRouter>
   );

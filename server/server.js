@@ -33,7 +33,7 @@ app.use(
   PaymentEnrollemntRoute,
   studentRoutes
 );
-app.use("/course", coursesRoutes);
+app.use("/courses", coursesRoutes);
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected To MongoDB, Server Works!"))

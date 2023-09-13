@@ -45,6 +45,32 @@ export default function Login() {
     }
   };
 
+  const handleChangeTeacher = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
+
+  const handleSubmitTeacher = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:5000/login/teacher";
+      const { data: res } = await axios.post(url, data);
+      // Store the token in a cookie with js-cookie
+      Cookies.set("token", res.data, { expires: 7 }); // Expires in 7 days
+      window.location = "/dash";
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        toast.warn(error.response.data.message, {
+          theme: "colored",
+        });
+      }
+    }
+  };
+
+
   const googleAuth = () => {
     window.open(`http://localhost:5000/auth/google/callback`, "_self");
   };
@@ -137,30 +163,48 @@ export default function Login() {
           ) : (
             <div>
               <h2 className="text-xl font-semibold">Instructor Login</h2>
-              <form className="mt-4">
+              <form onSubmit={handleSubmitTeacher} className="mt-4">
                 <div className="mb-4">
-                  <label htmlFor="instructor-username">Username:</label>
+                  <label htmlFor="teacher-username">Email:</label>
                   <input
-                    type="text"
-                    id="instructor-username"
-                    className="border rounded px-2 py-1 w-full"
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
+                    onChange={handleChangeTeacher}
+                    value={data.email}
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="instructor-password">Password:</label>
+                  <label htmlFor="teacher-password">Password:</label>
                   <input
                     type="password"
-                    id="instructor-password"
-                    className="border rounded px-2 py-1 w-full"
+                    placeholder="Password"
+                    name="password"
+                    className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
+                    onChange={handleChangeTeacher}
+                    value={data.password}
                   />
+                  <Link to="/forgot-password">
+                    <p className="underline mt-1">Lost your password?</p>
+                  </Link>
                 </div>
                 <button
                   type="submit"
-                  className="bg-orange text-white rounded py-2 px-4 hover:bg-blue-600"
+                  className="bg-orange text-white py-2 px-4 hover:bg-blue-600 rounded-full w-full"
                 >
                   Login
                 </button>
               </form>
+              <div className="mt-2">
+                <h1>
+                  New Here?
+                  <Link to="/signupTeacher">
+                    <span className="underline text-orange"> Sign Up</span>
+                  </Link>
+                </h1>
+              </div>
+              <hr className="my-4"></hr>
             </div>
           )}
         </div>

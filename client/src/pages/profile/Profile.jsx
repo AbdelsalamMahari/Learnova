@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import Cookies from "js-cookie";
@@ -16,6 +17,7 @@ export default function Profile() {
   }, []);
   const handleLogout = async () => {
     try {
+      await axios.get("http://localhost:5000/auth/logout");
       Cookies.remove("token");
       window.location = "/";
     } catch (error) {

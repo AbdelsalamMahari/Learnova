@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import TopPage from "../../components/topPage/TopPage";
 import Cookies from "js-cookie"; // Import the js-cookie library
 import axios from "axios";
 import Footer from "../../layout/footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Login.css";
 
 export default function Login() {
   const [isStudent, setIsStudent] = useState(true);
@@ -43,11 +45,15 @@ export default function Login() {
     }
   };
 
+  const googleAuth = () => {
+    window.open(`http://localhost:5000/auth/google/callback`, "_self");
+  };
+
   return (
     <>
-        <ToastContainer/>
+      <ToastContainer />
       <TopPage
-        title={"My Account"}
+        title={"Login"}
         backgroundImageUrl="https://brendacadman.com/wp-content/uploads/Blog-FeatureImage-06.jpg"
       />
       <div className="my-10 flex items-center justify-center ">
@@ -57,7 +63,7 @@ export default function Login() {
               className={`mr-4 py-2 px-4 rounded ${
                 isStudent
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-gray-600"
+                  : "bg-blue text-white rounded-full"
               }`}
               onClick={handleStudentClick}
             >
@@ -67,7 +73,7 @@ export default function Login() {
               className={`py-2 px-4 rounded ${
                 !isStudent
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-gray-600"
+                  : "bg-blue text-white rounded-full"
               }`}
               onClick={handleInstructorClick}
             >
@@ -84,7 +90,7 @@ export default function Login() {
                     type="email"
                     placeholder="Email"
                     name="email"
-                    className="border rounded px-2 py-1 w-full"
+                    className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
                     onChange={handleChangeStudent}
                     value={data.email}
                   />
@@ -95,18 +101,38 @@ export default function Login() {
                     type="password"
                     placeholder="Password"
                     name="password"
-                    className="border rounded px-2 py-1 w-full"
+                    className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
                     onChange={handleChangeStudent}
                     value={data.password}
                   />
+                  <Link to="/forgot-password">
+                    <p className="underline mt-1">Lost your password?</p>
+                  </Link>
                 </div>
                 <button
                   type="submit"
-                  className="bg-orange text-white rounded py-2 px-4 hover:bg-blue-600"
+                  className="bg-orange text-white py-2 px-4 hover:bg-blue-600 rounded-full w-full"
                 >
                   Login
                 </button>
               </form>
+              <div className="mt-2">
+                <h1>
+                  New Here?
+                  <Link to="/signupStudent">
+                    <span className="underline text-orange"> Sign Up</span>
+                  </Link>
+                </h1>
+              </div>
+              <hr className="my-4"></hr>
+              <div>
+                <button
+                  className="login-with-google-btn w-full"
+                  onClick={googleAuth}
+                >
+                  Google
+                </button>
+              </div>
             </div>
           ) : (
             <div>

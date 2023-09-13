@@ -11,7 +11,8 @@ import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
 import CourseStart from "./pages/courseStart/CourseStart";
 import Login from "./pages/login/Login";
-import Signup from "./pages/signup/SignupStudent";
+import SignupS from "./pages/signup/SignupStudent";
+import SignupT from "./pages/signup/SignupTeacher";
 import Profile from "./pages/profile/Profile";
 import Dash from './pages/dashboard/dash';
 import ScrollToTopButton from './components/scroll/Scroll'
@@ -30,7 +31,8 @@ function App() {
           <Route path="allCourses" element={<AllCourses />} />
           <Route path="survey" element={<Survey />} />
           <Route path="login" element={<Login />} />
-          <Route path="signupStudent" element={<Signup />} />
+          <Route path="signupStudent" element={<SignupS />} />
+          <Route path="signupTeacher" element={<SignupT />} />
           <Route path="profile" element={<Profile />} />
           <Route path="google" element={<Google />} />
 

@@ -1,12 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import "../../input.css";
 import Logo from "../../assets/images/LearnovaLogo2.png";
 import './Navbar.css'
 import Icons from '../../assets/icons/icons'
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const navRef = useRef();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = Cookies.get("token");
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const showNavbar = () =>{
     navRef.current.classList.toggle("responsive_nav");
@@ -54,12 +63,21 @@ export default function Navbar() {
           >
             About
           </Link>
+          {isLoggedIn ? (
           <Link
-            to="/about"
+            to="/profile"
             className="block md:inline-block bg-orange rounded-full px-6 py-2 ml-4 font-bold"
           >
-            START LEARNING
+            MY ACCOUNT
           </Link>
+          ) : (
+            <Link
+            to="/login"
+            className="block md:inline-block bg-orange rounded-full px-6 py-2 ml-4 font-bold"
+          >
+            LOGIN
+          </Link>
+          )}
           <button className="nav-btn nav-close-btn" onClick={showNavbar}><Icons.Close className="text-orange"/></button>
           </nav>
 

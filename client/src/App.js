@@ -10,6 +10,8 @@ import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
 import CourseStart from "./pages/courseStart/CourseStart";
+import Login from "./pages/login/Login";
+import Profile from "./pages/profile/Profile";
 import Dash from './pages/dashboard/dash';
 import ScrollToTopButton from './components/scroll/Scroll'
 
@@ -25,6 +27,8 @@ function App() {
           <Route path="pricing" element={<Pricing />} />
           <Route path="allCourses" element={<AllCourses />} />
           <Route path="survey" element={<Survey />} />
+          <Route path="login" element={<Login />} />
+          <Route path="profile" element={<Profile />} />
 
 
           <Route path="courseInfo" element={<CourseInfo />} />

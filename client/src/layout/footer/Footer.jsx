@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-white text-black ">
-        <div className="container  p-[30px]">
+        <div className="container  p-[40px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 py-4">
             {/* Footer Section 1 */}
             <div className=" md:col-span-2">
@@ -99,14 +99,14 @@ export default function Footer() {
               <p>
                 <strong>Email</strong>
                 <br />
-                <p className="hover:text-orange">Learnova.e@gmail.com</p>
+                <span className="hover:text-orange">Learnova.e@gmail.com</span>
               </p>
             </div>
           </div>
         </div>
 
         {/* Footer Section 4 */}
-        <div className="bg-white p-[30px] border-t-2">
+        <div className="bg-white px-[40px] py-[30px] border-t-2">
           <div className="container mx-auto">
             <div className="flex justify-between items-center">
               <div>

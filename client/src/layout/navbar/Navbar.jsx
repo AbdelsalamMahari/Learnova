@@ -1,12 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import "../../input.css";
-import Logo from "../../assets/images/LearnovaLogo.png";
+import Logo from "../../assets/images/LearnovaLogo2.png";
 import './Navbar.css'
 import Icons from '../../assets/icons/icons'
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const navRef = useRef();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = Cookies.get("token");
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const showNavbar = () =>{
     navRef.current.classList.toggle("responsive_nav");
@@ -14,7 +23,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="flex items-center justify-between p-5 bg-transparent text-white w-full z-[999] absolute top-0">
+      <header className="flex items-center justify-between py-[20px] px-[40px] bg-transparent text-white w-full z-[999] absolute top-0">
         <div className="logo">
         <Link
           to="/"
@@ -54,12 +63,21 @@ export default function Navbar() {
           >
             About
           </Link>
+          {isLoggedIn ? (
           <Link
-            to="/about"
-            className="block md:inline-block bg-orange rounded-full px-6 py-2 mx-4 font-bold"
+            to="/profile"
+            className="block md:inline-block bg-orange rounded-full px-6 py-2 ml-4 font-bold"
           >
-            START LEARNING
+            MY ACCOUNT
           </Link>
+          ) : (
+            <Link
+            to="/login"
+            className="block md:inline-block bg-orange rounded-full px-6 py-2 ml-4 font-bold"
+          >
+            LOGIN
+          </Link>
+          )}
           <button className="nav-btn nav-close-btn" onClick={showNavbar}><Icons.Close className="text-orange"/></button>
           </nav>
 

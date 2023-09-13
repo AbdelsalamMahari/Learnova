@@ -12,7 +12,7 @@ const {
 router.post("/create", createCourse);
 router.get("/", getAllCourses);
 router.get("/:id", getCourseById);
-router.put("/:id", updateCourse);
-router.delete("/:id", deleteCourse);
+router.put("/update/:id", updateCourse);
+router.delete("/delete/:id", deleteCourse);
 
 module.exports = router;

@@ -22,7 +22,7 @@
   }
   
   /* Style for the button */
-  button {
+  .button-contact {
     background-color: orange;
     color: #fff;
     border: none;
@@ -32,7 +32,7 @@
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
+  .button-contact:hover {
     background-color: #007991de;
   }
   

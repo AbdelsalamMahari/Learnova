@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
-import './Contact.css';
+import "./Contact.css";
 
 export default function Contact() {
   const [data, setData] = useState({
@@ -26,14 +26,14 @@ export default function Contact() {
       toast.success(res.msg, {
         theme: "colored",
       });
-           // Clear the input fields after a successful submission
-           setData({
-            name: "",
-            email: "",
-            phone: "",
-            subject: "",
-            message: "",
-          });
+      // Clear the input fields after a successful submission
+      setData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
     } catch (err) {
       if (
         err.response &&
@@ -53,37 +53,36 @@ export default function Contact() {
         title="Get in Touch"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg"
       />
-      <div className="flex justify-center items-center h-screen  mt-10">
-      <div className=" cont w-full md:w-1/2 p-6 flex flex-col items-center justify-center text-center px-4">
-  {/* Left Column */}
-  <div>
-    <h1 className=" text-4xl lg:text-4xl xl:text-5xl font-bold mb-4">
-      Contact Us
-    </h1>
-    <p className="mb-4">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
-    </p>
-       {/* Location */}
-       <div className="flex items-center mb-2">
-      <i className="fas fa-map-marker-alt text-pink2 text-2xl mr-2"></i>
-      <p>Your Address, City, Country</p>
-    </div>
+      <div className="flex justify-center items-center my-10">
+        <div className=" cont w-full md:w-1/2 p-6 flex flex-col items-center justify-center text-center px-4">
+          {/* Left Column */}
+          <div>
+            <h1 className=" text-4xl lg:text-4xl xl:text-5xl font-bold mb-4">
+              Contact Us
+            </h1>
+            <p className="mb-4">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+              tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+            </p>
+            {/* Location */}
+            <div className="flex items-center mb-2">
+              <i className="fas fa-map-marker-alt text-pink2 text-2xl mr-2"></i>
+              <p>Your Address, City, Country</p>
+            </div>
 
-    {/* Email */}
-    <div className="flex items-center mb-2">
-      <i className="fas fa-envelope text-pink2 text-2xl mr-2"></i>
-      <p>example@example.com</p>
-    </div>
+            {/* Email */}
+            <div className="flex items-center mb-2">
+              <i className="fas fa-envelope text-pink2 text-2xl mr-2"></i>
+              <p>example@example.com</p>
+            </div>
 
-    {/* Phone Number */}
-    <div className="flex items-center">
-      <i className="fas fa-phone text-pink2 text-2xl mr-2"></i>
-      <p>+123 456 789</p>
-    </div>
-
-  </div>
-</div>
+            {/* Phone Number */}
+            <div className="flex items-center">
+              <i className="fas fa-phone text-pink2 text-2xl mr-2"></i>
+              <p>+123 456 789</p>
+            </div>
+          </div>
+        </div>
 
         <div className="rounded-lg bg-gray-100 mb-16 p-4 mt-4 w-full md:w-2/3 lg:w-1/2 mx-2 shadow-xl ">
           <form onSubmit={handleSubmit}>
@@ -95,7 +94,8 @@ export default function Contact() {
               >
                 <h1 className="md:text-4xl lg:text-4xl xl:text-5xl font-bold mt-5">
                   Have a Question?
-                </h1><br></br>
+                </h1>
+                <br></br>
                 <p className="mb-6">
                   Feel free to reach out to us. We'd love to hear from you!
                 </p>
@@ -175,7 +175,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="flex justify-center mt-5 mb-8">
-                  <button className="bg-pink2 text-black font-bold py-2 px-4 rounded">
+                  <button className="bg-pink2 text-black font-bold py-2 px-4 rounded button-contact">
                     Send Message
                   </button>
                 </div>

@@ -15,8 +15,9 @@ import SignupS from "./pages/signup/SignupStudent";
 import SignupT from "./pages/signup/SignupTeacher";
 import Profile from "./pages/profile/Profile";
 import Dash from './pages/dashboard/dash';
-import ScrollToTopButton from './components/scroll/Scroll'
-import Google from './utils/Google'
+import ScrollToTopButton from './components/scroll/Scroll';
+import Google from './utils/Google';
+import NoPage from "./pages/nopage/404";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="signupStudent" element={<SignupS />} />
           <Route path="signupTeacher" element={<SignupT />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<NoPage />} />
           <Route path="google" element={<Google />} />
 
 

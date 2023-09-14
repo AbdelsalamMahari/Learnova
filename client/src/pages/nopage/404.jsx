@@ -1,10 +1,10 @@
 import React from "react";
 import Footer from "../../layout/footer/Footer";
-import TopPage from "../../components/topPage/TopPage";
 import { Link } from "react-router-dom";
 import Button from "../../components/buttons/button";
 import Navbar from "../../layout/navbar/Navbar";
 import Logo from "../../assets/images/LearnovaColoredLogo2.png";
+import Icons from "../../assets/icons/icons";
 
 export default function NoPage() {
   return (
@@ -12,7 +12,7 @@ export default function NoPage() {
       <Navbar imgSrc={Logo} className={"bg-white relative"} />
       <div className="flex justify-center items-center flex-col py-20">
         <div>
-          <img alt="Page Not Found"></img>
+          <Icons.Sad className="lg:text-[100px] text-orange"/>
         </div>
         <h1 className="text-4xl font-bold mt-9">
           Sorry we can't find that page!

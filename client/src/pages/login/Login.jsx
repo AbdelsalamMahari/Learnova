@@ -129,7 +129,7 @@ export default function Login() {
                     onChange={handleChangeStudent}
                     value={data.password}
                   />
-                  <Link to="/forgot-password">
+                  <Link to="/forgetPass">
                     <p className="underline mt-1">Lost your password?</p>
                   </Link>
                 </div>

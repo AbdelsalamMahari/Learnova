@@ -5,13 +5,14 @@ import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
+import Logo from "../../assets/images/LearnovaLogo2.png"
 
 export default function Home() {
   const navigate = useNavigate();
   return (
     <>
       <section className="backdrop-image">
-        <Navbar />
+        <Navbar imgSrc={Logo} className={"text-white"}/>
         <div className="backdrop-section">
           <div className="lg:w-1/2 md:w-full">
             <h1 className="lg:text-6xl font-bold text-white my-8">

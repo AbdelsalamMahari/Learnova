@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import TopPage from "../../components/topPage/TopPage";
+import Navbar from "../../layout/navbar/Navbar"
 import Cookies from "js-cookie"; // Import the js-cookie library
 import axios from "axios";
 import Footer from "../../layout/footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Logo from "../../assets/images/LearnovaColoredLogo2.png";
 import "./Login.css";
 
 export default function Login() {
@@ -78,10 +79,7 @@ export default function Login() {
   return (
     <>
       <ToastContainer />
-      <TopPage
-        title={"Login"}
-        backgroundImageUrl="https://brendacadman.com/wp-content/uploads/Blog-FeatureImage-06.jpg"
-      />
+      <Navbar imgSrc={Logo} className={"bg-white relative"} />
       <div className="my-10 flex items-center justify-center ">
         <div className="bg-white p-8 rounded shadow-lg">
           <div className="mb-4">

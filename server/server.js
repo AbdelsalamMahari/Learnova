@@ -4,7 +4,7 @@ const cors = require("cors");
 const passport = require('passport');
 const session = require("express-session");
 const passportStrategy = require("./passport");
-
+const contactRoutes = require("./routes/ContactRoute");
 const signupRoutes = require("./routes/SignupRoute");
 const loginRoutes = require("./routes/LoginRoute");
 const surveyRoutes = require("./routes/SurveyRoute");
@@ -55,7 +55,8 @@ app.use(
   EnrollemntRoute,
   PaymentEnrollemntRoute,
   studentRoutes,
-  forgetPassRoute
+  forgetPassRoute,
+  contactRoutes
 );
 app.use("/courses", coursesRoutes);
 app.use('/auth', googleRoute);

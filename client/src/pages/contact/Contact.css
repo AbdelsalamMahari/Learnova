@@ -1,0 +1,51 @@
+
+/* Style for the form container */
+.rounded-lg {
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    padding: 0px;
+    max-width: 40%; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding-left: 20px; /* Adjust this value as needed */
+    padding-right: 20px; /* Adjust this value as needed */
+  }
+  
+  
+  /* Style for the input fields */
+  .input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Adjust the border radius as needed */
+    margin-bottom: 10px;
+    width: 100%;
+
+  }
+  
+  /* Style for the button */
+  button {
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #007991de;
+  }
+  
+  /* Style for the input labels (optional) */
+  .input-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+.cont{
+    padding: 20px;
+    max-width: 32%; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding-left: 20px; /* Adjust this value as needed */
+    padding-right: 20px;
+}

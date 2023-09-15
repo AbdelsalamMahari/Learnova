@@ -18,7 +18,7 @@ import Dash from './pages/dashboard/dash';
 import ScrollToTopButton from './components/scroll/Scroll';
 import Google from './utils/Google';
 import NoPage from "./pages/nopage/404";
-
+import DashQuestion from "./pages/Question/Questiondash.jsx"
 function App() {
   return (
     <BrowserRouter>
@@ -42,6 +42,7 @@ function App() {
           <Route path="courseInfo" element={<CourseInfo />} />
           <Route path="courseStart" element={<CourseStart />} />
           <Route path="dash" element={<Dash />} />
+          <Route path="DashQuestion" element={<DashQuestion />} />
       </Routes>
     </BrowserRouter>
   );

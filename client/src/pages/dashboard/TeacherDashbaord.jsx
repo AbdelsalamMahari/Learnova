@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './assets/css/style.css';
+
 import './TeacherDashboard.css';
-import { HiArrowsRightLeft } from 'react-icons/hi2';
 import SidebarWithToggle from '../../components/dashboardSidebar'; 
 
 
 export default function Dash() {
-
-
-
-
   useEffect(() => {
     let list = document.querySelectorAll('.navigation-dash li');
 
@@ -38,7 +33,6 @@ export default function Dash() {
 
       <SidebarWithToggle />
 
-  
     </div>
   );
 }

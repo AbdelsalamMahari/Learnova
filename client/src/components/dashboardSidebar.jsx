@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HiArrowsRightLeft } from 'react-icons/hi2';
 
-function SidebarWithToggle() {
-  const [isSidebarActive, setIsSidebarActive] = useState(false);
-
+function SidebarWithToggle({ isSidebarActive, toggleSidebar }) {
   useEffect(() => {
     let list = document.querySelectorAll(".navigation-dash li");
 
@@ -17,8 +15,8 @@ function SidebarWithToggle() {
     list.forEach((item) => item.addEventListener("mouseover", activeLink));
   }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarActive(!isSidebarActive);
+  const handleToggleClick = () => {
+    toggleSidebar(); // Call the callback function to toggle the sidebar
   };
 
   return (
@@ -30,7 +28,7 @@ function SidebarWithToggle() {
               <span className="icon">
                 <ion-icon name="logo-apple"></ion-icon>
               </span>
-              <span className="title">Brand Name</span>
+              <span className="title">Teacher Name</span>
             </a>
           </li>
           <li>
@@ -51,11 +49,12 @@ function SidebarWithToggle() {
             </a>
           </li>
         </ul>
-      </div>
-      <div className={`main-dash ${isSidebarActive ? 'active' : ''}`}>
-        <div className="toggle" onClick={toggleSidebar}>
+        <div className="toggle" onClick={handleToggleClick}>
           <HiArrowsRightLeft name="menu-outline" className="SideBarToggle" />
         </div>
+      </div>
+      <div className={`main-dash ${isSidebarActive ? 'active' : ''}`}>
+        {/* Content of the main area */}
       </div>
     </div>
   );

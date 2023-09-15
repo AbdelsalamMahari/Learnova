@@ -18,6 +18,7 @@ import AdminDash from "./pages/adminDash/AdminDash";
 import ScrollToTopButton from "./components/scroll/Scroll";
 import Google from "./utils/Google";
 import NoPage from "./pages/nopage/404";
+import DashQuestion from "./pages/Question/Questiondash.jsx"
 import EmailVerify from "./pages/emailVerify/EmailVerify";
 import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
@@ -50,6 +51,10 @@ function App() {
         <Route
           path="/dash"
           element={<InstructorRoute element={<Dash />} path="/dash" />}
+        />
+        <Route
+          path="/dash/dashQuestion"
+          element={<InstructorRoute element={<DashQuestion />} path="/dash/dashQuestion" />}
         />
         <Route
           path="/adminDash"

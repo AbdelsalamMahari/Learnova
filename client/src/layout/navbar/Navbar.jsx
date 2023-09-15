@@ -24,6 +24,12 @@ export default function Navbar() {
         </Link>
         </div>
         <nav ref={navRef}>
+        <Link
+            to="/TeacherDashboard"
+            className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"
+          >
+           Teacher Dashboard
+          </Link>
           <Link
             to="/allCourses"
             className="block md:inline-block hover:text-blue-200 px-3 py-2 hover:text-orange"

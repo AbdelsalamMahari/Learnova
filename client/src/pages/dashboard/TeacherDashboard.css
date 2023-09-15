@@ -1,0 +1,10 @@
+.SideBarToggle{
+    color: rgb(42, 120, 209);
+}
+.addCoursebtn{
+    background-color:#3685d7;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    margin-left: 15px;
+}

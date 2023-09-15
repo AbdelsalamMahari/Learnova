@@ -10,9 +10,9 @@ import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
 import CourseStart from "./pages/courseStart/CourseStart";
-import Dash from './pages/dashboard/dash';
+import Dash from './pages/dashboard/TeacherDashbaord';
 import ScrollToTopButton from './components/scroll/Scroll'
-
+import CreateCourse from './pages/dashboard/CreateCourse'
 function App() {
   return (
     <BrowserRouter>
@@ -26,10 +26,10 @@ function App() {
           <Route path="allCourses" element={<AllCourses />} />
           <Route path="survey" element={<Survey />} />
 
-
+          <Route path="CreateCourse" element={<CreateCourse />} />
           <Route path="courseInfo" element={<CourseInfo />} />
           <Route path="courseStart" element={<CourseStart />} />
-          <Route path="dash" element={<Dash />} />
+          <Route path="TeacherDashboard" element={<Dash />} />
       </Routes>
     </BrowserRouter>
   );

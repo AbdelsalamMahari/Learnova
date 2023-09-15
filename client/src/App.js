@@ -19,6 +19,10 @@ import ScrollToTopButton from './components/scroll/Scroll';
 import Google from './utils/Google';
 import NoPage from "./pages/nopage/404";
 import DashQuestion from "./pages/Question/Questiondash.jsx"
+import EmailVerify from "./pages/emailVerify/EmailVerify";
+import ForgetPass from './pages/forgetPass/ForgetPass';
+import PasswordReset from './pages/passwordReset/PasswordReset'
+
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +41,9 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="*" element={<NoPage />} />
           <Route path="google" element={<Google />} />
+          <Route path="/students/:id/verify/:token" element={<EmailVerify />} />
+          <Route path="/forgetPass" element={<ForgetPass />} />
+          <Route path="/password-reset/:id/:token" element={<PasswordReset />}/>
 
 
           <Route path="courseInfo" element={<CourseInfo />} />

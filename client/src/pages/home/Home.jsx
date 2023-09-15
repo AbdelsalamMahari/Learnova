@@ -5,13 +5,14 @@ import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
+import Logo from "../../assets/images/LearnovaLogo2.png"
 
 export default function Home() {
   const navigate = useNavigate();
   return (
     <>
       <section className="backdrop-image">
-        <Navbar />
+        <Navbar imgSrc={Logo} className={"text-white"}/>
         <div className="backdrop-section">
           <div className="lg:w-1/2 md:w-full">
             <h1 className="lg:text-6xl font-bold text-white my-8">
@@ -44,15 +45,15 @@ export default function Home() {
         </div>
         <div className="flex p-[40px] gap-6 cont-course">
           {/* 1 */}
-          <div className="flex-1 shadow-2xl">
+          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
             <div>
               <img
                 src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/html-400x223.jpg"
                 alt="course1"
-                className="w-full"
+                className="w-full rounded-3xl"
               ></img>
             </div>
-            <div className="flex flex-col p-5 gap-5 bg-white border">
+            <div className="flex flex-col p-5 gap-5">
               <div>
                 <h1 className="lg:text-4xl w-full ">HTML5/CSS3 Essentials</h1>
               </div>
@@ -76,15 +77,15 @@ export default function Home() {
             </div>
           </div>
           {/* 2 */}
-          <div className="flex-1 shadow-2xl">
+          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
             <div>
               <img
                 src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/wordpress-400x223.jpg"
                 alt="course2"
-                className="w-full"
+                className="w-full rounded-3xl"
               ></img>
             </div>
-            <div className="flex flex-col p-5 gap-5 bg-white border">
+            <div className="flex flex-col p-5 gap-5">
               <div>
                 <h1 className="lg:text-4xl w-full ">
                   WordPress Basic Tutorial
@@ -107,15 +108,15 @@ export default function Home() {
             </div>
           </div>
           {/* 3 */}
-          <div className="flex-1 shadow-2xl">
+          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
             <div>
               <img
                 src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/ecommerce-400x223.jpg"
                 alt="course3"
-                className="w-full"
+                className="w-full rounded-3xl"
               ></img>
             </div>
-            <div className="flex flex-col p-5 gap-5 bg-white border">
+            <div className="flex flex-col p-5 gap-5">
               <div>
                 <h1 className="lg:text-4xl w-full ">E-Commerce Course</h1>
               </div>

@@ -105,8 +105,6 @@ export default function About() {
             <form onSubmit="">
               <textarea
                 placeholder="Your feedback..."
-                value=""
-                onChange=""
               />
             </form>
           </div>

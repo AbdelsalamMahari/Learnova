@@ -44,7 +44,7 @@ const Signup = () => {
   };
 
   // Define options for the role select input
-  const roleOptions = ["", "student", "instructor"];
+  const roleOptions = ["student", "instructor"];
 
   return (
     <>
@@ -113,8 +113,8 @@ const Signup = () => {
                       value={data.role}
                       onChange={handleChange}
                       required
-                      defaultValue="student" // Set the default value to "student"
                     >
+                      <option value="" disabled>Choose one</option>
                       {roleOptions.map((option) => (
                         <option key={option} value={option}>
                           {option}

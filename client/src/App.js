@@ -13,39 +13,48 @@ import CourseStart from "./pages/courseStart/CourseStart";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Profile from "./pages/profile/Profile";
-import Dash from './pages/dashboard/dash';
-import ScrollToTopButton from './components/scroll/Scroll';
-import Google from './utils/Google';
+import Dash from "./pages/dashboard/dash";
+import AdminDash from "./pages/adminDash/AdminDash";
+import ScrollToTopButton from "./components/scroll/Scroll";
+import Google from "./utils/Google";
 import NoPage from "./pages/nopage/404";
 import EmailVerify from "./pages/emailVerify/EmailVerify";
-import ForgetPass from './pages/forgetPass/ForgetPass';
-import PasswordReset from './pages/passwordReset/PasswordReset'
+import ForgetPass from "./pages/forgetPass/ForgetPass";
+import PasswordReset from "./pages/passwordReset/PasswordReset";
+import InstructorRoute from "./utils/Instructor/protectedRoute";
+import AdminRoute from "./utils/Admin/protectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
-    <ScrollToTopButton/>
+      <ScrollToTopButton />
       <Routes>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="instructors" element={<Instructors />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="allCourses" element={<AllCourses />} />
-          <Route path="survey" element={<Survey />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<NoPage />} />
-          <Route path="google" element={<Google />} />
-          <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
-          <Route path="/forgetPass" element={<ForgetPass />} />
-          <Route path="/password-reset/:id/:token" element={<PasswordReset />}/>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="instructors" element={<Instructors />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="allCourses" element={<AllCourses />} />
+        <Route path="survey" element={<Survey />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="*" element={<NoPage />} />
+        <Route path="google" element={<Google />} />
+        <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
+        <Route path="/forgetPass" element={<ForgetPass />} />
+        <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
 
-
-          <Route path="courseInfo" element={<CourseInfo />} />
-          <Route path="courseStart" element={<CourseStart />} />
-          <Route path="dash" element={<Dash />} />
+        <Route path="courseInfo" element={<CourseInfo />} />
+        <Route path="courseStart" element={<CourseStart />} />
+        <Route
+          path="/dash"
+          element={<InstructorRoute element={<Dash />} path="/dash" />}
+        />
+        <Route
+          path="/adminDash"
+          element={<AdminRoute element={<AdminDash />} path="/adminDash" />}
+        />
       </Routes>
     </BrowserRouter>
   );

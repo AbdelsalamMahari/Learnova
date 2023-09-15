@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
     googleId: { type: String },
     profilePic: { type: String, default: "" },
     role: { type: String, required: true, enum: ["student", "instructor"], },
-    isIntructor: { type: Boolean, default: false },
+    isInstructor: { type: Boolean, default: false },
     cv: { type: String },
     phoneNumber: { type: String },
     isAdmin: { type: Boolean, default: false },
@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema(
 UserSchema.methods.generateAuthToken = function () {
   // Generate access token
   const token = jwt.sign(
-    { id: this._id, isAdmin: this.isAdmin, isIntructor: this.isIntructor },
+    { id: this._id, isAdmin: this.isAdmin, isInstructor: this.isInstructor },
     process.env.SECRET_KEY,
     { expiresIn: "5d" }
   );

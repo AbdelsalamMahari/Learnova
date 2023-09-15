@@ -16,7 +16,7 @@ function SidebarWithToggle({ isSidebarActive, toggleSidebar }) {
   }, []);
 
   const handleToggleClick = () => {
-    toggleSidebar(); // Call the callback function to toggle the sidebar
+    toggleSidebar(); 
   };
 
   return (
@@ -54,7 +54,7 @@ function SidebarWithToggle({ isSidebarActive, toggleSidebar }) {
         </div>
       </div>
       <div className={`main-dash ${isSidebarActive ? 'active' : ''}`}>
-        {/* Content of the main area */}
+ 
       </div>
     </div>
   );

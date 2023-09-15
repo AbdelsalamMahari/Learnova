@@ -55,7 +55,7 @@ export default function Contact() {
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg"
       />
       <div className="flex my-20 mx-[40px]">
-        <div className="flex-1 flex justify-start items-start mt-10">
+        <div className="flex-1 flex justify-start items-start mt-10 pr-5">
           {/* Left Column */}
           <div>
             <h1 className=" text-4xl lg:text-4xl xl:text-5xl font-bold mb-4">

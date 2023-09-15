@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import "./Contact.css";
+import Icons from "../../assets/icons/icons";
 
 export default function Contact() {
   const [data, setData] = useState({
@@ -53,56 +54,58 @@ export default function Contact() {
         title="Get in Touch"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg"
       />
-      <div className="flex justify-center items-center my-10">
-        <div className=" cont w-full md:w-1/2 p-6 flex flex-col items-center justify-center text-center px-4">
+      <div className="flex my-20 mx-[40px]">
+        <div className="flex-1 flex justify-start items-start mt-10">
           {/* Left Column */}
           <div>
             <h1 className=" text-4xl lg:text-4xl xl:text-5xl font-bold mb-4">
               Contact Us
             </h1>
+            <div
+                className="tilted-box"
+                style={{ "--skew-angle": "40deg" }}
+              ></div>
             <p className="mb-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
               tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
             </p>
             {/* Location */}
-            <div className="flex items-center mb-2">
-              <i className="fas fa-map-marker-alt text-pink2 text-2xl mr-2"></i>
+            <div className="mt-10">
+            <div className="flex">
+              <span><Icons.Location size={20} className="mr-2"/></span>
               <p>Your Address, City, Country</p>
             </div>
 
             {/* Email */}
-            <div className="flex items-center mb-2">
-              <i className="fas fa-envelope text-pink2 text-2xl mr-2"></i>
+            <div className="flex">
+            <span><Icons.Email size={20} className="mr-2"/></span>
               <p>example@example.com</p>
             </div>
 
             {/* Phone Number */}
-            <div className="flex items-center">
-              <i className="fas fa-phone text-pink2 text-2xl mr-2"></i>
+            <div className="flex">
+            <span><Icons.Phone size={20} className="mr-2"/></span>
               <p>+123 456 789</p>
+            </div>
             </div>
           </div>
         </div>
 
-        <div className="rounded-lg bg-gray-100 mb-16 p-4 mt-4 w-full md:w-2/3 lg:w-1/2 mx-2 shadow-xl ">
+        <div className="flex-1">
           <form onSubmit={handleSubmit}>
-            <div className="flex justify-center">
+            <div className="flex justify-center w-full">
               {/* Container with rounded corners and background color */}
               <div
-                className="rounded-lg bg-gray-100 p-4 w-full "
-                style={{ maxWidth: "600px" }}
+                className="rounded-lg bg-white p-10 w-full shadow-2xl"
               >
-                <h1 className="md:text-4xl lg:text-4xl xl:text-5xl font-bold mt-5">
-                  Have a Question?
+                <h1 className="md:text-2xl lg:text-2xl xl:text-2xl font-bold">
+                  Have a Questions?
                 </h1>
                 <br></br>
                 <p className="mb-6">
                   Feel free to reach out to us. We'd love to hear from you!
                 </p>
                 <div className="mb-4">
-                  <label htmlFor="name" className="input-label">
-                    Your Name:
-                  </label>
                   <input
                     type="text"
                     name="name"
@@ -115,9 +118,6 @@ export default function Contact() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="email" className="input-label">
-                    Your Email:
-                  </label>
                   <input
                     type="email"
                     name="email"
@@ -130,9 +130,6 @@ export default function Contact() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="phone" className="input-label">
-                    Your Phone Number:
-                  </label>
                   <input
                     type="tel"
                     name="phone"
@@ -145,9 +142,6 @@ export default function Contact() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="subject" className="input-label">
-                    Subject:
-                  </label>
                   <input
                     type="text"
                     name="subject"
@@ -160,9 +154,6 @@ export default function Contact() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="message" className="input-label">
-                    Your Message:
-                  </label>
                   <textarea
                     name="message"
                     id="message"
@@ -174,7 +165,7 @@ export default function Contact() {
                     required
                   />
                 </div>
-                <div className="flex justify-center mt-5 mb-8">
+                <div className="flex justify-center mt-5">
                   <button className="bg-pink2 text-black font-bold py-2 px-4 rounded button-contact input-contact">
                     Send Message
                   </button>

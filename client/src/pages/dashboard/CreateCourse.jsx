@@ -13,8 +13,7 @@ export default function CreateCourse() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    instructor: '',
-    image: '',
+  
     chapters: [
       {
         title: '',
@@ -66,11 +65,19 @@ export default function CreateCourse() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Add your submission logic here
+    console.log('formData:', formData); // Log the formData to check its content
+    try {
+      const response = await axios.post('http://localhost:5000/courses/create', formData);
+      console.log('Course created successfully:', response.data);
+      // Add any additional logic you need after successful creation
+    } catch (error) {
+      console.error('Error creating course:', error);
+      // Handle error scenarios here
+    }
   };
+  
 
   return (
     <>

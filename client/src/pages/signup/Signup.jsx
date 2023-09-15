@@ -2,7 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./SignupStudent.css";
+import "./Signup.css";
+import Navbar from "../../layout/navbar/Navbar"
+import Logo from "../../assets/images/LearnovaColoredLogo2.png";
+import Footer from "../../layout/footer/Footer";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -10,6 +13,9 @@ const Signup = () => {
     lastName: "",
     email: "",
     password: "",
+    role: "",
+    cv: "",
+    phoneNumber: "",
   });
 
   const handleChange = ({ currentTarget: input }) => {
@@ -19,7 +25,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5000/signup/student";
+      const url = "http://localhost:5000/signup";
       const { data: res } = await axios.post(url, data);
       toast.success(res.message, {
         theme: "colored",
@@ -37,9 +43,13 @@ const Signup = () => {
     }
   };
 
+  // Define options for the role select input
+  const roleOptions = ["student", "instructor"];
+
   return (
     <>
       <ToastContainer />
+      <Navbar imgSrc={Logo} className={"bg-white relative"} />
       <div className="background-signup-stu">
         <div className="signup-stu-form">
           <div className="my-10 flex items-center justify-center ">
@@ -47,7 +57,7 @@ const Signup = () => {
               <div>
                 <h2 className="text-xl font-semibold">Register</h2>
                 <form onSubmit={handleSubmit} className="mt-4">
-                  <div className="mb-4">
+                <div className="mb-4">
                     <label htmlFor="student-username">First Name:</label>
                     <input
                       type="text"
@@ -95,6 +105,52 @@ const Signup = () => {
                       required
                     />
                   </div>
+                  <div className="mb-4">
+                    <label htmlFor="student-role">I Want To Be:</label>
+                    <select
+                      name="role"
+                      className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
+                      value={data.role}
+                      onChange={handleChange}
+                      required
+                    >
+                      {roleOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Conditionally render cv and phone number fields for Instructor */}
+                  {data.role === "instructor" && (
+                    <>
+                      <div className="mb-4">
+                        <label htmlFor="student-cv">CV:</label>
+                        <input
+                          type="file"
+                          name="cv"
+                          className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
+                          value={data.cv}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <label htmlFor="student-phoneNumber">Phone Number:</label>
+                        <input
+                          type="text"
+                          placeholder="Phone Number"
+                          name="phoneNumber"
+                          className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
+                          value={data.phoneNumber}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </>
+                  )}
+
                   <button
                     type="submit"
                     className="bg-orange text-white py-2 px-4 hover:bg-blue-600 rounded-full w-full mt-4"
@@ -107,6 +163,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

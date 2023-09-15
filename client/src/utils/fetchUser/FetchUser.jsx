@@ -19,7 +19,7 @@ export async function fetchUserInfoFromToken() {
 
   if (userId) {
     try {
-      const response = await axios.get(`http://localhost:5000/students/find/${userId}`);
+      const response = await axios.get(`http://localhost:5000/users/find/${userId}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching user data:", error);

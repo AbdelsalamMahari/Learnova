@@ -10,12 +10,11 @@ const loginRoutes = require("./routes/LoginRoute");
 const surveyRoutes = require("./routes/SurveyRoute");
 const examRoutes = require("./routes/ExamsRoute");
 const feedbackRoutes = require("./routes/FeedbackRoute");
-const teacherRoutes = require("./routes/TeacherRoute");
 const coursesRoutes = require("./routes/CourseRoutes");
 const QuestionRoute = require("./routes/QuestionRoute");
 const EnrollemntRoute = require("./routes/EnrollentRoute");
 const PaymentEnrollemntRoute = require("./routes/PaymentEnrollemntRoute");
-const studentRoutes = require("./routes/StudentsRoutes");
+const UserRoutes = require("./routes/UsersRoutes");
 const googleRoute = require('./routes/GoogleRoutes');
 const forgetPassRoute = require('./routes/ForgetPassRoutes');
 require("dotenv").config();
@@ -51,10 +50,9 @@ app.use(
   QuestionRoute,
   examRoutes,
   feedbackRoutes,
-  teacherRoutes,
   EnrollemntRoute,
   PaymentEnrollemntRoute,
-  studentRoutes,
+  UserRoutes,
   forgetPassRoute,
   contactRoutes
 );

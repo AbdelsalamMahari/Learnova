@@ -1,12 +1,11 @@
 const router = require("express").Router();
 const passport = require("passport");
-const { Student } = require("../models/StudentsModel");
-const { Teacher } = require("../models/TeachersModel");
+const { User } = require("../models/UsersModel");
 
 router.get("/login/success", async (req, res) => {
   if (req.user) {
     try {
-      const existingUser = await Student.findOne({ googleId: req.user.id });
+      const existingUser = await User.findOne({ googleId: req.user.id });
 
       if (existingUser) {
         // User exists, generate a token using the existing method
@@ -20,12 +19,13 @@ router.get("/login/success", async (req, res) => {
         });
       } else {
         // User doesn't exist, create a new user record
-        const newUser = new Student({
+        const newUser = new User({
           googleId: req.user.id,
           firstName: req.user.name.givenName,
           lastName: req.user.name.familyName,
           email: req.user.emails[0].value,
           profilePic: req.user.photos[0].value,
+          role: "student", // Set the role to "student" by default
         });
 
         const savedUser = await newUser.save();

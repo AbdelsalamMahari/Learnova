@@ -1,5 +1,5 @@
-const { Student } = require("../models/StudentsModel");
-const Token = require("../models/STokenModel");
+const { User } = require("../models/UsersModel");
+const Token = require("../models/TokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 const Joi = require("joi");
@@ -16,22 +16,22 @@ module.exports.sendPassLink = async (req, res) => {
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
 
-		let student = await Student.findOne({ email: req.body.email });
-		if (!student)
+		let user = await User.findOne({ email: req.body.email });
+		if (!user)
 			return res
 				.status(409)
-				.send({ message: "student with given email does not exist!" });
+				.send({ message: "user with given email does not exist!" });
 
-		let token = await Token.findOne({ studentId: student._id });
+		let token = await Token.findOne({ userId: user._id });
 		if (!token) {
 			token = await new Token({
-				studentId: student._id,
+				userId: user._id,
 				token: crypto.randomBytes(32).toString("hex"),
 			}).save();
 		}
-		const url = `${process.env.BASE_URL}/password-reset/${student._id}/${token.token}/`;
+		const url = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}/`;
 
-		await sendEmail(student.email, "Password Reset", url);
+		await sendEmail(user.email, "Password Reset", url);
 
 		res
 			.status(200)
@@ -44,11 +44,11 @@ module.exports.sendPassLink = async (req, res) => {
 // verify password reset link
 module.exports.verifyPass = async (req, res) => {
 	try {
-		const student = await Student.findOne({ _id: req.params.id });
-		if (!student) return res.status(400).send({ message: "Invalid link" });
+		const user = await User.findOne({ _id: req.params.id });
+		if (!user) return res.status(400).send({ message: "Invalid link" });
 
 		const token = await Token.findOne({
-			studentId: student._id,
+			userId: user._id,
 			token: req.params.token,
 		});
 		if (!token) return res.status(400).send({ message: "Invalid link" });
@@ -73,14 +73,14 @@ module.exports.setNewPass = async (req, res) => {
             return res.status(400).send({ message: error.details[0].message });
         }
 
-        const student = await Student.findOne({ _id: req.params.id });
+        const user = await User.findOne({ _id: req.params.id });
 
-        if (!student) {
+        if (!user) {
             return res.status(400).send({ message: "Invalid link" });
         }
 
         const token = await Token.findOneAndDelete({
-            studentId: student._id,
+            userId: user._id,
             token: req.params.token,
         });
 
@@ -91,8 +91,8 @@ module.exports.setNewPass = async (req, res) => {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-        student.password = hashPassword;
-        await student.save();
+        user.password = hashPassword;
+        await user.save();
 
         res.status(200).send({ message: "Password reset successfully" });
     } catch (error) {

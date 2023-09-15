@@ -107,7 +107,7 @@ export default function Contact() {
                     type="text"
                     name="name"
                     id="name"
-                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded"
+                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded input-contact"
                     placeholder="Your Name"
                     onChange={handleChange}
                     value={data.name}
@@ -122,7 +122,7 @@ export default function Contact() {
                     type="email"
                     name="email"
                     id="email"
-                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded"
+                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded input-contact"
                     placeholder="Your Email"
                     onChange={handleChange}
                     value={data.email}
@@ -137,7 +137,7 @@ export default function Contact() {
                     type="tel"
                     name="phone"
                     id="phone"
-                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded"
+                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded input-contact"
                     placeholder="Your Phone Number"
                     onChange={handleChange}
                     value={data.phone}
@@ -152,7 +152,7 @@ export default function Contact() {
                     type="text"
                     name="subject"
                     id="subject"
-                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded"
+                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded input-contact"
                     placeholder="Subject"
                     onChange={handleChange}
                     value={data.subject}
@@ -167,7 +167,7 @@ export default function Contact() {
                     name="message"
                     id="message"
                     rows="4"
-                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded"
+                    className="input-field bg-gray-100 px-4 py-2 w-full border border-s-pink2 rounded input-contact"
                     placeholder="Write your message here..."
                     onChange={handleChange}
                     value={data.message}
@@ -175,7 +175,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="flex justify-center mt-5 mb-8">
-                  <button className="bg-pink2 text-black font-bold py-2 px-4 rounded button-contact">
+                  <button className="bg-pink2 text-black font-bold py-2 px-4 rounded button-contact input-contact">
                     Send Message
                   </button>
                 </div>

@@ -11,8 +11,7 @@ import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
 import CourseStart from "./pages/courseStart/CourseStart";
 import Login from "./pages/login/Login";
-import SignupS from "./pages/signup/SignupStudent";
-import SignupT from "./pages/signup/SignupTeacher";
+import Signup from "./pages/signup/Signup";
 import Profile from "./pages/profile/Profile";
 import Dash from './pages/dashboard/dash';
 import ScrollToTopButton from './components/scroll/Scroll';
@@ -35,12 +34,11 @@ function App() {
           <Route path="allCourses" element={<AllCourses />} />
           <Route path="survey" element={<Survey />} />
           <Route path="login" element={<Login />} />
-          <Route path="signupStudent" element={<SignupS />} />
-          <Route path="signupTeacher" element={<SignupT />} />
+          <Route path="signup" element={<Signup />} />
           <Route path="profile" element={<Profile />} />
           <Route path="*" element={<NoPage />} />
           <Route path="google" element={<Google />} />
-          <Route path="/students/:id/verify/:token" element={<EmailVerify />} />
+          <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
           <Route path="/forgetPass" element={<ForgetPass />} />
           <Route path="/password-reset/:id/:token" element={<PasswordReset />}/>
 

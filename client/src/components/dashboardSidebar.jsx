@@ -50,6 +50,14 @@ function SidebarWithToggle({ isSidebarActive, toggleSidebar }) {
             </Link>
           </li>
           <li>
+            <Link to="/dash/dashQuestion">
+              <span className="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span className="title">Create Questions</span>
+            </Link>
+          </li>
+          <li>
             <Link to="/">
               <span className="icon">
                 <ion-icon name="home-outline"></ion-icon>

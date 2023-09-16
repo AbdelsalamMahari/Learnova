@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
-import axios from 'axios'; 
-import SidebarWithToggle from '../../components/dashboardSidebar'; 
+import React, { useState } from "react";
+import axios from "axios";
+import Sidebar from "../../components/sidebars/InstructorSideBar";
+import Icons from "../../assets/icons/icons";
 
 export default function CreateCourse() {
-  const [isSidebarActive, setIsSidebarActive] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarActive(!isSidebarActive);
-    console.log('isSidebarActive:', isSidebarActive);
-  };
-
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
+    name: "",
+    description: "",
     chapters: [
       {
-        title: '',
-        subtitle: '',
-        lessons: [{ content: '' }],
+        title: "",
+        subtitle: "",
+        lessons: [{ content: "" }],
       },
     ],
   });
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,51 +50,50 @@ export default function CreateCourse() {
       chapters: [
         ...formData.chapters,
         {
-          title: '',
-          subtitle: '',
-          lessons: [{ content: '' }],
+          title: "",
+          subtitle: "",
+          lessons: [{ content: "" }],
         },
       ],
     });
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('formData:', formData); // Log the formData to check its content
-  
+    console.log("formData:", formData); // Log the formData to check its content
+
     try {
-      const response = await axios.post('http://localhost:5000/courses/create', {
-        name: formData.name,
-        description: formData.description,
-        content: formData.chapters.map((chapter) => ({
-          title: chapter.title,
-          subtitle: chapter.subtitle,
-          lessons: chapter.lessons.map((lesson) => ({
-            content: lesson.content,
+      const response = await axios.post(
+        "http://localhost:5000/courses/create",
+        {
+          name: formData.name,
+          description: formData.description,
+          content: formData.chapters.map((chapter) => ({
+            title: chapter.title,
+            subtitle: chapter.subtitle,
+            lessons: chapter.lessons.map((lesson) => ({
+              content: lesson.content,
+            })),
           })),
-        })),
-      });
-  
-      console.log('Course created successfully:', response.data);
+        }
+      );
+
+      console.log("Course created successfully:", response.data);
       // Add any additional logic you need after successful creation
     } catch (error) {
-      console.error('Error creating course:', error);
+      console.error("Error creating course:", error);
       // Handle error scenarios here
     }
   };
-  
 
   return (
     <>
-      <div className="container">
-        <div className="sidebar">
-          <SidebarWithToggle
-            isSidebarActive={isSidebarActive}
-            toggleSidebar={toggleSidebar}
-          />
-        </div>
-        <div className={`main-dash ${isSidebarActive ? 'active' : ''}`}>
+      <div className="container-dash">
+        <Sidebar />
+        <div className="main-dash">
+          <div className="toggle">
+          <Icons.Bars size={24}/>
+          </div>
           <form onSubmit={handleSubmit} className="p-4">
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">

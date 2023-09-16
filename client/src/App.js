@@ -10,7 +10,7 @@ import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
 import CourseStart from "./pages/courseStart/CourseStart";
-import Dash from './pages/dashboard/TeacherDashbaord';
+import Dash from './pages/dashboard/dash';
 import CreateCourse from './pages/dashboard/CreateCourse'
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";

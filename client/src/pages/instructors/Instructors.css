@@ -1,0 +1,127 @@
+/* section 1 */
+
+.section1-instructor {
+    margin: 60px 40px 80px 40px;
+  }
+  
+  .container-instructor {
+    display: flex;
+  }
+  
+  .first-instructor h1{
+    font-size: 35px;
+    font-weight: bolder;
+    padding-right: 50px;
+  }
+  .first-instructor h4{
+    font-size: medium;
+    font-weight: bolder;
+    padding-right: 50px;
+    padding-bottom: 10px;
+  }
+  
+  .second-instructor {
+    flex: 1;
+    align-items: center;
+    border-left: 3px solid orange;
+    height: auto;
+  }
+  
+  .second-instructor-pro {
+    padding-left: 10px;
+    margin: 20px 50px 0px 50px;
+    font-size: 15px;
+  }
+
+  /* section 2 */
+
+  .section2-instructor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create three columns in each row */
+    gap: 10px; /* Adjust the gap between columns and rows as needed */
+    margin: 30px;
+  }
+
+  .container2-instructor{
+    margin-bottom: 30px;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    object-fit: contain;
+    max-width: 400px;
+  }
+
+  .first2-instructor img{
+    border-radius: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .second2-instructor{
+    margin: 10px 30px;
+  }
+  .second2-instructor h4{
+    font-size: 15px;
+    font-weight:400;
+    padding-bottom: 3px;
+  }
+  .second2-instructor h1{
+    font-size: 20px;
+    font-weight: bolder;
+    padding-bottom: 10px;
+  }
+  .second2-instructor p{
+    font-size: small;
+    padding-bottom: 10px;
+  }
+  
+  @media screen and (max-width: 800px) {
+
+    /* section 1*/
+    .container-instructor {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .first-instructor {
+      font-size: 32px;
+      max-width: 100%;
+    }
+  
+    .second-instructor {
+      border-left: none;
+    }
+    .second-instructor-pro {
+        padding-left: 10px;
+        margin: 30px 0px ;
+        border-left: 3px solid orange;
+      }
+
+      /* section 2 */
+
+      .section2-instructor {
+        grid-template-columns: 1fr;
+      }
+    
+      .container2-instructor {
+        max-width: 100%; 
+        padding: 0px 20px; 
+        background: linear-gradient(#ecf0f2, white);
+      }
+
+      .first2-instructor{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      .second2-instructor {
+        margin: 20px 0; 
+      }
+    
+      .first2-instructor img {
+        max-width: 60%;
+      }
+
+}

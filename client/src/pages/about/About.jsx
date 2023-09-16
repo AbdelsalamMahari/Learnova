@@ -57,8 +57,6 @@ export default function About() {
                 <p>
                   Our vision for the online course management system is simple: to foster a dynamic learning environment where individuals can expand their horizons and challenge their preconceptions. Join us on this educational journey.
                 </p>
-              </div>
-              <div className="second-div-about">
                 <p>
                   Our system ensures a seamless learning journey, equipped with advanced features that simplify the educational process.
                 </p>
@@ -105,8 +103,6 @@ export default function About() {
             <form onSubmit="">
               <textarea
                 placeholder="Your feedback..."
-                value=""
-                onChange=""
               />
             </form>
           </div>

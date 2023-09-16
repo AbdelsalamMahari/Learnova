@@ -99,7 +99,7 @@ export default function Footer() {
               <p>
                 <strong>Email</strong>
                 <br />
-                <p className="hover:text-orange">Learnova.e@gmail.com</p>
+                <span className="hover:text-orange">Learnova.e@gmail.com</span>
               </p>
             </div>
           </div>

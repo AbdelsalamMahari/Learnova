@@ -1,11 +1,11 @@
-const { Student, validatePassword } = require('../models/StudentsModel');
+const { User, validatePassword } = require('../models/UsersModel');
 const bcrypt = require("bcrypt");
 
 // Update
-module.exports.updateStudent = async (req, res) => {
+module.exports.updateUser = async (req, res) => {
   if (req.user.id === req.params.id || req.user.isAdmin) {
     try {
-      const updateStudent = await Student.findByIdAndUpdate(
+      const updateStudent = await User.findByIdAndUpdate(
         req.params.id,
         {
           $set: req.body,
@@ -36,7 +36,7 @@ module.exports.updatePassword = async (req, res) => {
       const salt = await bcrypt.genSalt(Number(process.env.SALT));
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-      const updateStudent = await Student.findByIdAndUpdate(
+      const updateStudent = await User.findByIdAndUpdate(
         req.params.id,
         {
           $set: { password: hashedPassword },
@@ -55,10 +55,10 @@ module.exports.updatePassword = async (req, res) => {
 
 
 //Delete
-module.exports.deleteStudent = async (req, res) => {
+module.exports.deleteUser = async (req, res) => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       try {
-        await Student.findByIdAndDelete(req.params.id);
+        await User.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "User has been deleted" });
       } catch (err) {
         res.status(500).json(err);
@@ -69,9 +69,9 @@ module.exports.deleteStudent = async (req, res) => {
   };
 
 //Get
-module.exports.getStudent = async (req, res) => {
+module.exports.getUser = async (req, res) => {
       try {
-        const student = await Student.findById(req.params.id);
+        const student = await User.findById(req.params.id);
         res.status(200).json(student);
       } catch (err) {
         res.status(500).json(err);
@@ -79,7 +79,7 @@ module.exports.getStudent = async (req, res) => {
 };
 
 //Get all
-module.exports.getAllStudent = async (req, res) => {
+module.exports.getAllUser = async (req, res) => {
     const query = req.query.new;
     if (req.user.isAdmin) {
       try {
@@ -94,7 +94,7 @@ module.exports.getAllStudent = async (req, res) => {
   };
 
 //Get user stats
-module.exports.statStudent = async (req, res) => {
+module.exports.statUser = async (req, res) => {
     const today = new Date();
     const lastYear = today.setFullYear(today.setFullYear() - 1);
 

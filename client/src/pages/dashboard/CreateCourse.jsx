@@ -13,7 +13,6 @@ export default function CreateCourse() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-  
     chapters: [
       {
         title: '',
@@ -22,6 +21,7 @@ export default function CreateCourse() {
       },
     ],
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,12 +64,25 @@ export default function CreateCourse() {
       ],
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('formData:', formData); // Log the formData to check its content
+  
     try {
-      const response = await axios.post('http://localhost:5000/courses/create', formData);
+      const response = await axios.post('http://localhost:5000/courses/create', {
+        name: formData.name,
+        description: formData.description,
+        content: formData.chapters.map((chapter) => ({
+          title: chapter.title,
+          subtitle: chapter.subtitle,
+          lessons: chapter.lessons.map((lesson) => ({
+            content: lesson.content,
+          })),
+        })),
+      });
+  
       console.log('Course created successfully:', response.data);
       // Add any additional logic you need after successful creation
     } catch (error) {

@@ -66,7 +66,7 @@ export default function Sidebar() {
       )}
 
         <li>
-          <Link to="/dash">
+          <Link to="/intructorDash">
             <span className="icon">
               <Icons.Home size={30} />
             </span>
@@ -75,7 +75,7 @@ export default function Sidebar() {
         </li>
 
         <li>
-          <Link to="/dash/createCourse">
+          <Link to="/intructorDash/createCourse">
             <span className="icon">
               <Icons.Book size={30} />
             </span>

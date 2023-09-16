@@ -46,7 +46,7 @@ export default function Navbar({ className, imgSrc }) {
           )}
           {isInstructor && (
             <Link
-              to="/dash"
+              to="/intructorDash"
               className=" px-3 py-2 hover:text-orange"
             >
               Manage Course

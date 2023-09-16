@@ -10,21 +10,25 @@ import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
 import CourseStart from "./pages/courseStart/CourseStart";
-import Dash from './pages/dashboard/dash';
-import CreateCourse from './pages/dashboard/CreateCourse'
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Profile from "./pages/profile/Profile";
-import AdminDash from "./pages/adminDash/AdminDash";
 import ScrollToTopButton from "./components/scroll/Scroll";
 import Google from "./utils/Google";
 import NoPage from "./pages/nopage/404";
-import DashQuestion from "./pages/Question/Questiondash.jsx"
 import EmailVerify from "./pages/emailVerify/EmailVerify";
 import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
+
+// Instructor Dashboard
+import IntructorDash from './pages/instructorDash/dash';
+import CreateCourse from './pages/instructorDash/CreateCourse';
+import CreateQuestion from "./pages/instructorDash/CreateQuestion"
+
+// Admin Dashboard
+import AdminDash from "./pages/adminDash/AdminDash";
 
 function App() {
   return (
@@ -49,16 +53,16 @@ function App() {
         <Route path="courseStart" element={<CourseStart />} />
         <Route path="courseInfo" element={<CourseInfo />} />
         <Route
-          path="/dash"
-          element={<InstructorRoute element={<Dash />} path="/dash" />}
+          path="/intructorDash"
+          element={<InstructorRoute element={<IntructorDash />} path="/intructorDash" />}
         />
         <Route
-          path="/dash/dashQuestion"
-          element={<InstructorRoute element={<DashQuestion />} path="/dash/dashQuestion" />}
+          path="/intructorDash/dashQuestion"
+          element={<InstructorRoute element={<CreateQuestion />} path="/intructorDash/createQuestion" />}
         />
         <Route
-          path="/dash/createCourse"
-          element={<InstructorRoute element={<CreateCourse />} path="/dash/createCourse" />}
+          path="/intructorDash/createCourse"
+          element={<InstructorRoute element={<CreateCourse />} path="/intructorDash/createCourse" />}
         />
         <Route
           path="/adminDash"

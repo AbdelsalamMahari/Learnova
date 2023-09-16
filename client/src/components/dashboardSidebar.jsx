@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { HiArrowsRightLeft } from 'react-icons/hi2';
+import { Link } from 'react-router-dom';
 
 function SidebarWithToggle({ isSidebarActive, toggleSidebar }) {
   useEffect(() => {
@@ -24,29 +25,37 @@ function SidebarWithToggle({ isSidebarActive, toggleSidebar }) {
       <div className={`navigation-dash ${isSidebarActive ? 'active' : ''}`}>
         <ul>
           <li>
-            <a href="/">
+            <Link to="/">
               <span className="icon">
                 <ion-icon name="logo-apple"></ion-icon>
               </span>
               <span className="title">Teacher Name</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/TeacherDashboard">
+            <Link to="/dash">
               <span className="icon">
                 <ion-icon name="home-outline"></ion-icon>
               </span>
               <span className="title">Dashboard</span>
-            </a>
+            </Link>
           </li>
         
           <li>
-            <a href="/CreateCourse">
+            <Link to="/dash/createCourse">
               <span className="icon">
                 <ion-icon name="home-outline"></ion-icon>
               </span>
               <span className="title">Create New Course</span>
-            </a>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span className="title">Return</span>
+            </Link>
           </li>
         </ul>
         <div className="toggle" onClick={handleToggleClick}>

@@ -4,6 +4,9 @@ const cors = require("cors");
 const passport = require('passport');
 const session = require("express-session");
 const passportStrategy = require("./passport");
+const bodyParser = require("body-parser")
+
+//Routes
 const contactRoutes = require("./routes/ContactRoute");
 const signupRoutes = require("./routes/SignupRoute");
 const loginRoutes = require("./routes/LoginRoute");
@@ -17,6 +20,7 @@ const PaymentEnrollemntRoute = require("./routes/PaymentEnrollemntRoute");
 const UserRoutes = require("./routes/UsersRoutes");
 const googleRoute = require('./routes/GoogleRoutes');
 const forgetPassRoute = require('./routes/ForgetPassRoutes');
+const paymentRoute = require('./routes/PaymentRoute');
 require("dotenv").config();
 
 const app = express();
@@ -32,6 +36,9 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
 app.use(express.json());
 app.use(
@@ -61,7 +68,8 @@ app.use(
   PaymentEnrollemntRoute,
   UserRoutes,
   forgetPassRoute,
-  contactRoutes
+  contactRoutes,
+  paymentRoute
 );
 app.use("/courses", coursesRoutes);
 app.use('/auth', googleRoute);

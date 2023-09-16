@@ -4,7 +4,7 @@ import { BsClock, BsFillJournalBookmarkFill } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { HiArrowsRightLeft } from "react-icons/hi2";
-import { MdLocationPin, MdEmail } from "react-icons/md";
+import { MdLocationPin, MdEmail, MdOutlineAdminPanelSettings } from "react-icons/md";
 
 const Icons = {
   Facebook: FaFacebook,
@@ -20,6 +20,7 @@ const Icons = {
   Location: MdLocationPin,
   Email: MdEmail,
   Phone: FaPhoneAlt,
+  Admin: MdOutlineAdminPanelSettings,
 };
 
 export default Icons;

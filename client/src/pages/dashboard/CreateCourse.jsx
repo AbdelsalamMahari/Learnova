@@ -84,10 +84,10 @@ export default function CreateCourse() {
       });
   
       console.log('Course created successfully:', response.data);
-      // Add any additional logic you need after successful creation
+    
     } catch (error) {
       console.error('Error creating course:', error);
-      // Handle error scenarios here
+     
     }
   };
   

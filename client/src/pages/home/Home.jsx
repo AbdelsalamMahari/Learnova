@@ -5,15 +5,16 @@ import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
+import Logo from "../../assets/images/LearnovaLogo2.png"
 
 export default function Home() {
   const navigate = useNavigate();
   return (
     <>
       <section className="backdrop-image">
-        <Navbar />
+        <Navbar imgSrc={Logo} className={"text-white"}/>
         <div className="backdrop-section">
-          <div className="px-[40px]">
+          <div className="lg:w-1/2 md:w-full">
             <h1 className="lg:text-6xl font-bold text-white my-8">
               Learning Fuels Creative Thinking
             </h1>
@@ -44,20 +45,23 @@ export default function Home() {
         </div>
         <div className="flex p-[40px] gap-6 cont-course">
           {/* 1 */}
-          <div className="flex-1 shadow-2xl">
+          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
             <div>
               <img
                 src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/html-400x223.jpg"
                 alt="course1"
-                className="w-full"
+                className="w-full rounded-3xl"
               ></img>
             </div>
-            <div className="flex flex-col p-5 gap-5 bg-white border">
+            <div className="flex flex-col p-5 gap-5">
               <div>
                 <h1 className="lg:text-4xl w-full ">HTML5/CSS3 Essentials</h1>
               </div>
               <div>
-                <button onClick={() => navigate(`/courseInfo`)} className="bg-blue rounded w-full p-1 text-white">
+                <button
+                  onClick={() => navigate(`/courseInfo`)}
+                  className="bg-blue rounded w-full p-1 text-white"
+                >
                   See more...
                 </button>
               </div>
@@ -73,15 +77,15 @@ export default function Home() {
             </div>
           </div>
           {/* 2 */}
-          <div className="flex-1 shadow-2xl">
+          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
             <div>
               <img
                 src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/wordpress-400x223.jpg"
                 alt="course2"
-                className="w-full"
+                className="w-full rounded-3xl"
               ></img>
             </div>
-            <div className="flex flex-col p-5 gap-5 bg-white border">
+            <div className="flex flex-col p-5 gap-5">
               <div>
                 <h1 className="lg:text-4xl w-full ">
                   WordPress Basic Tutorial
@@ -104,15 +108,15 @@ export default function Home() {
             </div>
           </div>
           {/* 3 */}
-          <div className="flex-1 shadow-2xl">
+          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
             <div>
               <img
                 src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/ecommerce-400x223.jpg"
                 alt="course3"
-                className="w-full"
+                className="w-full rounded-3xl"
               ></img>
             </div>
-            <div className="flex flex-col p-5 gap-5 bg-white border">
+            <div className="flex flex-col p-5 gap-5">
               <div>
                 <h1 className="lg:text-4xl w-full ">E-Commerce Course</h1>
               </div>
@@ -138,7 +142,10 @@ export default function Home() {
         <div className="relative z-10 my-10">
           <div className="flex gap-5 exp-blue-sec">
             <div className="flex-1">
-            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
+              <div
+                className="tilted-box"
+                style={{ "--skew-angle": "40deg" }}
+              ></div>
               <h1 className="text-2xl font-bold my-3">Experience</h1>
               <p>
                 Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -146,7 +153,10 @@ export default function Home() {
               </p>
             </div>
             <div className="flex-1">
-            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
+              <div
+                className="tilted-box"
+                style={{ "--skew-angle": "40deg" }}
+              ></div>
               <h1 className="text-2xl font-bold my-3">Education</h1>
               <p>
                 Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -154,7 +164,10 @@ export default function Home() {
               </p>
             </div>
             <div className="flex-1">
-            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
+              <div
+                className="tilted-box"
+                style={{ "--skew-angle": "40deg" }}
+              ></div>
               <h1 className="text-2xl font-bold my-3">Certificate</h1>
               <p>
                 Lorem ipsum dolor sit amet, consec tetur adipis cing elit. Ut
@@ -228,47 +241,98 @@ export default function Home() {
         </div>
       </section>
       <section className="p-[40px]">
-        <div className="w-1/2">
-          <h4>Testimonials</h4>
-          <h1 className="lg:text-4xl font-bold my-5">Trusted by Thousand of Students and Tutors</h1>
+        <div className="flex Testimonials">
+          <div className="flex-1">
+            <h4>Testimonials</h4>
+            <h1 className="lg:text-4xl font-bold my-5">
+              Trusted by Thousand of Students and Tutors
+            </h1>
+          </div>
+          <div className="flex-1 text-4xl font-bold flex items-center justify-center text-center">
+            <h1 className="text-orange">4.8<br></br>Ratings</h1>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-    {/* First Grid Item */}
-    <div className="bg-white p-4">
-      <div className="profile-image">
-        {/* Add your image source here */}
-        <img src="profile_image_1.jpg" alt="Profile 1" />
-      </div>
-      <p>Description for the first person.</p>
-    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 my-[60px]">
+          {/* First Grid Item */}
+          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
+            <div className="profile-home-img shadow-2xl">
+              <img
+                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-02.jpg"
+                alt="Profile 1"
+              />
+            </div>
+            <div className="mt-4">
+              <p>
+                “Massa amet, at dolor tellus pellentesque aenean in eget massa
+                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
+                vivamus nulla.”
+              </p>
+            </div>
+            <div className="my-4 font-bold">
+              <p>Emma Hart</p>
+            </div>
+          </div>
 
-    {/* Second Grid Item */}
-    <div className="bg-white p-4">
-      <div className="profile-image">
-        {/* Add your image source here */}
-        <img src="profile_image_2.jpg" alt="Profile 2" />
-      </div>
-      <p>Description for the second person.</p>
-    </div>
+          {/* Second Grid Item */}
+          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
+            <div className="profile-home-img shadow-2xl">
+              <img
+                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-01.jpg"
+                alt="Profile 1"
+              />
+            </div>
+            <div className="mt-4">
+              <p>
+                “Massa amet, at dolor tellus pellentesque aenean in eget massa
+                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
+                vivamus nulla.”
+              </p>
+            </div>
+            <div className="my-4 font-bold">
+              <p>Emma Hart</p>
+            </div>
+          </div>
 
-    {/* Third Grid Item */}
-    <div className="bg-white p-4">
-      <div className="profile-image">
-        {/* Add your image source here */}
-        <img src="profile_image_3.jpg" alt="Profile 3" />
-      </div>
-      <p>Description for the third person.</p>
-    </div>
+          {/* Third Grid Item */}
+          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
+            <div className="profile-home-img shadow-2xl">
+              <img
+                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-03.jpg"
+                alt="Profile 1"
+              />
+            </div>
+            <div className="mt-4">
+              <p>
+                “Massa amet, at dolor tellus pellentesque aenean in eget massa
+                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
+                vivamus nulla.”
+              </p>
+            </div>
+            <div className="my-4 font-bold">
+              <p>Emma Hart</p>
+            </div>
+          </div>
 
-    {/* Fourth Grid Item */}
-    <div className="bg-white p-4">
-      <div className="profile-image">
-        {/* Add your image source here */}
-        <img src="profile_image_4.jpg" alt="Profile 4" />
-      </div>
-      <p>Description for the fourth person.</p>
-    </div>
-  </div>
+          {/* Fourth Grid Item */}
+          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
+            <div className="profile-home-img shadow-2xl">
+              <img
+                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-04.jpg"
+                alt="Profile 1"
+              />
+            </div>
+            <div className="mt-4">
+              <p>
+                “Massa amet, at dolor tellus pellentesque aenean in eget massa
+                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
+                vivamus nulla.”
+              </p>
+            </div>
+            <div className="my-4 font-bold">
+              <p>Emma Hart</p>
+            </div>
+          </div>
+        </div>
       </section>
       <Footer />
     </>

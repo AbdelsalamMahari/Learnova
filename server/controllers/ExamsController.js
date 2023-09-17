@@ -3,7 +3,7 @@ const Exam = require('../models/ExamsModel');
 // Controller to add a new exam
 module.exports.addExam = async (req, res) => {
   try {
-    if (!req.user.isTeacher) {
+    if (!req.user.isIntructor) {
       return res.status(403).json({ error: 'You are not allowed to create exams.' });
     }
 
@@ -27,7 +27,7 @@ module.exports.addExam = async (req, res) => {
 // Controller to update an exam
 module.exports.updateExam = async (req, res) => {
   try {
-    if (!req.user.isTeacher) {
+    if (!req.user.isIntructor) {
       return res.status(403).json({ error: 'You are not allowed to update exams.' });
     }
 
@@ -50,7 +50,7 @@ module.exports.updateExam = async (req, res) => {
 // Controller to delete an exam
 module.exports.deleteExam = async (req, res) => {
   try {
-    if (!req.user.isTeacher) {
+    if (!req.user.isIntructor) {
       return res.status(403).json({ error: 'You are not allowed to delete exams.' });
     }
 
@@ -71,7 +71,7 @@ module.exports.deleteExam = async (req, res) => {
 // Controller to get all exams
 module.exports.getAllExams = async (req, res) => {
   try {
-    if (!req.user.isTeacher) {
+    if (!req.user.isIntructor) {
       return res.status(403).json({ error: 'You are not allowed to see all exams.' });
     }
     const exams = await Exam.find();

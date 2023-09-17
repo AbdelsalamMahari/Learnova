@@ -1,6 +1,7 @@
 import React from "react";
 import "./TopPage.css";
 import Navbar from "../../layout/navbar/Navbar"
+import Logo from "../../assets/images/LearnovaLogo2.png";
 
 export default function TopPage({ title, desc, backgroundImageUrl }) {
     const backdropStyle = {
@@ -10,7 +11,7 @@ export default function TopPage({ title, desc, backgroundImageUrl }) {
     <>
       <div className="scroll-container">
         <section className="backdrop-image-topPage" style={backdropStyle}>
-          <Navbar/>
+          <Navbar imgSrc={Logo} className={"bg-transparent text-white"}/>
           <div className="backdrop-section-topPage">
             <div className=" px-[30px]">
               <h1 className="lg:text-6xl font-bold text-white my-8">{title}</h1>

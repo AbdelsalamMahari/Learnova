@@ -3,9 +3,9 @@ const FeedbackModel = require("../models/FeedbackModel");
 // Controller to handle submitting feedback
 exports.submitFeedback = async (req, res) => {
   try {
-    const { studentId,text} = req.body;
+    const { userId,text} = req.body;
 
-    FeedbackModel.create({ studentId,text}).then(
+    FeedbackModel.create({ userId,text}).then(
       (data) => {
         console.log("Added Successfully...");
         console.log(data);

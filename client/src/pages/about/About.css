@@ -225,19 +225,20 @@
   /* Modify styles as needed */
   .container-about {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
   }
 
   .first-about {
     font-size: 32px;
     max-width: 100%;
-    text-align: center;
   }
 
   .second-about {
     border-left: none;
+  }
+  .second-about-pro {
+    margin: 30px 0px;
+    border-left: 3px solid orange;
   }
 
   .container2-about {

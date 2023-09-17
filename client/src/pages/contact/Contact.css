@@ -1,0 +1,26 @@
+
+  /* Style for the input fields */
+  .input-contact {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Adjust the border radius as needed */
+    margin-bottom: 10px;
+    width: 100%;
+
+  }
+  
+  /* Style for the button */
+  .button-contact {
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-contact:hover {
+    background-color: #007991de;
+  }
+  

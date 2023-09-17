@@ -8,14 +8,14 @@ const CARD_OPTIONS = {
 	iconStyle: "solid",
 	style: {
 		base: {
-			iconColor: "#c4f0ff",
+			iconColor: "#007991a8",
 			color: "orange",
 			fontWeight: 500,
 			fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
 			fontSize: "16px",
 			fontSmoothing: "antialiased",
-			":-webkit-autofill": { color: "#fce883" },
-			"::placeholder": { color: "#87bbfd" }
+			":-webkit-autofill": { color: "#007991a8" },
+			"::placeholder": { color: "#007991a8" }
 		},
 		invalid: {
 			iconColor: "red",
@@ -68,14 +68,14 @@ export default function PaymentForm() {
     <>
     <ToastContainer/>
       {!success ? (
-        <div className="bg-gray-200 w-1/2 p-10 rounded-md m-auto">
+        <div>
         <form onSubmit={handleSubmit}>
           <fieldset className="FormGroup">
             <div className="Formrow">
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <button className="bg-orange text-white px-5 rounded-xl">Pay</button>
+          <button className="bg-orange text-white px-5 rounded-xl mt-5">Pay</button>
         </form>
         </div>
       ) : (

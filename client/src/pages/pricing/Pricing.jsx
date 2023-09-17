@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Pricing.css"; // You can remove this line if not needed
+import StripeContainer from "../../components/payment/StripeContainer";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import Icons from "../../assets/icons/icons";
 
 export default function Pricing() {
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
   return (
     <>
       <TopPage
@@ -24,7 +34,7 @@ export default function Pricing() {
             ></div>
             <div className="text-left my-3 leading-8">
               <ul>
-              <li className="flex gap-1 items-center">
+                <li className="flex gap-1 items-center">
                   <span>
                     <Icons.Check size={20} />
                   </span>
@@ -66,7 +76,7 @@ export default function Pricing() {
             ></div>
             <div className="text-left my-3 leading-8">
               <ul>
-              <li className="flex gap-1 items-center">
+                <li className="flex gap-1 items-center">
                   <span>
                     <Icons.Check size={20} />
                   </span>
@@ -92,7 +102,10 @@ export default function Pricing() {
                 </li>
               </ul>
             </div>
-            <button className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+            <button
+              onClick={openModal}
+              className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full"
+            >
               Purchase
             </button>
           </div>
@@ -109,7 +122,7 @@ export default function Pricing() {
             ></div>
             <div className="text-left my-3 leading-8">
               <ul>
-              <li className="flex gap-1 items-center">
+                <li className="flex gap-1 items-center">
                   <span>
                     <Icons.Check size={20} />
                   </span>
@@ -135,12 +148,37 @@ export default function Pricing() {
                 </li>
               </ul>
             </div>
-            <button className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+            <button
+              onClick={openModal}
+              className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full"
+            >
               Purchase
             </button>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 overflow-x-hidden overflow-y-auto">
+          {/* Modal Background */}
+          <div className="fixed inset-0 bg-gray-800 opacity-50"></div>
+          {/* Modal Content */}
+          <div className="modal fixed inset-0 flex items-center justify-center">
+            <div className="modal-content bg-white w-1/3 p-6 rounded-lg shadow-lg relative">
+              <button
+                className="modal-close-btn absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                onClick={closeModal}
+              >
+                <Icons.Close />
+              </button>
+              {/* Display the StripeContainer component within the modal */}
+              <StripeContainer />
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );

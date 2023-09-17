@@ -21,7 +21,6 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
-import StripeContainer from "./components/payment/StripeContainer";
 
 // Instructor Dashboard
 import IntructorDash from './pages/instructorDash/dash';
@@ -53,7 +52,6 @@ function App() {
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
         <Route path="courseStart" element={<CourseStart />} />
         <Route path="courseInfo" element={<CourseInfo />} />
-        <Route path="payment" element={<StripeContainer />} />
         <Route
           path="/intructorDash"
           element={<InstructorRoute element={<IntructorDash />} path="/intructorDash" />}

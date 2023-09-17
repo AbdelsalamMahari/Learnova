@@ -21,8 +21,8 @@ export default function Pricing() {
         title="Pricing"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-05-free-img.jpg"
       />
-      <div className="container mx-auto my-10">
-        <div className="flex justify-center space-x-8">
+      <div className="container mx-auto my-10 px-[40px]">
+        <div className="flex justify-center gap-10 pricing-divs">
           <div className="bg-white rounded-lg px-8 py-10 shadow-2xl text-center">
             <h2 className="">Free</h2>
             <p className="my-4">
@@ -160,24 +160,24 @@ export default function Pricing() {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 overflow-x-hidden overflow-y-auto">
-          {/* Modal Background */}
-          <div className="fixed inset-0 bg-gray-800 opacity-50"></div>
-          {/* Modal Content */}
-          <div className="modal fixed inset-0 flex items-center justify-center">
-            <div className="modal-content bg-white w-1/3 p-6 rounded-lg shadow-lg relative">
-              <button
-                className="modal-close-btn absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-                onClick={closeModal}
-              >
-                <Icons.Close />
-              </button>
-              {/* Display the StripeContainer component within the modal */}
-              <StripeContainer />
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 flex items-center justify-center z-50 overflow-x-hidden overflow-y-auto">
+    {/* Modal Background */}
+    <div className="fixed inset-0 bg-gray-800 opacity-50"></div>
+    {/* Modal Content */}
+    <div className="modal fixed inset-0 flex items-center justify-center">
+      <div className="modal-content bg-white w-1/3 p-6 rounded-lg shadow-lg relative">
+        <button
+          className="modal-close-btn absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+          onClick={closeModal}
+        >
+          <Icons.Close/>
+        </button>
+        {/* Display the StripeContainer component within the modal */}
+        <StripeContainer />
+      </div>
+    </div>
+  </div>
+)}
 
       <Footer />
     </>

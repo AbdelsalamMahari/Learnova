@@ -84,7 +84,7 @@ body{
   }
 
   @media screen and (max-width: 780px){
-  .cont-course, .popular-top, .exp-blue-sec, .choose-us, .Testimonials{
+  .cont-course, .popular-top, .exp-blue-sec, .choose-us, .Testimonials, .pricing-divs{
     flex-direction: column;
   }
   .backdrop-image, .backdrop-image::after, .backdrop-image::before{

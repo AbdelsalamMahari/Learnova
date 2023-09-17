@@ -3,6 +3,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Icons from "../../assets/icons/icons";
 
 const CARD_OPTIONS = {
 	iconStyle: "solid",
@@ -79,8 +80,9 @@ export default function PaymentForm() {
         </form>
         </div>
       ) : (
-        <div>
-          <h2>Payment success!</h2>
+        <div className="flex items-center justify-center flex-col gap-5 text-green-500">
+          <span><Icons.Check size={30}/></span>
+          <h2 className="text-2xl">Payment success!</h2>
         </div>
       )}
     </>

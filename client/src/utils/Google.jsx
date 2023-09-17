@@ -25,7 +25,7 @@ export default function Google() {
   return (
     <div className="bg-blue flex justify-center items-center flex-col h-screen">
       <div className="flex justify-center items-center flex-col p-8 border-2 border-orange rounded-md">
-        <h1 className="text-2xl flicklogo font-bold w-96 text-center">
+        <h1 className="text-2xl flicklogo w-96 text-center text-white">
           Almost there! You've chosen to log in with your Google account. This
           allows for a quick and secure authentication process. Your Google
           account information will only be used for logging you in.

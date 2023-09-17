@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CARD_OPTIONS = {
 	iconStyle: "solid",
@@ -43,18 +45,28 @@ export default function PaymentForm() {
         });
 
         if (response.data.success) {
-          console.log("Successul payment");
+          console.log("Successful payment");
           setSuccess(true);
+          toast.success(response.data.success, {
+            theme: "colored",
+          });
         }
       } catch (error) {
         console.log("Error", error);
+        toast.error(error, {
+          theme: "colored",
+        });
       }
     } else {
       console.log(error.message);
+      toast.error(error.message, {
+        theme: "colored",
+      });
     }
   };
   return (
     <>
+    <ToastContainer/>
       {!success ? (
         <div className="bg-gray-200 w-1/2 p-10 rounded-md m-auto">
         <form onSubmit={handleSubmit}>

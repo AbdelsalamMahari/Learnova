@@ -1,6 +1,6 @@
 import { FaFacebook, FaCrown, FaBars, FaPhoneAlt } from "react-icons/fa";
 import { PiCertificateBold, PiSmileySad } from "react-icons/pi";
-import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft } from "react-icons/bs";
+import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft, BsCheckLg } from "react-icons/bs";
 import { BiBookBookmark } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineArrowUp, AiOutlineHome } from "react-icons/ai";
@@ -25,6 +25,8 @@ const Icons = {
   Home: AiOutlineHome,
   ArrowLeft: BsArrowBarLeft,
   Book: BiBookBookmark,
+  Check: BsCheckLg,
+  
 };
 
 export default Icons;

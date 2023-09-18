@@ -33,9 +33,10 @@ export default function Profile() {
       <div className="flex justify-center items-center flex-col my-20">
         {user ? (
           <>
+          <div>Welcome! {user.firstName} {user.lastName}</div>
             <div>{user.email}</div>
             <div>
-              <button onClick={handleLogout} className="bg-red-600 rounded">Logout</button>
+              <button onClick={handleLogout} className="bg-red-600 rounded px-4 py-2 text-white">Logout</button>
             </div>
           </>
         ) : (

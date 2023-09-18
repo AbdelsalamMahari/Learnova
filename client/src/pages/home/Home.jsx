@@ -40,7 +40,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex-1">
-            <Button text="VIEW ALL COURSES" className="float-right"></Button>
+            <Button text="VIEW ALL COURSES" className="float-right" onClick={() => navigate(`/allCourses`)}></Button>
           </div>
         </div>
         <div className="flex p-[40px] gap-6 cont-course">

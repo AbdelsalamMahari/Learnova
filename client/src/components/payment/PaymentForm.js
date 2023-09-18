@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Icons from "../../assets/icons/icons";
 
 const CARD_OPTIONS = {
 	iconStyle: "solid",
 	style: {
 		base: {
-			iconColor: "#c4f0ff",
+			iconColor: "#007991a8",
 			color: "orange",
 			fontWeight: 500,
 			fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
 			fontSize: "16px",
 			fontSmoothing: "antialiased",
-			":-webkit-autofill": { color: "#fce883" },
-			"::placeholder": { color: "#87bbfd" }
+			":-webkit-autofill": { color: "#007991a8" },
+			"::placeholder": { color: "#007991a8" }
 		},
 		invalid: {
 			iconColor: "red",
@@ -43,32 +46,43 @@ export default function PaymentForm() {
         });
 
         if (response.data.success) {
-          console.log("Successul payment");
+          console.log("Successful payment");
           setSuccess(true);
+          toast.success(response.data.success, {
+            theme: "colored",
+          });
         }
       } catch (error) {
         console.log("Error", error);
+        toast.error(error, {
+          theme: "colored",
+        });
       }
     } else {
       console.log(error.message);
+      toast.error(error.message, {
+        theme: "colored",
+      });
     }
   };
   return (
     <>
+    <ToastContainer/>
       {!success ? (
-        <div className="bg-gray-200 w-1/2 p-10 rounded-md m-auto">
+        <div>
         <form onSubmit={handleSubmit}>
           <fieldset className="FormGroup">
             <div className="Formrow">
               <CardElement options={CARD_OPTIONS} />
             </div>
           </fieldset>
-          <button className="bg-orange text-white px-5 rounded-xl">Pay</button>
+          <button className="bg-orange text-white px-5 rounded-xl mt-5">Pay</button>
         </form>
         </div>
       ) : (
-        <div>
-          <h2>Payment success!</h2>
+        <div className="flex items-center justify-center flex-col gap-5 text-green-500">
+          <span><Icons.Check size={30}/></span>
+          <h2 className="text-2xl">Payment success!</h2>
         </div>
       )}
     </>

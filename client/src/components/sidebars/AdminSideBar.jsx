@@ -17,7 +17,7 @@ export default function Sidebar() {
   }, []);
   useEffect(() => {
     // add hovered class to selected list item
-    let list = document.querySelectorAll(".navigation-dash li");
+    let list = document.querySelectorAll(".navigation-admin li");
 
     function activeLink() {
       list.forEach((item) => {
@@ -30,8 +30,8 @@ export default function Sidebar() {
 
     // Menu Toggle
     let toggle = document.querySelector(".toggle");
-    let navigation = document.querySelector(".navigation-dash");
-    let main = document.querySelector(".main-dash");
+    let navigation = document.querySelector(".navigation-admin");
+    let main = document.querySelector(".main-admin");
 
     toggle.onclick = function () {
       navigation.classList.toggle("active");
@@ -39,7 +39,7 @@ export default function Sidebar() {
     };
   }, []);
   return (
-    <div className="navigation-dash">
+    <div className="navigation-admin">
       <ul>
       { user ? (
         <li>
@@ -66,7 +66,7 @@ export default function Sidebar() {
       )}
 
         <li>
-          <Link to="/intructorDash">
+          <Link to="/adminDash">
             <span className="icon">
               <Icons.Home size={30} />
             </span>
@@ -75,20 +75,11 @@ export default function Sidebar() {
         </li>
 
         <li>
-          <Link to="/intructorDash/createCourse">
+          <Link to="/adminDash">
             <span className="icon">
               <Icons.Book size={30} />
             </span>
-            <span className="title">Create Course</span>
-          </Link>
-        </li>
-
-        <li>
-          <Link to="/intructorDash/createQuestion">
-            <span className="icon">
-              <Icons.Book size={30} />
-            </span>
-            <span className="title">Create Questions</span>
+            <span className="title">Users</span>
           </Link>
         </li>
 

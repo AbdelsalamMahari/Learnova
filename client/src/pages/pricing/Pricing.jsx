@@ -27,7 +27,7 @@ export default function Pricing() {
       const response = await axios.post("http://localhost:5000/subscriptions", {
         userId: user._id, // Pass the user's unique identifier
         plan: selectedPlan,
-        amount: amount/100,
+        amount: amount,
       });
       console.log(response.data.message);
       // Refresh user subscriptions after creating a new one

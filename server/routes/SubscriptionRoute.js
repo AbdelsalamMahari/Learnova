@@ -5,7 +5,7 @@ const subscriptionController = require("../controllers/SubscriptionController");
 // Create a new subscription
 router.post("/subscriptions", subscriptionController.createSubscription);
 
-// Fetch user subscriptions by userId
-router.get("/subscriptions/:userId", subscriptionController.getUserSubscriptions);
+router.get("/subscriptions/total", subscriptionController.getTotalSubscriptionAmount);
+
 
 module.exports = router;

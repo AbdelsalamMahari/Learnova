@@ -16,15 +16,21 @@ module.exports.createSubscription = async (req, res) => {
   }
 };
 
-// Fetch user subscriptions
-module.exports.getUserSubscriptions = async (req, res) => {
+// Get the total amount of subscriptions for all users
+module.exports.getTotalSubscriptionAmount = async (req, res) => {
   try {
-    const { userId } = req.params;
+    // Find all subscriptions
+    const subscriptions = await Subscription.find();
 
-    // Find subscriptions for the given user
-    const subscriptions = await Subscription.find({ userId });
+    // Calculate the total amount
+    let totalAmount = 0;
+    for (const subscription of subscriptions) {
+      totalAmount += subscription.amount/100;
+    }
 
-    res.status(200).json(subscriptions);
+    totalAmount = totalAmount.toFixed(2);
+
+    res.status(200).json({ totalAmount });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });

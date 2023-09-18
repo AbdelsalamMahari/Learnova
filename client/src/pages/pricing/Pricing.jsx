@@ -1,12 +1,40 @@
-import React, { useState } from "react";
-import "./Pricing.css"; // You can remove this line if not needed
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Pricing.css";
 import StripeContainer from "../../components/payment/StripeContainer";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import Icons from "../../assets/icons/icons";
+import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 
 export default function Pricing() {
   const [showModal, setShowModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [amount, setAmount] = useState(null); // Amount in cents
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const userInfo = await fetchUserInfoFromToken();
+      setUser(userInfo);
+    }
+
+    getUserInfo();
+  }, []);
+
+  const handlePaymentSuccess  = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/subscriptions", {
+        userId: user._id, // Pass the user's unique identifier
+        plan: selectedPlan,
+        amount: amount/100,
+      });
+      console.log(response.data.message);
+      // Refresh user subscriptions after creating a new one
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -103,7 +131,11 @@ export default function Pricing() {
               </ul>
             </div>
             <button
-              onClick={openModal}
+                onClick={() => {
+                  setSelectedPlan("monthly");
+                  setAmount(9.99 * 100); // Monthly amount in cents
+                  openModal();
+                }}
               className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full"
             >
               Purchase
@@ -149,7 +181,11 @@ export default function Pricing() {
               </ul>
             </div>
             <button
-              onClick={openModal}
+                onClick={() => {
+                  setSelectedPlan("annual");
+                  setAmount(99.99 * 100); // Annual amount in cents
+                  openModal();
+                }}
               className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full"
             >
               Purchase
@@ -173,7 +209,7 @@ export default function Pricing() {
           <Icons.Close/>
         </button>
         {/* Display the StripeContainer component within the modal */}
-        <StripeContainer />
+        <StripeContainer amount={amount} handlePaymentSuccess={handlePaymentSuccess}/>
       </div>
     </div>
   </div>

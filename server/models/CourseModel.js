@@ -4,6 +4,9 @@ const LessonSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  image: {
+    type: String, 
+  },
 });
 
 const ChapterSchema = new mongoose.Schema({
@@ -37,7 +40,6 @@ const CourseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student',
   }],
- 
   content: [ChapterSchema],
   image: {
     type: String,

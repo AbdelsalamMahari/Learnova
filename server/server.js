@@ -6,7 +6,8 @@ const session = require("express-session");
 const passportStrategy = require("./passport");
 const bodyParser = require("body-parser")
 
-//Routes
+
+const imageUploadRoute = require("./routes/imageUploadRoute");
 const contactRoutes = require("./routes/ContactRoute");
 const signupRoutes = require("./routes/SignupRoute");
 const loginRoutes = require("./routes/LoginRoute");
@@ -56,7 +57,7 @@ mongoose
   })
   .then(() => console.log("Connected To MongoDB, Server Works!"))
   .catch((err) => console.log(err));
-
+ 
 app.use(
   signupRoutes,
   loginRoutes,
@@ -69,9 +70,10 @@ app.use(
   UserRoutes,
   forgetPassRoute,
   contactRoutes,
-  paymentRoute
+  paymentRoute,
+  
 );
 app.use("/courses", coursesRoutes);
 app.use('/auth', googleRoute);
-
+app.use('/image', imageUploadRoute);
 app.listen(PORT, () => console.log(`Listening on: ${PORT}`));

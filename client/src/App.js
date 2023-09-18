@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import testupload from "./pages/testupload";
 import Home from "./pages/home/Home";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
@@ -23,13 +24,14 @@ import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
 import StripeContainer from "./components/payment/StripeContainer";
 
-// Instructor Dashboard
+
 import IntructorDash from './pages/instructorDash/dash';
 import CreateCourse from './pages/instructorDash/CreateCourse';
 import CreateQuestion from "./pages/instructorDash/CreateQuestion"
 
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
+import ImageUpload from "./components/ImageUpload/ImageUpload";
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
         <Route path="courseStart" element={<CourseStart />} />
         <Route path="courseInfo" element={<CourseInfo />} />
         <Route path="payment" element={<StripeContainer />} />
+  <Route path="imageupload" element={<ImageUpload/>} />
         <Route
           path="/intructorDash"
           element={<InstructorRoute element={<IntructorDash />} path="/intructorDash" />}

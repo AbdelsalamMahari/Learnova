@@ -84,6 +84,15 @@ export default function Sidebar() {
         </li>
 
         <li>
+          <Link to="/intructorDash/createQuestion">
+            <span className="icon">
+              <Icons.Book size={30} />
+            </span>
+            <span className="title">Create Questions</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/">
             <span className="icon">
               <Icons.ArrowLeft size={30} />

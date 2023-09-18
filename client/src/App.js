@@ -57,7 +57,7 @@ function App() {
           element={<InstructorRoute element={<IntructorDash />} path="/intructorDash" />}
         />
         <Route
-          path="/intructorDash/dashQuestion"
+          path="/intructorDash/createQuestion"
           element={<InstructorRoute element={<CreateQuestion />} path="/intructorDash/createQuestion" />}
         />
         <Route

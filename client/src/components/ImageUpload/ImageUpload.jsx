@@ -41,7 +41,7 @@ const ImageUpload = () => {
         <button type="button" onClick={handleUpload}>
           Upload
         </button>
-      <img src="../../assets/courseimages/blackphoto.jpg" alt="hi" />
+      <img src="/courseimages/blackphoto.jpg" alt='hi' />
       </form>
     </div>
   );

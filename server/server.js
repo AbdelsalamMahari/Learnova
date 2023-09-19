@@ -76,4 +76,6 @@ app.use(
 app.use("/courses", coursesRoutes);
 app.use('/auth', googleRoute);
 app.use('/image', imageUploadRoute);
+
+
 app.listen(PORT, () => console.log(`Listening on: ${PORT}`));

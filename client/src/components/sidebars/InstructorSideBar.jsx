@@ -4,7 +4,7 @@ import Icons from "../../assets/icons/icons";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import { Waveform } from '@uiball/loaders'
 
-export default function Sidebar() {
+export default function InstructorSidebar() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {

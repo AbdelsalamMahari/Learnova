@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
+import { useParams } from 'react-router-dom';
 
 function DashQuestion() {
+  const { id } = useParams();
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({
     questionText: '',
@@ -12,18 +14,19 @@ function DashQuestion() {
     optionIsTrue: [false, false, false, false],
   });
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/get/questions'); // Updated URL
+      const response = await axios.get(`http://localhost:5000/questions/course/${id}`); // Updated URL
       setQuestions(response.data);
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
+  
+  useEffect(() => {
+    fetchQuestions();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +58,7 @@ function DashQuestion() {
     try {
       const questionData = {
         questionText: question.questionText,
-        courseId: "6509fd66ea4a910f42387102",
+        courseId: id,
         options: question.options.map((text, index) => ({
           text,
           isTrue: question.optionIsTrue[index],

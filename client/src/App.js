@@ -26,6 +26,7 @@ import AdminRoute from "./utils/Admin/protectedRoute";
 import IntructorDash from "./pages/instructorDash/dash";
 import CreateCourse from "./pages/instructorDash/CreateCourse";
 import CreateQuestion from "./pages/instructorDash/CreateQuestion";
+import DashCourses from "./pages/instructorDash/Courses";
 
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
@@ -64,11 +65,11 @@ function App() {
           }
         />
         <Route
-          path="/intructorDash/createQuestion"
+          path="/intructorDash/createQuestion/:id"
           element={
             <InstructorRoute
               element={<CreateQuestion />}
-              path="/intructorDash/createQuestion"
+              path="/intructorDash/createQuestion/:id"
             />
           }
         />
@@ -78,6 +79,15 @@ function App() {
             <InstructorRoute
               element={<CreateCourse />}
               path="/intructorDash/createCourse"
+            />
+          }
+        />
+                <Route
+          path="/intructorDash/dashCourses"
+          element={
+            <InstructorRoute
+              element={<DashCourses />}
+              path="/intructorDash/dashCourses"
             />
           }
         />

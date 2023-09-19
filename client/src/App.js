@@ -9,7 +9,7 @@ import Pricing from "./pages/pricing/Pricing";
 import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
-import CourseStart from "./pages/courseStart/CourseStart";
+import CourseMaterial from "./pages/courseStart/CourseMaterial";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Profile from "./pages/profile/Profile";
@@ -51,7 +51,7 @@ function App() {
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="courseStart" element={<CourseStart />} />
+        <Route path="courseMaterial" element={<CourseMaterial />} />
         <Route path="courseInfo" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
         <Route

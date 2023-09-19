@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import TopPage from "../../components/topPage/TopPage";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer"
@@ -35,7 +36,9 @@ export default function CourseInfo() {
           <div className="mt-10">
             <div className="flex justify-between">
             <h1 className="lg:text-4xl font-bold">Course Content</h1>
-            <Button text="START"/>
+            <Link to="/courseMaterial">
+            <Button  text="START"/>
+            </Link>
             </div>
             <div className="mt-4">
               <h2

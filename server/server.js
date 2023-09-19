@@ -22,6 +22,7 @@ const UserRoutes = require("./routes/UsersRoutes");
 const googleRoute = require('./routes/GoogleRoutes');
 const forgetPassRoute = require('./routes/ForgetPassRoutes');
 const paymentRoute = require('./routes/PaymentRoute');
+const subscriptionRoute = require('./routes/SubscriptionRoute');
 require("dotenv").config();
 
 const app = express();
@@ -71,7 +72,7 @@ app.use(
   forgetPassRoute,
   contactRoutes,
   paymentRoute,
-  
+  subscriptionRoute
 );
 app.use("/courses", coursesRoutes);
 app.use('/auth', googleRoute);

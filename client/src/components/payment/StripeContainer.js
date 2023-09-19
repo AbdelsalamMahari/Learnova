@@ -7,10 +7,10 @@ const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY;
 
 const stripeTestPromise = loadStripe(PUBLIC_KEY)
 
-export default function StripeContainer() {
+export default function StripeContainer({ amount, handlePaymentSuccess }) {
   return (
     <Elements stripe={stripeTestPromise}>
-        <PaymentForm/>
+        <PaymentForm amount={amount} handlePaymentSuccess={handlePaymentSuccess}/>
     </Elements>
   )
 }

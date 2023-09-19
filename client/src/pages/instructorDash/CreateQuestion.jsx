@@ -7,6 +7,7 @@ function DashQuestion() {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({
     questionText: '',
+    courseId: '',
     options: ['', '', '', ''],
     optionIsTrue: [false, false, false, false],
   });
@@ -54,6 +55,7 @@ function DashQuestion() {
     try {
       const questionData = {
         questionText: question.questionText,
+        courseId: "6509fd66ea4a910f42387102",
         options: question.options.map((text, index) => ({
           text,
           isTrue: question.optionIsTrue[index],

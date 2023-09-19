@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
+import UserInfo from '../../components/users/UserInfo';
 
 export default function CreateCourse() {
+  const user = UserInfo();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    instructor: "",
     chapters: [
       {
         title: "",
@@ -78,6 +81,7 @@ export default function CreateCourse() {
     const formDataToSend = {
       name: formData.name,
       description: formData.description,
+      instructor: user._id,
       content: formData.chapters.map((chapter) => ({
         title: chapter.title,
         subtitle: chapter.subtitle,

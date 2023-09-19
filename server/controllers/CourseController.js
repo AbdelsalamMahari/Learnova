@@ -3,7 +3,7 @@ const Course = require("../models/CourseModel");
 
 const createCourse = async (req, res) => {
   try {
-    const { name, description, content } = req.body;
+    const { name, description, content, instructor } = req.body;
 
     const mappedContent = content.map((chapter) => ({
       title: chapter.title,
@@ -18,6 +18,7 @@ const createCourse = async (req, res) => {
     const course = new Course({
       name,
       description,
+      instructor,
       content: mappedContent,
     });
 
@@ -76,7 +77,22 @@ const deleteCourse = async (req, res) => {
   }
 };
 
+const getCoursesByUserId = async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming you have a route parameter for userId
+    console.log(userId)
+    // Use Course.find() to find courses for the specified user by instructor field
+    const courses = await Course.find({ instructor: userId });
+ 
+    if (!courses || courses.length === 0) {
+      return res.status(404).json({ message: "No courses found for this user" });
+    }
 
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 
 
@@ -86,4 +102,5 @@ module.exports = {
   getCourseById,
   updateCourse,
   deleteCourse,
+  getCoursesByUserId,
 };

@@ -1,5 +1,3 @@
-// src/components/ImageUpload.js
-
 import React, { useState } from 'react';
 
 const ImageUpload = () => {
@@ -43,7 +41,7 @@ const ImageUpload = () => {
         <button type="button" onClick={handleUpload}>
           Upload
         </button>
-      
+      <img src="../../assets/courseimages/blackphoto.jpg" alt="hi" />
       </form>
     </div>
   );

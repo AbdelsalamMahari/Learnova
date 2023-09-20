@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from "../../components/sidebars/InstructorSideBar";
-import Icons from "../../assets/icons/icons";
 
 function DashQuestion() {
   const [questions, setQuestions] = useState([]);
@@ -82,12 +80,6 @@ function DashQuestion() {
   };
 
   return (
-    <div className="container-dash">
-    <Sidebar />
-    <div className="main-dash">
-      <div className="toggle">
-      <Icons.Bars size={24}/>
-      </div>
     <div className="dashboard p-4 space-y-4">
       <div className="question-form border p-4">
         <h2 className="text-xl font-semibold mb-4">Create/Update Question</h2>
@@ -175,8 +167,6 @@ function DashQuestion() {
           </tbody>
         </table>
       </div>
-    </div>
-    </div>
     </div>
   );
 }

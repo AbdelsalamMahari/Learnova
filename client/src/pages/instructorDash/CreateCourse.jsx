@@ -92,7 +92,7 @@ export default function CreateCourse() {
     e.preventDefault();
     console.log("formData:", formData);
 
-    // Upload selected image files
+   
     for (const imageFile of selectedImageFiles) {
       const imageFormData = new FormData();
       imageFormData.append("image", imageFile.file);

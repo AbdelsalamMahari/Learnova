@@ -1,12 +1,33 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect} from "react";
+import { Link, useParams } from "react-router-dom";
 import TopPage from "../../components/topPage/TopPage";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer"
 import Button from "../../components/buttons/button"
+import Loading from '../../components/loading/loading'
 
 export default function CourseInfo() {
+  const [course, setCourse] = useState(null);
   const [activeAccordion, setActiveAccordion] = useState(null);
+  const { id } = useParams(); // Get the id from URL params
+
+  useEffect(() => {
+    // Fetch course data when the component mounts
+    async function fetchCourse() {
+      try {
+        const response = await fetch(`http://localhost:5000/courses/${id}`);
+        if (!response.ok) {
+          throw new Error("Course not found");
+        }
+        const data = await response.json();
+        setCourse(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchCourse();
+  }, [id]);
 
   const toggleAccordion = (index) => {
     if (activeAccordion === index) {
@@ -16,10 +37,14 @@ export default function CourseInfo() {
     }
   };
 
+  if (!course) {
+    return <Loading/>
+  }
+
   return (
     <>
       <TopPage
-        title="HTML5/CSS3 Essentials"
+        title={course.name}
         backgroundImageUrl="https://as2.ftcdn.net/v2/jpg/01/34/59/53/1000_F_134595318_krCNHoUx2KWoFZhFPGtJQg6Bv6dkrBMR.jpg"
       />
       <section>
@@ -27,16 +52,13 @@ export default function CourseInfo() {
           <div>
             <h1 className="lg:text-4xl font-bold">Course Description</h1>
             <p className="mt-5">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro
-              ducimus quis est possimus cumque blanditiis esse ea accusantium
-              doloremque illo autem sunt debitis, explicabo nostrum omnis, ex
-              minus, atque ad.
+            {course.description}
             </p>
           </div>
           <div className="mt-10">
             <div className="flex justify-between">
             <h1 className="lg:text-4xl font-bold">Course Content</h1>
-            <Link to="/courseMaterial">
+            <Link to={`/courseMaterial/${course._id}`}>
             <Button  text="START"/>
             </Link>
             </div>

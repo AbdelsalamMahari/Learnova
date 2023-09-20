@@ -47,10 +47,10 @@ export default function CourseEdit() {
           ) : (
             <>
               <h2>{user.firstName + " " + user.lastName} courses</h2>
-              <ul>
+              <ul className="flex">
                 {courses.map((course) => (
-                  <li key={course._id}>
-                    <h3>{course.name}</h3>
+                  <li key={course._id} className="flex-1 shadow-2xl bg-white rounded-2 m-2 w-16/32">
+                    <h3 className="lg:text-2xl w-full">{course.name}</h3>
                     <p>{course.description}</p>
                   </li>
                 ))}
@@ -60,5 +60,9 @@ export default function CourseEdit() {
         </div>
       </div>
     </div>
+
+
+
+
   );
 }

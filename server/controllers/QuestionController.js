@@ -1,4 +1,14 @@
 const Question = require('../models/QuestionModel');
+// Get all questions for a specific course (quiz) by courseId
+module.exports.getQuizQuestions = async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+    const questions = await Question.find({ courseId }).exec();
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 // Create a new question
 module.exports.createQuestion = async (req, res) => {

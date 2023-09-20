@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const verify = require('../verifyToken');
-const { updateUser, deleteUser, getUser, getAllUser, statUser, updatePassword } = require('../controllers/UsersController');
+const { updateUser, deleteUser, getUser, getAllUser, statUser, updatePassword, profile } = require('../controllers/UsersController');
 
 const router = Router();
 
@@ -10,5 +10,6 @@ router.delete('/users/:id', verify, deleteUser);
 router.get('/users/find/:id', getUser );
 router.get('/users', verify, getAllUser );
 router.get('/users/stats', verify, statUser );
+router.post('/users/profile', profile );
 
 module.exports = router;

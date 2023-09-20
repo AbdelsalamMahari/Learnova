@@ -1,23 +1,14 @@
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import Cookies from "js-cookie";
 import Navbar from "../../layout/navbar/Navbar";
 import Logo from "../../assets/images/LearnovaColoredLogo2.png";
 import Footer from "../../layout/footer/Footer";
+import UserInfo from '../../components/users/UserInfo';
 
 export default function Profile() {
-  const [user, setUser] = useState(null);
+  const user = UserInfo();
 
-  useEffect(() => {
-    async function getUserInfo() {
-      const userInfo = await fetchUserInfoFromToken();
-      setUser(userInfo);
-    }
-
-    getUserInfo();
-  }, []);
   const handleLogout = async () => {
     try {
       await axios.get("http://localhost:5000/auth/logout");

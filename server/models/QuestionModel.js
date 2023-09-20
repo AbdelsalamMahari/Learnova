@@ -1,28 +1,32 @@
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course',
+  },
   questionText: {
     type: String,
     required: true,
   },
-  options: {
-    a: {
-      type: Boolean,
-      default: false,
+  options: [
+    {
+      text: String,
+      isTrue: Boolean,
     },
-    b: {
-      type: Boolean,
-      default: false,
+    {
+      text: String,
+      isTrue: Boolean,
     },
-    c: {
-      type: Boolean,
-      default: false,
+    {
+      text: String,
+      isTrue: Boolean,
     },
-    d: {
-      type: Boolean,
-      default: false,
+    {
+      text: String,
+      isTrue: Boolean,
     },
-  },
+  ],
 });
 
 const Question = mongoose.model('Question', questionSchema);

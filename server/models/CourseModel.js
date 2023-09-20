@@ -4,6 +4,9 @@ const LessonSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  image: {
+    type: String, 
+  },
 });
 
 const ChapterSchema = new mongoose.Schema({
@@ -31,13 +34,8 @@ const CourseSchema = new mongoose.Schema({
   },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Teacher',
+    ref: 'user',
   },
-  students: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Student',
-  }],
- 
   content: [ChapterSchema],
   image: {
     type: String,

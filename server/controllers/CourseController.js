@@ -1,9 +1,29 @@
 const Course = require("../models/CourseModel");
 
+
 const createCourse = async (req, res) => {
   try {
-    const course = new Course(req.body);
+    const { name, description, content, instructor } = req.body;
+
+    const mappedContent = content.map((chapter) => ({
+      title: chapter.title,
+      subtitle: chapter.subtitle,
+      lessons: chapter.lessons.map((lesson) => ({
+        content: lesson.content,
+        image: lesson.image,
+      })),
+    }));
+
+
+    const course = new Course({
+      name,
+      description,
+      instructor,
+      content: mappedContent,
+    });
+
     await course.save();
+
     res.status(201).json(course);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -57,10 +77,30 @@ const deleteCourse = async (req, res) => {
   }
 };
 
+const getCoursesByUserId = async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming you have a route parameter for userId
+    console.log(userId)
+    // Use Course.find() to find courses for the specified user by instructor field
+    const courses = await Course.find({ instructor: userId });
+ 
+    if (!courses || courses.length === 0) {
+      return res.status(404).json({ message: "No courses found for this user" });
+    }
+
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 module.exports = {
   createCourse,
   getAllCourses,
   getCourseById,
   updateCourse,
   deleteCourse,
+  getCoursesByUserId,
 };

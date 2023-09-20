@@ -9,7 +9,7 @@ import Pricing from "./pages/pricing/Pricing";
 import AllCourses from "./pages/allCourses/AllCourses";
 import Survey from "./pages/survey/Survey";
 import CourseInfo from "./pages/courseInfo/CourseInfo";
-import CourseStart from "./pages/courseStart/CourseStart";
+import CourseMaterial from "./pages/courseStart/CourseMaterial";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Profile from "./pages/profile/Profile";
@@ -22,13 +22,15 @@ import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
 
-// Instructor Dashboard
-import IntructorDash from './pages/instructorDash/dash';
-import CreateCourse from './pages/instructorDash/CreateCourse';
-import CreateQuestion from "./pages/instructorDash/CreateQuestion"
+// Intructor Dashboard
+import IntructorDash from "./pages/instructorDash/dash";
+import CreateCourse from "./pages/instructorDash/CreateCourse";
+import CreateQuestion from "./pages/instructorDash/CreateQuestion";
+import DashCourses from "./pages/instructorDash/Courses";
 
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
+import ImageUpload from "./components/ImageUpload/ImageUpload";
 
 function App() {
   return (
@@ -50,19 +52,44 @@ function App() {
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="courseStart" element={<CourseStart />} />
+        <Route path="courseMaterial" element={<CourseMaterial />} />
         <Route path="courseInfo" element={<CourseInfo />} />
+        <Route path="imageupload" element={<ImageUpload />} />
         <Route
           path="/intructorDash"
-          element={<InstructorRoute element={<IntructorDash />} path="/intructorDash" />}
+          element={
+            <InstructorRoute
+              element={<IntructorDash />}
+              path="/intructorDash"
+            />
+          }
         />
         <Route
-          path="/intructorDash/createQuestion"
-          element={<InstructorRoute element={<CreateQuestion />} path="/intructorDash/createQuestion" />}
+          path="/intructorDash/createQuestion/:id"
+          element={
+            <InstructorRoute
+              element={<CreateQuestion />}
+              path="/intructorDash/createQuestion/:id"
+            />
+          }
         />
         <Route
           path="/intructorDash/createCourse"
-          element={<InstructorRoute element={<CreateCourse />} path="/intructorDash/createCourse" />}
+          element={
+            <InstructorRoute
+              element={<CreateCourse />}
+              path="/intructorDash/createCourse"
+            />
+          }
+        />
+                <Route
+          path="/intructorDash/dashCourses"
+          element={
+            <InstructorRoute
+              element={<DashCourses />}
+              path="/intructorDash/dashCourses"
+            />
+          }
         />
         <Route
           path="/adminDash"

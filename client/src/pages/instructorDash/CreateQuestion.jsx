@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Sidebar from "../../components/sidebars/InstructorSideBar";
+import Icons from "../../assets/icons/icons";
+import { useParams } from 'react-router-dom';
 
 function DashQuestion() {
+  const { id } = useParams();
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({
     questionText: '',
+    courseId: '',
     options: ['', '', '', ''],
     optionIsTrue: [false, false, false, false],
   });
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/get/questions'); // Updated URL
+      const response = await axios.get(`http://localhost:5000/questions/course/${id}`); // Updated URL
       setQuestions(response.data);
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
+  
+  useEffect(() => {
+    fetchQuestions();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +58,7 @@ function DashQuestion() {
     try {
       const questionData = {
         questionText: question.questionText,
+        courseId: id,
         options: question.options.map((text, index) => ({
           text,
           isTrue: question.optionIsTrue[index],
@@ -80,6 +87,12 @@ function DashQuestion() {
   };
 
   return (
+    <div className="container-dash">
+    <Sidebar />
+    <div className="main-dash">
+      <div className="toggle">
+      <Icons.Bars size={24}/>
+      </div>
     <div className="dashboard p-4 space-y-4">
       <div className="question-form border p-4">
         <h2 className="text-xl font-semibold mb-4">Create/Update Question</h2>
@@ -167,6 +180,8 @@ function DashQuestion() {
           </tbody>
         </table>
       </div>
+    </div>
+    </div>
     </div>
   );
 }

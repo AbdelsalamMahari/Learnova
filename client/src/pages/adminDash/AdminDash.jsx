@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios'; // Import Axios
 import "./assets/css/style.css"
 import Sidebar from '../../components/sidebars/AdminSideBar';
 import Icons from '../../assets/icons/icons';
 import Logo from '../../assets/images/LearnovaColoredLogo2.png'
 
 export default function AdminDash() {
+    const [totalSubscriptionAmount, setTotalSubscriptionAmount] = useState(0);
+
+    useEffect(() => {
+      // Make a GET request to your backend API to get the total subscription amount
+      Axios.get('http://localhost:5000/subscriptions/total')
+        .then((response) => {
+          setTotalSubscriptionAmount(response.data.totalAmount);
+        })
+        .catch((error) => {
+          console.error('Error fetching total subscription amount:', error);
+        });
+    }, []);
   return (
 <>
 <div className="container-admin">
@@ -63,7 +76,7 @@ export default function AdminDash() {
 
                 <div className="card">
                     <div>
-                        <div className="numbers">$7,842</div>
+                        <div className="numbers">${totalSubscriptionAmount}</div>
                         <div className="cardName">Earning</div>
                     </div>
 

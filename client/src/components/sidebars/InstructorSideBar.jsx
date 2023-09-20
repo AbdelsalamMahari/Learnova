@@ -4,7 +4,7 @@ import Icons from "../../assets/icons/icons";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import { Waveform } from '@uiball/loaders'
 
-export default function Sidebar() {
+export default function InstructorSidebar() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function Sidebar() {
         </li>
 
         <li>
-          <Link to="/intructorDash/createQuestion">
+          <Link to="/intructorDash/dashCourses">
             <span className="icon">
               <Icons.Book size={30} />
             </span>

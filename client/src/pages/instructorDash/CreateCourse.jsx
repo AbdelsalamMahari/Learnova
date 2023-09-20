@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
+import UserInfo from '../../components/users/UserInfo';
 
 export default function CreateCourse() {
+  const user = UserInfo();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    instructor: "",
     chapters: [
       {
         title: "",
         subtitle: "",
-        lessons: [{ content: "" }],
+        lessons: [{ content: "", image: null }],
       },
     ],
   });
@@ -44,6 +47,19 @@ export default function CreateCourse() {
     });
   };
 
+  const handleImageChange = (e, chapterIndex, lessonIndex) => {
+    const file = e.target.files[0]; 
+    const fileName = file.name; 
+
+    const updatedChapters = [...formData.chapters];
+    updatedChapters[chapterIndex].lessons[lessonIndex].image = fileName; 
+
+    setFormData({
+      ...formData,
+      chapters: updatedChapters,
+    });
+  };
+
   const addChapter = () => {
     setFormData({
       ...formData,
@@ -52,39 +68,39 @@ export default function CreateCourse() {
         {
           title: "",
           subtitle: "",
-          lessons: [{ content: "" }],
+          lessons: [{ content: "", image: null }],
         },
       ],
     });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formData:", formData); // Log the formData to check its content
-
+    console.log("formData:", formData);
+  
+    const formDataToSend = {
+      name: formData.name,
+      description: formData.description,
+      instructor: user._id,
+      content: formData.chapters.map((chapter) => ({
+        title: chapter.title,
+        subtitle: chapter.subtitle,
+        lessons: chapter.lessons.map((lesson) => ({
+          content: lesson.content,
+          image: lesson.image,
+        })),
+      })),
+    };
+  
     try {
-      const response = await axios.post(
-        "http://localhost:5000/courses/create",
-        {
-          name: formData.name,
-          description: formData.description,
-          content: formData.chapters.map((chapter) => ({
-            title: chapter.title,
-            subtitle: chapter.subtitle,
-            lessons: chapter.lessons.map((lesson) => ({
-              content: lesson.content,
-            })),
-          })),
-        }
-      );
-
+      const response = await axios.post("http://localhost:5000/courses/create", formDataToSend);
+  
       console.log("Course created successfully:", response.data);
-      // Add any additional logic you need after successful creation
     } catch (error) {
       console.error("Error creating course:", error);
-      // Handle error scenarios here
     }
   };
+  
 
   return (
     <>
@@ -92,9 +108,9 @@ export default function CreateCourse() {
         <Sidebar />
         <div className="main-dash">
           <div className="toggle">
-          <Icons.Bars size={24}/>
+            <Icons.Bars size={24} />
           </div>
-          <form onSubmit={handleSubmit} className="p-4">
+          <form onSubmit={handleSubmit} className="p-4" encType="multipart/form-data">
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">
                 Name:
@@ -159,6 +175,20 @@ export default function CreateCourse() {
                         required
                         className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                       ></textarea>
+
+             
+                      <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">
+                          Lesson Image:
+                        </label>
+                        <input
+                        name="image"
+                          type="file"
+                          
+                          onChange={(e) => handleImageChange(e, chapterIndex, lessonIndex)}
+                          className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -25,7 +25,7 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm() {
+export default function PaymentForm({ amount, handlePaymentSuccess }) {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -41,7 +41,7 @@ export default function PaymentForm() {
       try {
         const { id } = paymentMethod;
         const response = await axios.post("http://localhost:5000/payment", {
-          amount: 1000,
+          amount,
           id,
         });
 
@@ -51,6 +51,7 @@ export default function PaymentForm() {
           toast.success(response.data.success, {
             theme: "colored",
           });
+          handlePaymentSuccess();
         }
       } catch (error) {
         console.log("Error", error);

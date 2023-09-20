@@ -16,11 +16,12 @@ const MakeInstructor = ({ user }) => {
     try {
         const updatedInst = {
             phoneNumber: phoneNumber,
+            role: "instructor",
           };
 
       const response = await axios.put(
         `http://localhost:5000/users/${user._id}`,
-        updatedInst, // Send FormData with the file and phone number
+        updatedInst,
         {
           headers: {
             token: `Bearer ${Cookies.get("token")}`,

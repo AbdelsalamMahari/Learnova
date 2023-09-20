@@ -122,7 +122,7 @@ export default function Profile() {
                   </button>
                 </div>
               </div>
-              <div className="profile-dynamic flex-1 flex flex-col border border-gray-300 rounded-md mr-8">
+              <div className="bg-white profile-dynamic flex-1 flex flex-col border border-orange rounded-md mr-8">
                 {/*  */}
                 {isEditOpen && <UpdateUser user={user} />}
                 {/*  */}

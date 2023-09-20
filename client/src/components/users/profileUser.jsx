@@ -1,7 +1,12 @@
 import React from "react";
 
 const ProfileUser = ({ user }) => {
-  const imgURL="/usersProfiles/"
+  let imgURL="/usersProfiles/"
+
+  if (user.profilePic.startsWith("http")) {
+    // If the profile picture URL starts with "http", it's likely a Google profile picture
+    imgURL = ""; // Set imgURL to an empty string to use the absolute URL
+  }
   return (
     <div className="flex justify-center items-center h-full">
       <div className="rounded-full flex justify-center items-center border-lin">

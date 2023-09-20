@@ -10,6 +10,7 @@ import ProfileUser from "./../../components/users/profileUser";
 import ResetPassUser from "./../../components/users/resetPassword";
 import MakeInstructor from "./../../components/users/makeInstructor";
 import "./Profile.css";
+import Loading from '../../components/loading/loading'
 
 export default function Profile() {
   const user = UserInfo();
@@ -136,7 +137,7 @@ export default function Profile() {
             </section>
           </>
         ) : (
-          <p>Loading...</p> // You can replace this with a loading spinner or any other UI element.
+          <Loading/>
         )}
       </div>
       <Footer />

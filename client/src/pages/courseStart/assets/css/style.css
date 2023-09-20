@@ -5,7 +5,10 @@
 * {
   box-sizing: border-box;
 }
-
+.courseinfo-images{
+  width: 15%;
+  height: 100px;
+}
 :root {
   --blue: #007991;
   --white: #fff;

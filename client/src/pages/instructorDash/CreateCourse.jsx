@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
+import ImageUpload from "../../components/ImageUpload/ImageUpload"; 
 
 export default function CreateCourse() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,10 @@ export default function CreateCourse() {
       },
     ],
   });
+
+  const [selectedImageFiles, setSelectedImageFiles] = useState([]);
+  const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,11 +50,20 @@ export default function CreateCourse() {
   };
 
   const handleImageChange = (e, chapterIndex, lessonIndex) => {
-    const file = e.target.files[0]; 
-    const fileName = file.name; 
+    const file = e.target.files[0];
+    const fileName = file.name;
+
+    const updatedImageFiles = [...selectedImageFiles];
+    updatedImageFiles.push({
+      chapterIndex,
+      lessonIndex,
+      file,
+    });
+
+    setSelectedImageFiles(updatedImageFiles);
 
     const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].lessons[lessonIndex].image = fileName; 
+    updatedChapters[chapterIndex].lessons[lessonIndex].image = fileName;
 
     setFormData({
       ...formData,
@@ -70,11 +84,30 @@ export default function CreateCourse() {
       ],
     });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("formData:", formData);
-  
+
+    // Upload selected image files
+    for (const imageFile of selectedImageFiles) {
+      const imageFormData = new FormData();
+      imageFormData.append("image", imageFile.file);
+
+      try {
+        const imageUploadResponse = await axios.post(
+          "http://localhost:5000/image/upload",
+          imageFormData
+        );
+
+        console.log("Image uploaded successfully:", imageUploadResponse.data);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        return; // Don't proceed with course creation if image upload fails.
+      }
+    }
+
+    // Continue with course creation
     const formDataToSend = {
       name: formData.name,
       description: formData.description,
@@ -87,16 +120,18 @@ export default function CreateCourse() {
         })),
       })),
     };
-  
+
     try {
-      const response = await axios.post("http://localhost:5000/courses/create", formDataToSend);
-  
+      const response = await axios.post(
+        "http://localhost:5000/courses/create",
+        formDataToSend
+      );
+
       console.log("Course created successfully:", response.data);
     } catch (error) {
       console.error("Error creating course:", error);
     }
   };
-  
 
   return (
     <>
@@ -171,20 +206,17 @@ export default function CreateCourse() {
                         required
                         className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                       ></textarea>
-
-             
-                      <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">
-                          Lesson Image:
-                        </label>
-                        <input
+                      <label className="block text-gray-700 font-bold mb-2">
+                        Lesson Image:
+                      </label>
+                      <input
                         name="image"
-                          type="file"
-                          
-                          onChange={(e) => handleImageChange(e, chapterIndex, lessonIndex)}
-                          className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                        />
-                      </div>
+                        type="file"
+                        onChange={(e) =>
+                          handleImageChange(e, chapterIndex, lessonIndex)
+                        }
+                        className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                      />
                     </div>
                   ))}
                 </div>

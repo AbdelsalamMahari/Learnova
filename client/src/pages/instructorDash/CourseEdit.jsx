@@ -4,33 +4,31 @@ import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
 import ImageUpload from "../../components/ImageUpload/ImageUpload"; 
 import UserInfo from '../../components/users/UserInfo';
-import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser"
+import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
+
 export default function CourseEdit() {
-
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    async function getUserInfo() {
-      const userInfo = await fetchUserInfoFromToken();
-      setUser(userInfo);
-      console.log(userInfo)
-    }
-
-    getUserInfo();
-   
-  }, []);
-
-
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/courses/")
-      .then((response) => {
-        setCourses(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
+    async function fetchData() {
+      const userInfo = await fetchUserInfoFromToken();
+      setUser(userInfo);
+
+      axios.get("http://localhost:5000/courses/")
+        .then((response) => {
+          // Filter courses where instructor matches user._id
+          const filteredCourses = response.data.filter(
+            (course) => course.instructor === userInfo._id
+          );
+          setCourses(filteredCourses);
+        })
+        .catch((error) => {
+          console.error("Error fetching courses:", error);
+        });
+    }
+
+    fetchData();
   }, []);
 
   return (

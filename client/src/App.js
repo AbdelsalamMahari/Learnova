@@ -22,7 +22,7 @@ import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
 import CourseQuestion from './pages/courseStart/CourseQuestion'
-
+import CourseEdit from "./pages/instructorDash/CourseEdit";
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
 import CreateCourse from "./pages/instructorDash/CreateCourse";
@@ -81,6 +81,15 @@ function App() {
             <InstructorRoute
               element={<CreateCourse />}
               path="/intructorDash/createCourse"
+            />
+          }
+        />
+         <Route
+          path="/intructorDash/editCourses"
+          element={
+            <InstructorRoute
+              element={<CourseEdit/>}
+              path="/intructorDash/editCourses"
             />
           }
         />

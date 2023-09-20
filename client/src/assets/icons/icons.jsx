@@ -3,11 +3,12 @@ import { PiCertificateBold, PiSmileySad } from "react-icons/pi";
 import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft, BsCheckLg } from "react-icons/bs";
 import { BiBookBookmark } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-import { AiOutlineArrowUp, AiOutlineHome } from "react-icons/ai";
+import { AiOutlineArrowUp, AiOutlineHome,AiFillEdit } from "react-icons/ai";
 import { HiArrowsRightLeft } from "react-icons/hi2";
 import { MdLocationPin, MdEmail, MdOutlineAdminPanelSettings } from "react-icons/md";
 
 const Icons = {
+  edit:AiFillEdit,
   Facebook: FaFacebook,
   Certificate: PiCertificateBold,
   Clock: BsClock,

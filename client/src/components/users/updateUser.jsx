@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 
 const UpdateUser = ({ user }) => {
+  const imgURL="/usersProfiles/"
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [profilePic, setProfilePic] = useState(user.profilePic);
@@ -18,27 +19,48 @@ const UpdateUser = ({ user }) => {
   };
 
   const handleProfilePicChange = (event) => {
-    const selectedFile = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      setProfilePic(e.target.result);
-    };
-
-    if (selectedFile) {
-      reader.readAsDataURL(selectedFile);
-    }
+    console.log(event.target.files[0]);
+    setProfilePic(event.target.files[0]);
   };
 
   const handleUpdate = async () => {
     try {
+      // Create a new FormData object to send the user's profile picture
+      const formData = new FormData();
+      formData.append("image", profilePic);
+  
+      // Upload the profile picture using a POST request to http://localhost:5000/users/profile
+      const profilePicResponse = await axios.post(
+        "http://localhost:5000/users/profile",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: `Bearer ${Cookies.get("token")}`,
+          },
+        }
+      );
+  
+      // If the profile picture upload was successful, get the file name
+      let newProfilePicFileName = "";
+      if (profilePicResponse.status === 200) {
+        newProfilePicFileName = profilePicResponse.data.fileName;
+        console.log("Profile picture updated:", newProfilePicFileName);
+      } else {
+        toast.error("Error uploading profile picture!", {
+          theme: "colored",
+        });
+      }
+  
+      // Create the updated user object with the new profile picture file name
       const updatedUser = {
         firstName: firstName,
         lastName: lastName,
-        profilePic: profilePic,
+        profilePic: newProfilePicFileName, // Include the file name here
       };
-
-      const response = await axios.put(
+  
+      // Send a PUT request to update the user's information
+      const updateUserResponse = await axios.put(
         `http://localhost:5000/users/${user._id}`,
         updatedUser,
         {
@@ -47,11 +69,17 @@ const UpdateUser = ({ user }) => {
           },
         }
       );
-
-      console.log("User updated:", response.data);
-      toast.success("User Updated Successfully!", {
-        theme: "colored",
-      });
+  
+      if (updateUserResponse.status === 200) {
+        console.log("User updated:", updateUserResponse.data);
+        toast.success("User Updated Successfully!", {
+          theme: "colored",
+        });
+      } else {
+        toast.error("Error updating user!", {
+          theme: "colored",
+        });
+      }
     } catch (error) {
       console.error("Error updating user:", error);
       toast.error("Error updating user!", {
@@ -59,6 +87,7 @@ const UpdateUser = ({ user }) => {
       });
     }
   };
+  
 
   return (
     <div className="flex flex-col p-8">
@@ -77,7 +106,7 @@ const UpdateUser = ({ user }) => {
           >
             <img
               src={
-                profilePic || "https://img.freepik.com/free-icon/man_318-677829.jpg"
+                imgURL+profilePic || "https://img.freepik.com/free-icon/man_318-677829.jpg"
               }
               alt="Upload"
               className="w-28 h-28 rounded-full object-cover"

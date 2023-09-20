@@ -21,11 +21,13 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
+import CourseQuestion from './pages/courseStart/CourseQuestion'
 
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
 import CreateCourse from "./pages/instructorDash/CreateCourse";
 import CreateQuestion from "./pages/instructorDash/CreateQuestion";
+import DashCourses from "./pages/instructorDash/Courses";
 
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
@@ -51,8 +53,9 @@ function App() {
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="courseMaterial" element={<CourseMaterial />} />
-        <Route path="courseInfo" element={<CourseInfo />} />
+        <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
+        <Route path="/questions/:id" element={<CourseQuestion />} />
+        <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
         <Route
           path="/intructorDash"
@@ -64,11 +67,11 @@ function App() {
           }
         />
         <Route
-          path="/intructorDash/createQuestion"
+          path="/intructorDash/createQuestion/:id"
           element={
             <InstructorRoute
               element={<CreateQuestion />}
-              path="/intructorDash/createQuestion"
+              path="/intructorDash/createQuestion/:id"
             />
           }
         />
@@ -78,6 +81,15 @@ function App() {
             <InstructorRoute
               element={<CreateCourse />}
               path="/intructorDash/createCourse"
+            />
+          }
+        />
+                <Route
+          path="/intructorDash/dashCourses"
+          element={
+            <InstructorRoute
+              element={<DashCourses />}
+              path="/intructorDash/dashCourses"
             />
           }
         />

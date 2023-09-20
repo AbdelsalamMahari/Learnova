@@ -3,11 +3,14 @@ import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
 import ImageUpload from "../../components/ImageUpload/ImageUpload"; 
+import UserInfo from '../../components/users/UserInfo';
 
 export default function CreateCourse() {
+  const user = UserInfo();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    instructor: "",
     chapters: [
       {
         title: "",
@@ -103,14 +106,14 @@ export default function CreateCourse() {
         console.log("Image uploaded successfully:", imageUploadResponse.data);
       } catch (error) {
         console.error("Error uploading image:", error);
-        return; // Don't proceed with course creation if image upload fails.
+        return; 
       }
     }
 
-    // Continue with course creation
     const formDataToSend = {
       name: formData.name,
       description: formData.description,
+      instructor: user._id,
       content: formData.chapters.map((chapter) => ({
         title: chapter.title,
         subtitle: chapter.subtitle,

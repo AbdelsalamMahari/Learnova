@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AllCourses.css";
 import TopPage from "../../components/topPage/TopPage";
+import { Link } from "react-router-dom";
 
 export default function AllCourses() {
   const [courses, setCourses] = useState([]);
@@ -39,12 +40,14 @@ export default function AllCourses() {
                 <h1 className="lg:text-2xl w-full">{course.name}</h1>
               </div>
               <div>
+                <Link to={`/courseInfo/${course._id}`}>
                 <button
       
                   className="bg-blue rounded w-full p-1 text-white"
                 >
-                 Purchase this course
+                 See more...
                 </button>
+                </Link>
               </div>
               <div>
         

@@ -84,7 +84,7 @@ export default function InstructorSidebar() {
         </li>
 
         <li>
-          <Link to="/intructorDash/createQuestion">
+          <Link to="/intructorDash/dashCourses">
             <span className="icon">
               <Icons.Book size={30} />
             </span>

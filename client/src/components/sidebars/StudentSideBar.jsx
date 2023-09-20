@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Icons from "../../assets/icons/icons";
 
 export default function Sidebar() {
+  const { id } = useParams(); // Get the id from URL params
   useEffect(() => {
     // add hovered class to selected list item
     let list = document.querySelectorAll(".navigation-dash-st li");
@@ -37,7 +38,7 @@ export default function Sidebar() {
 
 
         <li>
-          <Link to="/">
+          <Link to={`/courseMaterial/${id}`}>
             <span className="icon">
               <Icons.Home size={30} />
             </span>
@@ -46,7 +47,7 @@ export default function Sidebar() {
         </li>
 
         <li>
-          <Link to="/">
+          <Link to={`/questions/${id}`}>
             <span className="icon">
               <Icons.Book size={30} />
             </span>

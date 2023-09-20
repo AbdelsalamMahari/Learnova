@@ -4,6 +4,7 @@ import TopPage from "../../components/topPage/TopPage";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer"
 import Button from "../../components/buttons/button"
+import Loading from '../../components/loading/loading'
 
 export default function CourseInfo() {
   const [course, setCourse] = useState(null);
@@ -37,7 +38,7 @@ export default function CourseInfo() {
   };
 
   if (!course) {
-    return <div>Loading...</div>; // You can replace this with a loading spinner
+    return <Loading/>
   }
 
   return (

@@ -90,7 +90,6 @@ const deleteCourse = async (req, res) => {
 const getCoursesByUserId = async (req, res) => {
   try {
     const userId = req.params.id; // Assuming you have a route parameter for userId
-    console.log(userId)
     // Use Course.find() to find courses for the specified user by instructor field
     const courses = await Course.find({ instructor: userId });
  

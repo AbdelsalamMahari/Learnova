@@ -21,6 +21,7 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
+import CourseQuestion from './pages/courseStart/CourseQuestion'
 
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
@@ -52,8 +53,9 @@ function App() {
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="courseMaterial" element={<CourseMaterial />} />
-        <Route path="courseInfo" element={<CourseInfo />} />
+        <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
+        <Route path="/questions/:id" element={<CourseQuestion />} />
+        <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
         <Route
           path="/intructorDash"

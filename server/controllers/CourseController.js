@@ -1,4 +1,5 @@
 const Course = require("../models/CourseModel");
+const Question = require("../models/QuestionModel");
 
 
 const createCourse = async (req, res) => {
@@ -67,15 +68,24 @@ const updateCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
   try {
-    const course = await Course.findByIdAndRemove(req.params.id);
+    const courseId = req.params.id;
+
+    // Find and delete all questions associated with the course
+    await Question.deleteMany({ courseId });
+
+    // Then, delete the course
+    const course = await Course.findByIdAndRemove(courseId);
+    
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
-    res.json({ message: "Course deleted" });
+
+    res.json({ message: "Course and associated questions deleted" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 const getCoursesByUserId = async (req, res) => {
   try {

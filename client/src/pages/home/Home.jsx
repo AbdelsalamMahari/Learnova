@@ -75,7 +75,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <div class="h-4 bg-gray-300 rounded-full w-full">
+                <div className="h-4 bg-gray-300 rounded-full w-full">
                   <div
                     className="h-full bg-orange rounded-full"
                     style={{ width: "20%" }} // Use an object here
@@ -106,7 +106,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <div class="h-4 bg-gray-300 rounded-full w-full">
+                <div className="h-4 bg-gray-300 rounded-full w-full">
                   <div
                     className="h-full bg-orange rounded-full"
                     style={{ width: "50%" }} // Use an object here
@@ -135,7 +135,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <div class="h-4 bg-gray-300 rounded-full w-full">
+                <div className="h-4 bg-gray-300 rounded-full w-full">
                   <div
                     className="h-full bg-orange rounded-full"
                     style={{ width: "70%" }} // Use an object here

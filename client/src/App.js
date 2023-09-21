@@ -21,7 +21,7 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
-import CourseQuestion from './pages/courseStart/CourseQuestion'
+import CourseQuestion from "./pages/courseStart/CourseQuestion";
 
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
@@ -32,6 +32,7 @@ import DashCourses from "./pages/instructorDash/Courses";
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
 import ImageUpload from "./components/ImageUpload/ImageUpload";
+import Requests from "./pages/adminDash/Requests";
 
 function App() {
   return (
@@ -84,7 +85,7 @@ function App() {
             />
           }
         />
-                <Route
+        <Route
           path="/intructorDash/dashCourses"
           element={
             <InstructorRoute
@@ -96,6 +97,12 @@ function App() {
         <Route
           path="/adminDash"
           element={<AdminRoute element={<AdminDash />} path="/adminDash" />}
+        />
+        <Route
+          path="/adminDash/requests"
+          element={
+            <AdminRoute element={<Requests />} path="/adminDash/requests" />
+          }
         />
       </Routes>
     </BrowserRouter>

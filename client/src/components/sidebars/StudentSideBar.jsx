@@ -35,21 +35,22 @@ export default function Sidebar() {
 
   useEffect(() => {
     if (user && user._id) {
-    axios
-      .get(`http://localhost:5000/subscriptions/${user._id}`)
-      .then((response) => {
-        const data = response.data;
+      axios
+        .get(`http://localhost:5000/subscriptions/${user._id}`)
+        .then((response) => {
+          const data = response.data;
 
-        // Check if the user has a monthly plan
-        if (data.plans.includes("monthly")) {
-          setIsExamsUnlocked(true);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          // Check if the user has a monthly plan
+          if (data.plans.includes("annual") || data.plans.includes("monthly")) {
+            setIsExamsUnlocked(true);
+            console.log(data.plans)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-  }, [id])
+  }, [user]);
   return (
     <div className="navigation-dash-st">
       <ul>
@@ -58,7 +59,6 @@ export default function Sidebar() {
             <span className="title text-xl">Html/Css</span>
           </Link>
         </li>
-
 
         <li>
           <Link to={`/courseMaterial/${id}`}>
@@ -87,7 +87,12 @@ export default function Sidebar() {
               <span className="title">Exams</span>
             </Link>
           ) : (
-            <span className="locked-title">Exams (Locked)</span>
+              <Link>
+                <span className="icon">
+                  <Icons.Book size={30} />
+                </span>
+                <span className="title">Exams (Locked)</span>
+              </Link>
           )}
         </li>
 

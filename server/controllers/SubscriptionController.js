@@ -1,10 +1,17 @@
 const Subscription = require("../models/SubscriptionModel");
-const { User } = require("../models/UsersModel");
 
 // Create a new subscription
 module.exports.createSubscription = async (req, res) => {
   try {
     const { userId, plan, amount } = req.body;
+
+    // Check if the user already has an active subscription for the same plan
+    const existingSubscription = await Subscription.findOne({ userId, plan });
+
+    if (existingSubscription) {
+      // If an active subscription with the same plan exists, return an error
+      return res.status(400).json({ error: "User already has an active subscription for this plan" });
+    }
 
     // Create a new subscription record
     const subscription = new Subscription({ userId, plan, amount });

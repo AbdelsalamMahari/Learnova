@@ -14,7 +14,7 @@ import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 
 
 export default function About() {
-
+  const imgURL="/usersProfiles/"
   const [testimonialItems, setTestimonialItems] = useState([]);
 
   useEffect(() => {
@@ -98,6 +98,7 @@ export default function About() {
 
   return (
     <>
+    <ToastContainer/>
       <TopPage
         title="About Us"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2021/03/bg-07-free-img.jpg"
@@ -143,8 +144,8 @@ export default function About() {
                         <img
                           decoding="async"
                           src={
-                            item.user.profilePic
-                              ? `${item.user.profilePic}`
+                            imgURL + item.user.profilePic
+                              ? `${imgURL + item.user.profilePic}`
                               : "https://img.freepik.com/free-icon/man_318-677829.jpg"
                           }
                           alt={`${item.user.firstName}`}

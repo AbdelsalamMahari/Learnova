@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 
 const UpdateUser = ({ user }) => {
-  const imgURL="/usersProfiles/"
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
 
@@ -57,6 +56,9 @@ const UpdateUser = ({ user }) => {
   return (
     <div className="flex flex-col p-8">
       <div>
+        <h1 className="text-2xl mb-5">Update Your Personal Information</h1>
+      </div>
+      <div className="mb-4">
         <label className="block font-bold mb-1 text-gray-500">First Name <span className="text-pink2">*</span></label>
         <input
           type="text"

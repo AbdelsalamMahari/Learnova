@@ -1,4 +1,5 @@
 const Subscription = require("../models/SubscriptionModel");
+const { User } = require("../models/UsersModel");
 
 // Create a new subscription
 module.exports.createSubscription = async (req, res) => {
@@ -34,5 +35,24 @@ module.exports.getTotalSubscriptionAmount = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
+  }
+};
+
+module.exports.getUserSubscriptionPlan = async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming you have a route parameter for userId
+    // Use Subscription.find() to find all subscriptions for the specified user by userId field
+    const subscriptions = await Subscription.find({ userId });
+
+    if (!subscriptions || subscriptions.length === 0) {
+      return res.status(404).json({ message: "No subscriptions found for this user" });
+    }
+
+    // Extract all plans from the subscriptions
+    const plans = subscriptions.map((subscription) => subscription.plan);
+
+    res.json({ userId, plans });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

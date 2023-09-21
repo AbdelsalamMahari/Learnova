@@ -38,3 +38,9 @@
     z-index: 1;
     width: 50%;
   }
+
+  @media screen and (max-width: 780px){
+    .backdrop-image-topPage::before, .backdrop-image-topPage, .backdrop-image-topPage::after{
+      height: 40vh;
+    }
+  }

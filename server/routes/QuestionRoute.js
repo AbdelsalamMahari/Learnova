@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const {  createQuestion,getAllQuestions,getOneQuestion,updateQuestion,deleteQuestion} = require('../controllers/QuestionController');
+const {  createQuestion,getAllQuestions,getOneQuestion,updateQuestion,deleteQuestion,
+getQuestionsByCourseId,getQuizQuestions} = require('../controllers/QuestionController');
 
 const router = Router();
 // Create a new question
@@ -17,4 +18,7 @@ router.put('/update/questions/:id', updateQuestion);
 // Delete a question by ID
 router.delete('/delete/questions/:id',deleteQuestion);
 
+router.get('/questions/course/:id',getQuestionsByCourseId);
+
+router.get('/:courseId/questions',getQuizQuestions);
 module.exports = router;

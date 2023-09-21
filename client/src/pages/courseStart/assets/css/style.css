@@ -5,42 +5,47 @@
 * {
   box-sizing: border-box;
 }
-
+.courseinfo-images{
+  width: 15%;
+  height: 100px;
+}
 :root {
   --blue: #007991;
   --white: #fff;
   --gray: #f5f5f5;
+  --black: #000;
   --black1: #222;
   --black2: #999;
 }
 
-.container-dash {
+.container-dash-st {
   position: relative;
   width: 100%;
 }
 
 /* =============== Navigation ================ */
-.navigation-dash {
+.navigation-dash-st {
   position: fixed;
   width: 300px;
   height: 100%;
-  background: var(--blue);
-  border-left: 10px solid var(--blue);
+  background: var(--white);
+  border-left: 10px solid var(--white);
   transition: 0.5s;
   overflow: hidden;
+  border-right: 1px solid var(--black);
 }
-.navigation-dash.active {
+.navigation-dash-st.active {
   width: 80px;
 }
 
-.navigation-dash ul {
+.navigation-dash-st ul {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
 
-.navigation-dash ul li {
+.navigation-dash-st ul li {
   position: relative;
   width: 100%;
   list-style: none;
@@ -48,42 +53,40 @@
   border-bottom-left-radius: 30px;
 }
 
-.navigation-dash ul li:hover,
-.navigation-dash ul li.hovered {
+.navigation-dash-st ul li:hover,
+.navigation-dash-st ul li.hovered {
   background-color: var(--white);
 }
 
-.navigation-dash ul li:nth-child(1) {
+.navigation-dash-st ul li:nth-child(1) {
   margin-bottom: 40px;
   pointer-events: none;
 }
 
-.navigation-dash ul li a {
+.navigation-dash-st ul li a {
   position: relative;
   display: block;
   width: 100%;
   display: flex;
   text-decoration: none;
-  color: var(--white);
+  color: var(--black);
 }
-.navigation-dash ul li:hover a,
-.navigation-dash ul li.hovered a {
+.navigation-dash-st ul li:hover a,
+.navigation-dash-st ul li.hovered a {
   color: var(--blue);
 }
 
-.navigation-dash ul li a .icon {
+.navigation-dash-st ul li a .icon {
   position: relative;
-  display: block;
+  display: flex;
   min-width: 60px;
   height: 60px;
   line-height: 75px;
-  text-align: center;
-}
-.navigation-dash ul li a .icon ion-icon {
-  font-size: 1.75rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.navigation-dash ul li a .title {
+.navigation-dash-st ul li a .title {
   position: relative;
   display: block;
   padding: 0 10px;
@@ -94,8 +97,8 @@
 }
 
 /* --------- curve outside ---------- */
-.navigation-dash ul li:hover a::before,
-.navigation-dash ul li.hovered a::before {
+.navigation-dash-st ul li:hover a::before,
+.navigation-dash-st ul li.hovered a::before {
   content: "";
   position: absolute;
   right: 0;
@@ -107,8 +110,8 @@
   box-shadow: 35px 35px 0 10px var(--white);
   pointer-events: none;
 }
-.navigation-dash ul li:hover a::after,
-.navigation-dash ul li.hovered a::after {
+.navigation-dash-st ul li:hover a::after,
+.navigation-dash-st ul li.hovered a::after {
   content: "";
   position: absolute;
   right: 0;
@@ -122,7 +125,7 @@
 }
 
 /* ===================== Main ===================== */
-.main-dash {
+.main-dash-st {
   position: absolute;
   width: calc(100% - 300px);
   left: 300px;
@@ -130,7 +133,7 @@
   background: var(--white);
   transition: 0.5s;
 }
-.main-dash.active {
+.main-dash-st.active {
   width: calc(100% - 80px);
   left: 80px;
 }
@@ -399,18 +402,18 @@
 
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {
-  .navigation {
+  .navigation-dash-st {
     left: -300px;
   }
-  .navigation.active {
+  .navigation-dash-st.active {
     width: 300px;
     left: 0;
   }
-  .main {
+  .main-dash-st {
     width: 100%;
     left: 0;
   }
-  .main.active {
+  .main-dash-st.active {
     left: 300px;
   }
   .cardBox {
@@ -440,19 +443,19 @@
   .user {
     min-width: 40px;
   }
-  .navigation {
+  .navigation-dash-st {
     width: 100%;
     left: -100%;
     z-index: 1000;
   }
-  .navigation.active {
+  .navigation-dash-st.active {
     width: 100%;
     left: 0;
   }
   .toggle {
     z-index: 10001;
   }
-  .main.active .toggle {
+  .main-dash-st.active .toggle {
     color: #fff;
     position: fixed;
     right: 0;

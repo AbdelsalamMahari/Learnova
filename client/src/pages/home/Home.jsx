@@ -6,17 +6,26 @@ import Button from "../../components/buttons/button";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
 import Logo from "../../assets/images/LearnovaLogo2.png"
+import { useTypewriter, Cursor } from 'react-simple-typewriter'
 
 export default function Home() {
   const navigate = useNavigate();
+
+  const [text] = useTypewriter({
+    words: ['Learning Fuels Creative Thinking', 'Learn to Create', 'Explore, Imagine, Innovate!'],
+    loop: {},
+    typeSpeed: 60,
+    deleteSpeed: 100,
+  })
+
   return (
     <>
       <section className="backdrop-image">
         <Navbar imgSrc={Logo} className={"text-white"}/>
         <div className="backdrop-section">
           <div className="lg:w-1/2 md:w-full">
-            <h1 className="lg:text-6xl font-bold text-white my-8">
-              Learning Fuels Creative Thinking
+            <h1 className="lg:text-6xl font-bold text-white my-8 ">
+              <span>{text}</span> <Cursor cursorColor="#FFA500"/>
             </h1>
             <p className="text-lg text-white my-8">
               Your portal to a world of knowledge and growth. Explore, learn,
@@ -40,7 +49,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex-1">
-            <Button text="VIEW ALL COURSES" className="float-right"></Button>
+            <Button text="VIEW ALL COURSES" className="float-right" onClick={() => navigate(`/allCourses`)}></Button>
           </div>
         </div>
         <div className="flex p-[40px] gap-6 cont-course">
@@ -66,7 +75,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <div class="h-4 bg-gray-300 rounded-full w-full">
+                <div className="h-4 bg-gray-300 rounded-full w-full">
                   <div
                     className="h-full bg-orange rounded-full"
                     style={{ width: "20%" }} // Use an object here
@@ -97,7 +106,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <div class="h-4 bg-gray-300 rounded-full w-full">
+                <div className="h-4 bg-gray-300 rounded-full w-full">
                   <div
                     className="h-full bg-orange rounded-full"
                     style={{ width: "50%" }} // Use an object here
@@ -126,7 +135,7 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <div class="h-4 bg-gray-300 rounded-full w-full">
+                <div className="h-4 bg-gray-300 rounded-full w-full">
                   <div
                     className="h-full bg-orange rounded-full"
                     style={{ width: "70%" }} // Use an object here

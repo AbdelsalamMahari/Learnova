@@ -127,7 +127,7 @@ textarea {
 @media (max-width: 480px) {
   .survey-container form {
       background-color: rgba(0, 0, 0, 0.3);
-      padding: 0%;
+      padding: 10px;
   }
 }
 

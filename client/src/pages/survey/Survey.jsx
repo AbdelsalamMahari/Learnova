@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useHistory } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Survey.css';
 import axios from 'axios';
 
@@ -49,13 +49,13 @@ const surveyQuestions = [
   },
   {
     id: 5,
-    question: 'What topics are you most interested in for online courses?',
+    question: 'How would you rate the overall quality of the website course?',
     responses: [
-      { response: 'Programming', rating: 100 },
-      { response: 'Data Science', rating: 75 },
-      { response: 'Web Development', rating: 50 },
-      { response: 'Design', rating: 25 },
-      { response: 'Business', rating: 10 }
+      { response: 'Excellent', rating: 100 },
+      { response: 'Very Good', rating: 75 },
+      { response: 'Good', rating: 50 },
+      { response: 'Fair', rating: 25 },
+      { response: 'Poor', rating: 10 }
     ]
   }
 ];
@@ -134,7 +134,7 @@ function Survey() {
             <div className="first-survey-content">
               <header className="header">
                 <h1 className="middle">
-                  Welcome to learnova website!
+                  Welcome To Learnova Website!
                 </h1>
                 <p className="middle description">
                   In order to benefit from your experience, please fill out the survey below!

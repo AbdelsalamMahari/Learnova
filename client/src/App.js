@@ -21,8 +21,8 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
-import Certificate from "./pages/certificatee/Certificate";
 import CourseQuestion from "./pages/courseStart/CourseQuestion";
+import Certificate from "./pages/certificatee/Certificate";
 
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
@@ -55,16 +55,11 @@ function App() {
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="certificate" element={<Certificate />} />
-
-
-
-        <Route path="courseInfo" element={<CourseInfo />} />
-        <Route path="courseStart" element={<CourseStart />} />
         <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
         <Route path="/questions/:id" element={<CourseQuestion />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
+        <Route path="certificate" element={<Certificate />} />
         <Route
           path="/intructorDash"
           element={

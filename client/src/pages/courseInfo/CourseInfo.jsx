@@ -54,7 +54,7 @@ export default function CourseInfo() {
             <div className="mt-4">
               {course.content.map((chapter, index) => (
                 <div key={index}>
-                  <h2 className=" px-3  flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <h2 className=" px-3  flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <span>{chapter.title}</span>
                   </h2>
                 </div>

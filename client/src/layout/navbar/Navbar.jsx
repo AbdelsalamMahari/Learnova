@@ -6,6 +6,7 @@ import Icons from "../../assets/icons/icons";
 import Cookies from "js-cookie";
 import { isAdminUser } from "../../utils/Admin/authUtils";
 import { isInstructorUser } from "../../utils/Instructor/authUtils";
+import Button from "../../components/buttons/button";
 
 export default function Navbar({ className, imgSrc }) {
   const navRef = useRef();
@@ -85,14 +86,14 @@ export default function Navbar({ className, imgSrc }) {
           {isLoggedIn ? (
             <Link
               to="/profile"
-              className=" bg-orange rounded-full px-6 py-2 ml-4 font-bold"
+              className=" bg-orange rounded-full text-white px-6 py-2 ml-4 font-bold transition duration-300 ease-in-out hover:bg-blue hover:text-white"
             >
               MY ACCOUNT
             </Link>
           ) : (
             <Link
               to="/login"
-              className=" bg-orange rounded-full px-6 py-2 ml-4 font-bold"
+              className=" bg-orange rounded-full text-white px-6 py-2 ml-4 font-bold"
             >
               LOGIN
             </Link>

@@ -24,6 +24,7 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
+import Certificate from "./pages/certificatee/Certificate";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+        <Route path="certificate" element={<Certificate />} />
+
+
 
         <Route path="courseInfo" element={<CourseInfo />} />
         <Route path="courseStart" element={<CourseStart />} />

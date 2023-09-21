@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester');
+
+.container-certificate {
+    position: relative;
+    max-width: 900px;
+    height: auto;
+    background-color: #007991de;
+    margin: 50px auto 0 auto;
+    color: #333;
+    border: 2px solid #e9ab0e;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+}
+
+.pm-certificate-border {
+    position: relative;
+    width: 90%;
+    max-width: 850px;
+    height: auto;
+    margin: 25px auto;
+    border: 2px solid #e9ab0e;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: url('../../assets/images/LearnovaLogo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.pm-certificate-header {
+    text-align: center;
+    padding: 30px 10px 20px 10px;
+}
+
+.pm-certificate-title h2 {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Pinyon Script';
+}
+
+.pm-certificate-body {
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.content-certificate {
+    padding: 20px 0 10px 0;
+}
+
+.pm-certificate-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pm-name-under {
+    border: 1px solid #000;
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.pm-earned-text {
+    font-weight: bold;
+    font-family: 'Pinyon Script';
+    font-size: 25px;
+}
+
+.pm-credits-text p {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.pm-credits-course {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.pm-certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10px 0 10px;
+}
+
+.dm-name-under {
+    border: 1px solid #000;
+    max-width: 200px;
+    width: 100%;
+}
+
+.pm-first-sig p {
+    text-align: center;
+    font-family: 'Pinyon Script';
+    font-size: larger;
+}
+
+.pm-second-sig p {
+    text-align: center;
+    font-family: 'Pinyon Script';
+    font-size: larger;
+}
+
+.first-signature p {
+    padding-top: 10px;
+}
+
+.second-signature p {
+    padding-top: 10px;
+}
+
+.download-button {
+    background-color: #007991;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto 0; 
+    display: block; 
+    transition: background-color 0.3s;
+  }
+  
+  .download-button:hover {
+    background-color: #e9ab0e;
+  }
+
+@media (max-width: 800px) {
+    .container {
+        max-width: 80%;
+    }
+
+    .pm-certificate-border {
+        width: 85%;
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 90%;
+    }
+
+    .pm-certificate-border {
+        width: 90%;
+        max-width: none;
+    }
+
+    .pm-certificate-title h2 {
+        font-size: 30px;
+    }
+}

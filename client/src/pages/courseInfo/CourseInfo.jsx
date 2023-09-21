@@ -50,7 +50,7 @@ export default function CourseInfo() {
       };
 
       // Make a POST request to create an enrollment with updated EnrollmentData
-      const response = await axios.post("http://localhost:5000/add/enrollment", updatedEnrollmentData);
+      const response = await axios.post("http://localhost:5000/add/enrollement", updatedEnrollmentData);
       console.log("Enrollment created:", response.data);
     } catch (error) {
       console.error("Error creating enrollment:", error);

@@ -10,6 +10,7 @@ import { FiUsers } from "react-icons/fi";
 import { IoCreateOutline } from "react-icons/io5";
 
 const Icons = {
+  edit:AiFillEdit,
   Facebook: FaFacebook,
   Certificate: PiCertificateBold,
   Clock: BsClock,

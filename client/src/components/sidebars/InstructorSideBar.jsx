@@ -17,7 +17,7 @@ export default function InstructorSidebar() {
     getUserInfo();
   }, []);
   useEffect(() => {
-    // add hovered class to selected list item
+
     let list = document.querySelectorAll(".navigation-dash li");
 
     function activeLink() {
@@ -29,7 +29,7 @@ export default function InstructorSidebar() {
 
     list.forEach((item) => item.addEventListener("mouseover", activeLink));
 
-    // Menu Toggle
+    
     let toggle = document.querySelector(".toggle");
     let navigation = document.querySelector(".navigation-dash");
     let main = document.querySelector(".main-dash");
@@ -90,6 +90,15 @@ export default function InstructorSidebar() {
               <Icons.Question size={30} />
             </span>
             <span className="title">Create Questions</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/intructorDash/editCourses">
+            <span className="icon">
+              <Icons.edit size={30} />
+            </span>
+            <span className="title">Edit Courses</span>
           </Link>
         </li>
 

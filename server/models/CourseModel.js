@@ -33,8 +33,7 @@ const CourseSchema = new mongoose.Schema({
     type: Date,
   },
   instructor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    type: String,
   },
   content: [ChapterSchema],
   image: {

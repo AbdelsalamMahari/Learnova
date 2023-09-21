@@ -5,9 +5,27 @@
 * {
   box-sizing: border-box;
 }
+.main-course-title{
+  font-size: 40px;
+  font-weight: bold;
+}
+.course-title{
+
+  font-size: xx-large;
+}
+.course-subtitle{
+  font-size: 25px;
+  
+}
+.course-content{
+  margin-left: 5%;
+  margin-right: 5%;
+}
 .courseinfo-images{
-  width: 15%;
-  height: 100px;
+  margin: 10px;
+  width: 70%;
+  height: 400px;
+  margin-left: 15%;
 }
 :root {
   --blue: #007991;

@@ -23,7 +23,7 @@ import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
 import CourseQuestion from "./pages/courseStart/CourseQuestion";
 import Certificate from "./pages/certificatee/Certificate";
-
+import CourseEdit from "./pages/instructorDash/CourseEdit";
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
 import CreateCourse from "./pages/instructorDash/CreateCourse";
@@ -87,7 +87,16 @@ function App() {
             />
           }
         />
-        <Route
+         <Route
+          path="/intructorDash/editCourses"
+          element={
+            <InstructorRoute
+              element={<CourseEdit/>}
+              path="/intructorDash/editCourses"
+            />
+          }
+        />
+                <Route
           path="/intructorDash/dashCourses"
           element={
             <InstructorRoute

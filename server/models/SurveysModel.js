@@ -1,45 +1,26 @@
-const { Schema, model } = require("mongoose");
-
-const AnswerSchema = new Schema({
-  text: {
-    type: String,
-    required: true,
-  },
-});
-
-const QuestionSchema = new Schema({
-  questionText: {
-    type: String,
-    required: true,
-  },
-  answers: [AnswerSchema],
-});
+const { Schema, model } = require('mongoose');
 
 const SurveySchema = new Schema({
-  surveyName: {
-    type: String,
-    required: true,
+  question1: {
+    average: { type: Number, default: 0 },
+    totalRatings: { type: Number, default: 0 },
   },
-  surveyDescription: String,
-  courseID: {
-    type: Schema.Types.ObjectId,
-    ref: "Course", // Reference to the Course model
-    required: true,
+  question2: {
+    average: { type: Number, default: 0 },
+    totalRatings: { type: Number, default: 0 },
   },
-  questions: [QuestionSchema], // An array of questions with answers
-  surveyStartDate: {
-    type: Date,
-    required: true,
+  question3: {
+    average: { type: Number, default: 0 },
+    totalRatings: { type: Number, default: 0 },
   },
-  surveyEndDate: {
-    type: Date,
-    required: true,
+  question4: {
+    average: { type: Number, default: 0 },
+    totalRatings: { type: Number, default: 0 },
   },
-  surveyCreator: {
-    type: Schema.Types.ObjectId,
-    ref: "students", // Reference to the User model (for the creator)
-    required: true,
+  question5: {
+    average: { type: Number, default: 0 },
+    totalRatings: { type: Number, default: 0 },
   },
 });
 
-module.exports = model("Surveys", SurveySchema);
+module.exports = model('Survey', SurveySchema);

@@ -21,7 +21,8 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
-import CourseQuestion from './pages/courseStart/CourseQuestion'
+import CourseQuestion from "./pages/courseStart/CourseQuestion";
+import Certificate from "./pages/certificatee/Certificate";
 import CourseEdit from "./pages/instructorDash/CourseEdit";
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
@@ -32,6 +33,7 @@ import DashCourses from "./pages/instructorDash/Courses";
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
 import ImageUpload from "./components/ImageUpload/ImageUpload";
+import Requests from "./pages/adminDash/Requests";
 
 function App() {
   return (
@@ -57,6 +59,7 @@ function App() {
         <Route path="/questions/:id" element={<CourseQuestion />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
+        <Route path="certificate" element={<Certificate />} />
         <Route
           path="/intructorDash"
           element={
@@ -105,6 +108,12 @@ function App() {
         <Route
           path="/adminDash"
           element={<AdminRoute element={<AdminDash />} path="/adminDash" />}
+        />
+        <Route
+          path="/adminDash/requests"
+          element={
+            <AdminRoute element={<Requests />} path="/adminDash/requests" />
+          }
         />
       </Routes>
     </BrowserRouter>

@@ -15,13 +15,13 @@ export default function CourseInfo() {
   const [activeAccordion, setActiveAccordion] = useState(null);
 
   const [EnrollmentData, setEnrollmentData] = useState({
-    user: "",
-    course: "",
-    enrollmentStatus: "Enrolled",
-    completionStatus: "Not Started",
+    user: '',
+    course: '',
+    enrollmentStatus: 'Enrolled',
+    completionStatus: 'Not Started',
     completedChapters: 0,
     grade: 0,
-    instructor: "", // Instructor data will be filled in later
+    instructor: '', // Will be set to the course instructor
   });
 
   const { id } = useParams();
@@ -31,44 +31,50 @@ export default function CourseInfo() {
       const userInfo = await fetchUserInfoFromToken();
       setUser(userInfo);
 
+      // Fetch course information including the instructor
+      const courseResponse = await fetch(`http://localhost:5000/courses/${id}`);
+      if (!courseResponse.ok) {
+        throw new Error("Course not found");
+      }
+      const courseData = await courseResponse.json();
+
+      // Set the instructor field in EnrollmentData to be the instructor of the course
       const updatedEnrollmentData = {
         user: userInfo._id,
         course: id,
-        enrollmentStatus: "Enrolled",
-        completionStatus: "Not Started",
+        enrollmentStatus: 'Enrolled',
+        completionStatus: 'Not Started',
         completedChapters: 0,
         grade: 0,
-        instructor: "", 
+        instructor: courseData.instructor, // Use the instructor field from courseData
       };
 
-
-      const courseResponse = await axios.get(`http://localhost:5000/courses/${id}`);
-      const courseData = courseResponse.data;
-
-      if (!courseData) {
-        throw new Error("Course not found");
-      }
-      updatedEnrollmentData.instructor = courseData.instructor;
-      const response = await axios.post("http://localhost:5000/add/enrollement", updatedEnrollmentData);
+      // Make a POST request to create an enrollment with updated EnrollmentData
+      const response = await axios.post("http://localhost:5000/add/enrollment", updatedEnrollmentData);
       console.log("Enrollment created:", response.data);
     } catch (error) {
       console.error("Error creating enrollment:", error);
     }
   };
+  
 
   useEffect(() => {
     async function fetchData() {
       try {
-  
+        // Fetch user information from token when the component mounts
         const userInfo = await fetchUserInfoFromToken();
         setUser(userInfo);
+        console.log(userInfo);
 
-        const response = await axios.get(`http://localhost:5000/courses/${id}`);
-        if (!response.data) {
+        // Fetch course information including the instructor
+        const response = await fetch(`http://localhost:5000/courses/${id}`);
+        if (!response.ok) {
           throw new Error("Course not found");
         }
-
-        setCourse(response.data);
+        const data = await response.json();
+        setCourse(data);
+        console.log(data);
+        console.log(data.content[0].title);
       } catch (error) {
         console.error(error);
       }
@@ -77,10 +83,18 @@ export default function CourseInfo() {
     fetchData();
   }, [id]);
 
+  const toggleAccordion = (index) => {
+    if (activeAccordion === index) {
+      setActiveAccordion(null);
+    } else {
+      setActiveAccordion(index);
+    }
+  };
 
   if (!course) {
     return <Loading />;
   }
+
   return (
     <>
       <TopPage

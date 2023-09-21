@@ -43,6 +43,9 @@ const MakeInstructor = ({ user }) => {
 
   return (
     <div className="flex flex-col p-8">
+            <div>
+        <h1 className="text-2xl mb-5">Please provide your phone number to initiate your instructor request.</h1>
+      </div>
       <div className="mb-4">
         <label className="block font-bold mb-1 text-gray-500">
           Phone Number
@@ -60,7 +63,7 @@ const MakeInstructor = ({ user }) => {
           onClick={handleUpdate}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
-          Update
+          Submit
         </button>
       </div>
       <ToastContainer />

@@ -58,6 +58,9 @@ const ResetPassUser = ({ user }) => {
 
   return (
     <div className="flex flex-col p-8">
+            <div>
+        <h1 className="text-2xl mb-5">Reset Your Password</h1>
+      </div>
       <div className="mb-4">
         <label className="block font-bold mb-1 text-gray-500">New Password <span className="text-pink2">*</span></label>
         <input

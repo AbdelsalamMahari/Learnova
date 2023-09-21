@@ -1,11 +1,13 @@
 import { FaFacebook, FaCrown, FaBars, FaPhoneAlt } from "react-icons/fa";
-import { PiCertificateBold, PiSmileySad } from "react-icons/pi";
-import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft, BsCheckLg } from "react-icons/bs";
-import { BiBookBookmark } from "react-icons/bi";
+import { PiCertificateBold, PiSmileySad, PiStudent, PiChalkboardTeacher } from "react-icons/pi";
+import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft, BsCheckLg, BsQuestionSquare } from "react-icons/bs";
+import { BiBookBookmark, BiDollar } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-import { AiOutlineArrowUp, AiOutlineHome,AiFillEdit } from "react-icons/ai";
+import { AiOutlineArrowUp, AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import { HiArrowsRightLeft } from "react-icons/hi2";
 import { MdLocationPin, MdEmail, MdOutlineAdminPanelSettings } from "react-icons/md";
+import { FiUsers } from "react-icons/fi";
+import { IoCreateOutline } from "react-icons/io5";
 
 const Icons = {
   edit:AiFillEdit,
@@ -27,7 +29,13 @@ const Icons = {
   ArrowLeft: BsArrowBarLeft,
   Book: BiBookBookmark,
   Check: BsCheckLg,
-  
+  Student:PiStudent,
+  Teacher: PiChalkboardTeacher,
+  Dollar: BiDollar,
+  User: AiOutlineUser,
+  Users: FiUsers,
+  Create: IoCreateOutline,
+  Question: BsQuestionSquare,
 };
 
 export default Icons;

@@ -1,14 +1,104 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./About.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import TopPage from "../../components/topPage/TopPage";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
+
 
 
 export default function About() {
+  const imgURL="/usersProfiles/"
+  const [testimonialItems, setTestimonialItems] = useState([]);
+
+  useEffect(() => {
+    async function fetchFeedbacks() {
+      try {
+        const response = await axios.get("http://localhost:5000/feedbacks");
+        const feedbacksWithUserInfo = await Promise.all(
+          response.data.map(async (feedback) => {
+            if (feedback.isAddedToSlider) {
+              const userResponse = await axios.get(
+                `http://localhost:5000/users/find/${feedback.userId}`
+              );
+              const user = userResponse.data;
+              return { user, feedbackText: feedback.text };
+            }
+            return null;
+          })
+        );
+        setTestimonialItems(feedbacksWithUserInfo.filter(Boolean)); // Filter out null values
+      } catch (error) {
+        console.error("Error fetching feedback data:", error);
+      }
+    }
+
+    fetchFeedbacks();
+  }, []);
+
+  const settings = {
+    dots: true,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  const [feedback, setFeedback] = useState("");
+  const handleFeedbackChange = (event) => {
+    setFeedback(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/feedbacks/save",
+        {
+          userId: user._id,
+          text: feedback,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Feedback submitted:", feedback);
+        setFeedback(""); // Clear feedback state
+        toast.success("Feedback successfully submitted. Thank you!", {
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      toast.warn("Please Login First", {
+        theme: "colored",
+      });
+    }
+  };
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const userInfo = await fetchUserInfoFromToken();
+      setUser(userInfo);
+    }
+
+    getUserInfo();
+  }, []);
 
   return (
     <>
+    <ToastContainer/>
       <TopPage
         title="About Us"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2021/03/bg-07-free-img.jpg"
@@ -41,6 +131,43 @@ export default function About() {
           </div>
         </div>
       </section>
+      <section className="testimonial-section">
+        <h1 className="font-bold">What They're Talking About us?</h1>
+        <div className="testimonial-container">
+          <div className="slider-feedback">
+            <Slider {...settings} >
+              {testimonialItems.map((item, index) => (
+                <div key={index} className="feedback-item">
+                  {item.user && (
+                    <div className="author">
+                      <div className="image">
+                        <img
+                          decoding="async"
+                          src={
+                            imgURL + item.user.profilePic
+                              ? `${imgURL + item.user.profilePic}`
+                              : "https://img.freepik.com/free-icon/man_318-677829.jpg"
+                          }
+                          alt={`${item.user.firstName}`}
+                        />
+                      </div>
+                      <div className="info">
+                        <h3 className="name">{`${item.user.firstName} ${item.user.lastName}`}</h3>
+                        <p className="job">{item.user.email}</p>
+                      </div>
+                    </div>
+                  )}
+                  <p className="content">{item.feedbackText}</p>
+                </div>
+              ))}
+            </Slider>
+          </div>
+          <div className="moviesNowPlaying-about">
+            <img src="	https://demo.ovatheme.com/aovis/wp-content/uploads/2023/02/image-testimonial-home-2.png" alt="" width={400} />
+          </div>
+        </div>
+      </section>
+
       <section className="section4-about">
         <div className="container3-about">
           <div className="first3-about">
@@ -100,14 +227,16 @@ export default function About() {
               <b>Give Us Your Feedback</b>
             </h2>
             <p>"we value your input to make our website even better."</p>
-            <form onSubmit="">
+            <form onSubmit={handleSubmit}>
               <textarea
                 placeholder="Your feedback..."
+                value={feedback}
+                onChange={handleFeedbackChange}
               />
+              <div className="feedback-submit">
+              <button type="submit">Submit</button>
+              </div>
             </form>
-          </div>
-          <div className="feedback-submit">
-            <button type="submit">Submit</button>
           </div>
         </div>
       </section>

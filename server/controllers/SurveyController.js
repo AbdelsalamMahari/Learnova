@@ -1,60 +1,54 @@
-const SurveyModel = require("../models/SurveysModel");
+const Survey = require('../models/SurveysModel');
 
-// Controller to handle creating a new survey
-exports.createSurvey = async (req, res) => {
+exports.saveSurveyResponses = async (req, res) => {
   try {
-    const survey = new SurveyModel(req.body);
-    const savedSurvey = await survey.save();
-    res.status(201).json({ message: "Survey created successfully", survey: savedSurvey });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+    const { responses } = req.body;
 
-// Controller to handle getting all surveys
-exports.getAllSurveys = async (req, res) => {
-  try {
-    const surveys = await SurveyModel.find();
-    res.status(200).json(surveys);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+    // Retrieve the existing survey document
+    let existingSurvey = await Survey.findOne();
 
-// Controller to handle getting a specific survey by ID
-exports.getSurveyById = async (req, res) => {
-  const { surveyId } = req.params;
-  try {
-    const survey = await SurveyModel.findById(surveyId);
-    if (!survey) {
-      return res.status(404).json({ error: "Survey not found" });
+    // Initialize a new survey document if none exists
+    if (!existingSurvey) {
+      existingSurvey = new Survey({});
     }
-    res.status(200).json(survey);
+
+    // Update averages with new responses
+    for (let i = 1; i <= 5; i++) {
+      const questionKey = `question${i}`;
+      const newRating = responses[questionKey] || 0;
+      const existingAverage = existingSurvey[questionKey].average || 0;
+      const totalRatings = existingSurvey[questionKey].totalRatings || 0;
+
+      // Calculate the new average
+      const updatedAverage = ((existingAverage * totalRatings) + newRating) / (totalRatings + 1);
+
+      existingSurvey[questionKey] = {
+        average: updatedAverage,
+        totalRatings: totalRatings + 1,
+      };
+    }
+
+    // Save or update the survey document
+    await existingSurvey.save();
+
+    return res.status(200).json({ message: 'Survey responses saved successfully' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error saving survey responses:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
-// Controller to handle updating a survey by ID
-exports.updateSurveyById = async (req, res) => {
+exports.getSurveySchema = async (req, res) => {
   try {
-    const updatedSurvey = await SurveyModel.findByIdAndUpdate( req.params.id, {
-      $set:req.body,
-    },
-    {new:true});
-    res.status(200).json({ message: "Survey updated successfully", survey: updatedSurvey });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+    // Retrieve the existing survey document
+    const existingSurvey = await Survey.findOne();
 
-// Controller to handle deleting a survey by ID
-exports.deleteSurveyById = async (req, res) => {
-  const  surveyId = req.params.id;
-  try {
-     await SurveyModel.findByIdAndDelete(surveyId);
-    res.status(200).json({ message: "Survey deleted successfully" });
+    if (!existingSurvey) {
+      return res.status(404).json({ error: 'Survey schema not found' });
+    }
+
+    return res.status(200).json(existingSurvey);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error retrieving survey schema:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };

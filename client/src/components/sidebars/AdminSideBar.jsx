@@ -76,9 +76,18 @@ export default function AdminSidebar() {
         </li>
 
         <li>
+          <Link to="/adminDash/requests">
+            <span className="icon">
+              <Icons.Teacher size={30} />
+            </span>
+            <span className="title">Requests</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/adminDash">
             <span className="icon">
-              <Icons.Book size={30} />
+              <Icons.Users size={30} />
             </span>
             <span className="title">Users</span>
           </Link>

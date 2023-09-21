@@ -77,6 +77,12 @@ export default function Requests() {
             <div className="toggle">
               <Icons.Bars size={24} />
             </div>
+            <div className="search">
+              <label>
+                <input type="text" placeholder="Search here" />
+                <ion-icon name="search-outline"></ion-icon>
+              </label>
+            </div>
           </div>
           <div className="dash-container">
             <div className="cardHeader">

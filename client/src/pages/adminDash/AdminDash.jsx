@@ -85,7 +85,7 @@ export default function AdminDash() {
               </div>
 
               <div className="iconBx">
-                <ion-icon name="eye-outline"></ion-icon>
+              <Icons.Book size={24} />
               </div>
             </div>
 
@@ -96,7 +96,7 @@ export default function AdminDash() {
               </div>
 
               <div className="iconBx">
-                <ion-icon name="cart-outline"></ion-icon>
+              <Icons.Student size={24} />
               </div>
             </div>
 
@@ -107,7 +107,7 @@ export default function AdminDash() {
               </div>
 
               <div className="iconBx">
-                <ion-icon name="chatbubbles-outline"></ion-icon>
+              <Icons.Teacher size={24} />
               </div>
             </div>
 
@@ -118,7 +118,7 @@ export default function AdminDash() {
               </div>
 
               <div className="iconBx">
-                <ion-icon name="cash-outline"></ion-icon>
+              <Icons.Dollar size={24} />
               </div>
             </div>
           </div>

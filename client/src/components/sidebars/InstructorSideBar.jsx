@@ -78,7 +78,7 @@ export default function InstructorSidebar() {
         <li>
           <Link to="/intructorDash/createCourse">
             <span className="icon">
-              <Icons.Book size={30} />
+              <Icons.Create size={30} />
             </span>
             <span className="title">Create Course</span>
           </Link>
@@ -87,7 +87,7 @@ export default function InstructorSidebar() {
         <li>
           <Link to="/intructorDash/dashCourses">
             <span className="icon">
-              <Icons.Book size={30} />
+              <Icons.Question size={30} />
             </span>
             <span className="title">Create Questions</span>
           </Link>

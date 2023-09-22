@@ -48,6 +48,7 @@ function DashCourses() {
       <div className="toggle">
         <Icons.Bars size={24} />
       </div>
+      <div className="dash-container">
       <div>
         <div className="search-container">
           <input
@@ -81,6 +82,7 @@ function DashCourses() {
             </div>
           </div>
         )}
+      </div>
       </div>
     </div>
   </div>

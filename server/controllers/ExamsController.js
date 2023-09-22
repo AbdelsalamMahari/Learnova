@@ -1,102 +1,95 @@
 const Exam = require('../models/ExamsModel');
-
-// Controller to add a new exam
-module.exports.addExam = async (req, res) => {
+// Get all questions for a specific course (quiz) by courseId
+module.exports.getQuizExams = async (req, res) => {
   try {
-    if (!req.user.isIntructor) {
-      return res.status(403).json({ error: 'You are not allowed to create exams.' });
-    }
-
-    const { name, course, questions } = req.body;
-
-    const exam = new Exam({
-      name,
-      course,
-      questions,
-    });
-
-    await exam.save();
-
-    res.status(201).json({ message: 'Exam created successfully', exam });
+    const courseId = req.params.courseId;
+    const questions = await Exam.find({ courseId }).exec();
+    res.json(questions);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred while adding the exam' });
+    res.status(500).json({ error: error.message });
   }
 };
 
-// Controller to update an exam
+// Create a new question
+module.exports.createExam = async (req, res) => {
+  try {
+    const question = new Exam(req.body);
+    await question.save();
+    res.status(201).json(question);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while creating the question.' });
+  }
+};
+
+// Get all questions
+module.exports.getAllExams= async (req, res) => {
+  try {
+    const questions = await Exam.find();
+    res.json(questions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching questions.' });
+  }
+};
+
+// Get one question by ID
+module.exports.getOneExam = async (req, res) => {
+  try {
+    const question = await Exam.findById(req.params.id);
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found.' });
+    }
+    res.json(question);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching the question.' });
+  }
+};
+
+// Update a question by ID
 module.exports.updateExam = async (req, res) => {
   try {
-    if (!req.user.isIntructor) {
-      return res.status(403).json({ error: 'You are not allowed to update exams.' });
+    const question = await Exam.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found.' });
     }
-
-    const updatedExam = await Exam.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
-    );
-
-    if (!updatedExam) {
-      return res.status(404).json({ error: 'Exam not found' });
-    }
-
-    res.status(200).json({ message: "Exam updated successfully", exam: updatedExam });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.json(question);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while updating the question.' });
   }
 };
 
-// Controller to delete an exam
+// Delete a question by ID
 module.exports.deleteExam = async (req, res) => {
   try {
-    if (!req.user.isIntructor) {
-      return res.status(403).json({ error: 'You are not allowed to delete exams.' });
+    const question = await Exam.findByIdAndRemove(req.params.id);
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found.' });
     }
-
-    const examId = req.params.id;
-
-    const deletedExam = await Exam.findByIdAndDelete(examId);
-
-    if (!deletedExam) {
-      return res.status(404).json({ error: 'Exam not found' });
-    }
-
-    res.status(200).json({ message: "Exam deleted successfully", exam: deletedExam });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.json({ message: 'Question deleted successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while deleting the question.' });
   }
 };
 
-// Controller to get all exams
-module.exports.getAllExams = async (req, res) => {
+// Get questions by course ID
+module.exports.getExamsByCourseId = async (req, res) => {
   try {
-    if (!req.user.isIntructor) {
-      return res.status(403).json({ error: 'You are not allowed to see all exams.' });
-    }
-    const exams = await Exam.find();
+    const courseId = req.params.id; // Assuming you have a route parameter for courseId
 
-    res.status(200).json({ message: 'All exams retrieved successfully', exams });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching exams' });
-  }
-};
+    // Use Question.find() to find questions for the specified course
+    const questions = await Exam.find({ courseId: courseId});
 
-// Controller to get a single exam by ID
-module.exports.getExamById = async (req, res) => {
-  try {
-    const examId = req.params.id;
-
-    const exam = await Exam.findById(examId);
-
-    if (!exam) {
-      return res.status(404).json({ error: 'Exam not found' });
+    if (!questions || questions.length === 0) {
+      return res.status(404).json({ error: 'No questions found for this course.' });
     }
 
-    res.status(200).json({ message: 'Exam retrieved successfully', exam });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    res.json(questions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching questions for the course.' });
   }
 };

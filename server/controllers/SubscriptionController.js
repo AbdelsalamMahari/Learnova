@@ -2,26 +2,20 @@ const Subscription = require("../models/SubscriptionModel");
 
 // Create a new subscription
 module.exports.createSubscription = async (req, res) => {
-  try {
-    const { userId, plan, amount } = req.body;
-
-    // Check if the user already has an active subscription for the same plan
-    const existingSubscription = await Subscription.findOne({ userId, plan });
-
-    if (existingSubscription) {
-      // If an active subscription with the same plan exists, return an error
-      return res.status(400).json({ error: "User already has an active subscription for this plan" });
+  module.exports.createSubscription = async (req, res) => {
+    try {
+      const { userId, plan, amount } = req.body;
+  
+      // Create a new subscription record
+      const subscription = new Subscription({ userId, plan, amount });
+      await subscription.save();
+  
+      res.status(201).json({ message: "Subscription created successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
     }
-
-    // Create a new subscription record
-    const subscription = new Subscription({ userId, plan, amount });
-    await subscription.save();
-
-    res.status(201).json({ message: "Subscription created successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Server error" });
-  }
+  };
 };
 
 // Get the total amount of subscriptions for all users

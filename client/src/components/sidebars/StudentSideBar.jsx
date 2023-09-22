@@ -80,7 +80,7 @@ export default function Sidebar() {
 
         <li>
           {isExamsUnlocked ? (
-            <Link to="/exams">
+            <Link to={`/exam/${id}`}>
               <span className="icon">
                 <Icons.Book size={30} />
               </span>

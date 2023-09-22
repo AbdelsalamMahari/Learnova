@@ -49,7 +49,7 @@ export default function Login() {
       <div className="my-10 flex items-center justify-center ">
         <div className="bg-white p-8 rounded shadow-lg">
             <div>
-              <h2 className="text-xl font-semibold">Login</h2>
+              <h2 className="text-xl font-semibold">Login To Your Account</h2>
               <form onSubmit={handleSubmit} className="mt-4">
                 <div className="mb-4">
                   <label htmlFor="student-username">Email:</label>

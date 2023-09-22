@@ -78,7 +78,7 @@ export default function Pricing() {
                   <span>
                     <Icons.Close size={20} />
                   </span>
-                  Course Learning Checks
+                  Courses Exams
                 </li>
                 <li className="flex gap-1 items-center text-gray-400">
                   <span>
@@ -120,7 +120,7 @@ export default function Pricing() {
                   <span>
                     <Icons.Check size={20} />
                   </span>
-                  Course Learning Checks
+                  Courses Exams
                 </li>
                 <li className="flex gap-1 items-center text-gray-400">
                   <span>
@@ -170,7 +170,7 @@ export default function Pricing() {
                   <span>
                     <Icons.Check size={20} />
                   </span>
-                  Course Learning Checks
+                  Courses Exams
                 </li>
                 <li className="flex gap-1 items-center">
                   <span>

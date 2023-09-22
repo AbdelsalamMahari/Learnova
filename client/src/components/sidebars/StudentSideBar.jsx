@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Icons from "../../assets/icons/icons";
+import axios from "axios";
+import UserInfo from "../users/UserInfo";
 
 export default function Sidebar() {
+  const user = UserInfo();
   const { id } = useParams(); // Get the id from URL params
+  const [isExamsUnlocked, setIsExamsUnlocked] = useState(false);
+
   useEffect(() => {
     // add hovered class to selected list item
     let list = document.querySelectorAll(".navigation-dash-st li");
@@ -27,6 +32,25 @@ export default function Sidebar() {
       main.classList.toggle("active");
     };
   }, []);
+
+  useEffect(() => {
+    if (user && user._id) {
+      axios
+        .get(`http://localhost:5000/subscriptions/${user._id}`)
+        .then((response) => {
+          const data = response.data;
+
+          // Check if the user has a monthly plan
+          if (data.plans.includes("annual") || data.plans.includes("monthly")) {
+            setIsExamsUnlocked(true);
+            console.log(data.plans)
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [user]);
   return (
     <div className="navigation-dash-st">
       <ul>
@@ -35,7 +59,6 @@ export default function Sidebar() {
             <span className="title text-xl">Html/Css</span>
           </Link>
         </li>
-
 
         <li>
           <Link to={`/courseMaterial/${id}`}>
@@ -56,12 +79,21 @@ export default function Sidebar() {
         </li>
 
         <li>
-          <Link to="/">
-            <span className="icon">
-              <Icons.Book size={30} />
-            </span>
-            <span className="title">Exam</span>
-          </Link>
+          {isExamsUnlocked ? (
+            <Link to={`/exam/${id}`}>
+              <span className="icon">
+                <Icons.Book size={30} />
+              </span>
+              <span className="title">Exams</span>
+            </Link>
+          ) : (
+              <Link>
+                <span className="icon">
+                  <Icons.Book size={30} />
+                </span>
+                <span className="title">Exams (Locked)</span>
+              </Link>
+          )}
         </li>
 
         <li>

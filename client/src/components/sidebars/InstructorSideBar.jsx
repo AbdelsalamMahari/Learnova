@@ -94,11 +94,19 @@ export default function InstructorSidebar() {
         </li>
 
         <li>
+<<<<<<< HEAD
           <Link to="/intructorDash/editCourses">
             <span className="icon">
               <Icons.edit size={30} />
             </span>
             <span className="title">Edit Courses</span>
+=======
+          <Link to="/intructorDash/dashCoursesExams">
+            <span className="icon">
+              <Icons.Question size={30} />
+            </span>
+            <span className="title">Create Exam</span>
+>>>>>>> master
           </Link>
         </li>
 

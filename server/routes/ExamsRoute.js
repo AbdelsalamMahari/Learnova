@@ -1,13 +1,26 @@
 const { Router } = require('express');
-const verify = require('../verifyToken');
-const { addExam, updateExam, deleteExam, getAllExams, getExamById } = require('../controllers/ExamsController');
+const {  createExam,getAllExams,getOneExam,updateExam,deleteExam,
+getExamsByCourseId,getQuizExams, getRandomExamQuestions} = require('../controllers/ExamsController');
 
 const router = Router();
+// Create a new question
+router.post('/add/exams', createExam);
 
-router.post('/exam/save', verify, addExam); 
-router.get('/exam', verify, getAllExams); 
-router.get('/exam/:id', verify, getExamById); 
-router.put('/exam/:id', verify, updateExam); 
-router.delete('/exam/:id', verify, deleteExam); 
+// Get all questions
+router.get('/get/exams', getAllExams);
 
+// Get one question by ID
+router.get('/get/exams/:id', getOneExam);
+
+// Update a question by ID
+router.put('/update/exams/:id', updateExam);
+
+// Delete a question by ID
+router.delete('/delete/exams/:id',deleteExam);
+
+router.get('/exams/course/:id',getExamsByCourseId);
+
+router.get('/:courseId/exams',getQuizExams);
+
+router.get('/random/:courseId', getRandomExamQuestions);
 module.exports = router;

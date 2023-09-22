@@ -10,6 +10,9 @@ const LessonSchema = new mongoose.Schema({
   subtitle: { 
     type: String,
   },
+  backdrop: {
+    type: String,
+  },
 });
 
 const ChapterSchema = new mongoose.Schema({

@@ -113,15 +113,16 @@ export default function CreateCourse() {
     });
   };
   const addSubtitle = (chapterIndex) => {
-    const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].subtitles.push("");
-    updatedChapters[chapterIndex].lessons.push({ content: "", image: null, subtitle: "" }); 
-    setFormData({
-      ...formData,
-      chapters: updatedChapters,
-    });
-  };
+  const updatedChapters = [...formData.chapters];
+  updatedChapters[chapterIndex].subtitles.push("");
+  updatedChapters[chapterIndex].lessons.push({ content: "", image: null, subtitle: "" }); // Initialize subtitle here
   
+  setFormData({
+    ...formData,
+    chapters: updatedChapters,
+  });
+};
+
 
   const removeSubtitle = (chapterIndex, subtitleIndex) => {
     const updatedChapters = [...formData.chapters];

@@ -115,7 +115,7 @@ export default function CreateCourse() {
   const addSubtitle = (chapterIndex) => {
   const updatedChapters = [...formData.chapters];
   updatedChapters[chapterIndex].subtitles.push("");
-  updatedChapters[chapterIndex].lessons.push({ content: "", image: null, subtitle: "" }); // Initialize subtitle here
+  updatedChapters[chapterIndex].lessons.push({ content: "", image: null, subtitle: "" }); 
   
   setFormData({
     ...formData,

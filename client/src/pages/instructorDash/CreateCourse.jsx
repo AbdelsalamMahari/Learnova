@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
-import ImageUpload from "../../components/ImageUpload/ImageUpload"; 
-import UserInfo from '../../components/users/UserInfo';
+import ImageUpload from "../../components/ImageUpload/ImageUpload";
+import UserInfo from "../../components/users/UserInfo";
 
 export default function CreateCourse() {
   const user = UserInfo();
@@ -14,7 +14,7 @@ export default function CreateCourse() {
     chapters: [
       {
         title: "",
-        subtitle: "",
+        subtitles: [],
         lessons: [{ content: "", image: null }],
       },
     ],
@@ -32,41 +32,51 @@ export default function CreateCourse() {
     });
   };
 
-  const handleChapterChange = (e, chapterIndex) => {
-    const { name, value } = e.target;
+  const handleTitleChange = (e, chapterIndex) => {
+    const { value } = e.target;
     const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex][name] = value;
+    updatedChapters[chapterIndex].title = value;
     setFormData({
       ...formData,
       chapters: updatedChapters,
     });
   };
 
-  const handleLessonChange = (e, chapterIndex, lessonIndex) => {
+  const handleSubtitleChange = (e, chapterIndex, subtitleIndex) => {
     const { name, value } = e.target;
     const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].lessons[lessonIndex][name] = value;
+    updatedChapters[chapterIndex].subtitles[subtitleIndex] = value;
     setFormData({
       ...formData,
       chapters: updatedChapters,
     });
   };
 
-  const handleImageChange = (e, chapterIndex, lessonIndex) => {
+  const handleLessonContentChange = (e, chapterIndex, subtitleIndex) => {
+    const { name, value } = e.target;
+    const updatedChapters = [...formData.chapters];
+    updatedChapters[chapterIndex].lessons[subtitleIndex].content = value;
+    setFormData({
+      ...formData,
+      chapters: updatedChapters,
+    });
+  };
+
+  const handleImageChange = (e, chapterIndex, subtitleIndex) => {
     const file = e.target.files[0];
     const fileName = file.name;
 
     const updatedImageFiles = [...selectedImageFiles];
     updatedImageFiles.push({
       chapterIndex,
-      lessonIndex,
+      subtitleIndex,
       file,
     });
 
     setSelectedImageFiles(updatedImageFiles);
 
     const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].lessons[lessonIndex].image = fileName;
+    updatedChapters[chapterIndex].lessons[subtitleIndex].image = fileName;
 
     setFormData({
       ...formData,
@@ -81,18 +91,45 @@ export default function CreateCourse() {
         ...formData.chapters,
         {
           title: "",
-          subtitle: "",
+          subtitles: [],
           lessons: [{ content: "", image: null }],
         },
       ],
     });
   };
 
+  const removeChapter = (chapterIndex) => {
+    const updatedChapters = [...formData.chapters];
+    updatedChapters.splice(chapterIndex, 1);
+    setFormData({
+      ...formData,
+      chapters: updatedChapters,
+    });
+  };
+
+  const addSubtitle = (chapterIndex) => {
+    const updatedChapters = [...formData.chapters];
+    updatedChapters[chapterIndex].subtitles.push("");
+    updatedChapters[chapterIndex].lessons.push({ content: "", image: null });
+    setFormData({
+      ...formData,
+      chapters: updatedChapters,
+    });
+  };
+
+  const removeSubtitle = (chapterIndex, subtitleIndex) => {
+    const updatedChapters = [...formData.chapters];
+    updatedChapters[chapterIndex].subtitles.splice(subtitleIndex, 1);
+    updatedChapters[chapterIndex].lessons.splice(subtitleIndex, 1);
+    setFormData({
+      ...formData,
+      chapters: updatedChapters,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formData:", formData);
 
-   
     for (const imageFile of selectedImageFiles) {
       const imageFormData = new FormData();
       imageFormData.append("image", imageFile.file);
@@ -106,7 +143,7 @@ export default function CreateCourse() {
         console.log("Image uploaded successfully:", imageUploadResponse.data);
       } catch (error) {
         console.error("Error uploading image:", error);
-        return; 
+        return;
       }
     }
 
@@ -116,7 +153,7 @@ export default function CreateCourse() {
       instructor: user._id,
       content: formData.chapters.map((chapter) => ({
         title: chapter.title,
-        subtitle: chapter.subtitle,
+        subtitles: chapter.subtitles,
         lessons: chapter.lessons.map((lesson) => ({
           content: lesson.content,
           image: lesson.image,
@@ -144,7 +181,11 @@ export default function CreateCourse() {
           <div className="toggle">
             <Icons.Bars size={24} />
           </div>
-          <form onSubmit={handleSubmit} className="p-4" encType="multipart/form-data">
+          <form
+            onSubmit={handleSubmit}
+            className="p-4"
+            encType="multipart/form-data"
+          >
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">
                 Name:
@@ -180,31 +221,47 @@ export default function CreateCourse() {
                     type="text"
                     name="title"
                     value={chapter.title}
-                    onChange={(e) => handleChapterChange(e, chapterIndex)}
+                    onChange={(e) =>
+                      handleTitleChange(e, chapterIndex)
+                    }
                     required
                     className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                   />
-                  <label className="block text-gray-700 font-bold mb-2">
-                    Chapter Subtitle:
-                  </label>
-                  <input
-                    type="text"
-                    name="subtitle"
-                    value={chapter.subtitle}
-                    onChange={(e) => handleChapterChange(e, chapterIndex)}
-                    required
-                    className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                  />
-                  {chapter.lessons.map((lesson, lessonIndex) => (
-                    <div key={lessonIndex}>
+                  {chapter.subtitles.map((subtitle, subtitleIndex) => (
+                    <div key={subtitleIndex}>
+                      <label className="block text-gray-700 font-bold mb-2">
+                        Subtitle:
+                      </label>
+                      <input
+                        type="text"
+                        name="subtitle"
+                        value={subtitle}
+                        onChange={(e) =>
+                          handleSubtitleChange(
+                            e,
+                            chapterIndex,
+                            subtitleIndex
+                          )
+                        }
+                        required
+                        className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                      />
                       <label className="block text-gray-700 font-bold mb-2">
                         Lesson Content:
                       </label>
                       <textarea
                         name="content"
-                        value={lesson.content}
+                        value={
+                          chapter.lessons[subtitleIndex]
+                            ? chapter.lessons[subtitleIndex].content
+                            : ""
+                        }
                         onChange={(e) =>
-                          handleLessonChange(e, chapterIndex, lessonIndex)
+                          handleLessonContentChange(
+                            e,
+                            chapterIndex,
+                            subtitleIndex
+                          )
                         }
                         required
                         className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
@@ -216,12 +273,39 @@ export default function CreateCourse() {
                         name="image"
                         type="file"
                         onChange={(e) =>
-                          handleImageChange(e, chapterIndex, lessonIndex)
+                          handleImageChange(
+                            e,
+                            chapterIndex,
+                            subtitleIndex
+                          )
                         }
                         className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                       />
+                      <button
+                        type="button"
+                        className="border border-red-500 text-red-500 px-2 py-1 rounded mt-2"
+                        onClick={() =>
+                          removeSubtitle(chapterIndex, subtitleIndex)
+                        }
+                      >
+                        Remove Subtitle
+                      </button>
                     </div>
                   ))}
+                  <button
+                    type="button"
+                    className="border border-black bg-white text-black px-4 py-2 rounded hover:bg-blue-700 mr-2"
+                    onClick={() => addSubtitle(chapterIndex)}
+                  >
+                    Add Subtitle and Content
+                  </button>
+                  <button
+                    type="button"
+                    className="border border-red-500 text-red-500 px-2 py-1 rounded mt-2"
+                    onClick={() => removeChapter(chapterIndex)}
+                  >
+                    Remove Chapter
+                  </button>
                 </div>
               ))}
               <button

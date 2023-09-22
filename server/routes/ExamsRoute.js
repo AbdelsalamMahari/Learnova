@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const {  createExam,getAllExams,getOneExam,updateExam,deleteExam,
-getExamsByCourseId,getQuizExams} = require('../controllers/ExamsController');
+getExamsByCourseId,getQuizExams, getRandomExamQuestions} = require('../controllers/ExamsController');
 
 const router = Router();
 // Create a new question
@@ -21,4 +21,6 @@ router.delete('/delete/exams/:id',deleteExam);
 router.get('/exams/course/:id',getExamsByCourseId);
 
 router.get('/:courseId/exams',getQuizExams);
+
+router.get('/random/:courseId', getRandomExamQuestions);
 module.exports = router;

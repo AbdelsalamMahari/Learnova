@@ -93,3 +93,36 @@ module.exports.getExamsByCourseId = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching questions for the course.' });
   }
 };
+
+module.exports.getRandomExamQuestions = async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+
+    // Get all questions for the specified course
+    const allQuestions = await Exam.find({ courseId }).exec();
+
+    if (!allQuestions || allQuestions.length === 0) {
+      return res.status(404).json({ error: 'No questions found for this course.' });
+    }
+
+    // Shuffle the questions randomly
+    const shuffledQuestions = shuffleArray(allQuestions);
+
+    // Select the first 5 questions
+    const randomQuestions = shuffledQuestions.slice(0, 5);
+
+    res.json(randomQuestions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching random questions for the course.' });
+  }
+};
+
+// Helper function to shuffle an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}

@@ -43,3 +43,18 @@ module.exports.updateUserExamScore = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Delete user's score for a specific course
+module.exports.deleteUserExamScore = async (req, res) => {
+  try {
+    const { userId, courseId } = req.params;
+    
+    // Find and delete the user's score
+    await ExamScore.findOneAndDelete({ userId, courseId }).exec();
+
+    res.json({ message: 'User score deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+

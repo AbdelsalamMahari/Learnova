@@ -12,7 +12,10 @@ export default function CourseExam() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
   const [score, setScore] = useState(0);
-  const [questionsClosed, setQuestionsClosed] = useState(false); // New state variable
+  const [questionsClosed, setQuestionsClosed] = useState(false);
+  const [percentage, setPercentage] = useState(0);
+  const [result, setResult] = useState(null); // 'success', 'failed', or null
+  const [submitted, setSubmitted] = useState(false); // Track if answers are submitted
 
   useEffect(() => {
     if (user && user._id) {
@@ -23,7 +26,7 @@ export default function CourseExam() {
           setCourse(courseResponse.data);
 
           // Fetch questions for the course
-          const questionsResponse = await axios.get(`http://localhost:5000/exams/course/${courseId}`);
+          const questionsResponse = await axios.get(`http://localhost:5000/random/${courseId}`);
           setQuestions(questionsResponse.data);
 
           // Initialize userAnswers state with empty values
@@ -38,7 +41,6 @@ export default function CourseExam() {
   }, [courseId, user]);
 
   const handleSelectAnswer = (questionIndex, optionIndex) => {
-    // Do not allow selecting answers if questions are closed
     if (questionsClosed) {
       return;
     }
@@ -49,7 +51,6 @@ export default function CourseExam() {
   };
 
   const handleSubmitAnswers = async () => {
-    // Calculate the score based on user answers
     const updatedScore = userAnswers.reduce((acc, answer, index) => {
       if (answer !== undefined && questions[index].options[answer].isTrue) {
         return acc + 1;
@@ -57,16 +58,38 @@ export default function CourseExam() {
       return acc;
     }, 0);
 
-    // Update the user's score in the state
     setScore(updatedScore);
+    setQuestionsClosed(true);
+    setSubmitted(true); // Mark answers as submitted
 
-    // Update the user's score in the database
+    // Calculate the percentage and result
+    const calculatedPercentage = (updatedScore / questions.length) * 100;
+    setPercentage(calculatedPercentage);
+
+    if (calculatedPercentage > 50) {
+      setResult('success');
+    } else {
+      setResult('failed');
+    }
+
+    // Save the user's score in the database
     await axios.put(`http://localhost:5000/${user._id}/examScore/${courseId}`, {
       score: updatedScore,
     });
+  };
 
-    // Close the questions after submitting
-    setQuestionsClosed(true);
+  const handleTryAgain = async () => {
+    // Reset the state to allow the user to try the exam again
+    setQuestionsClosed(false);
+    setScore(0);
+    setPercentage(0);
+    setResult(null);
+    setSubmitted(false); // Reset submission status
+    setUserAnswers(new Array(userAnswers.length).fill(undefined));
+
+    // Delete the user's score from the database if it exists
+    await axios.delete(`http://localhost:5000/${user._id}/examScore/${courseId}`);
+    window.location.reload();
   };
 
   return (
@@ -87,13 +110,13 @@ export default function CourseExam() {
                   <h3 className="text-lg font-semibold">{question.questionText}</h3>
                   <ul className="list-disc pl-4">
                     {question.options.map((option, optionIndex) => (
-                      <li key={optionIndex} className="flex items-center space-x-2">
+                      <li key={optionIndex} className="flex items-cnjenter space-x-2">
                         <input
                           type="radio"
                           checked={userAnswers[questionIndex] === optionIndex}
                           onChange={() => handleSelectAnswer(questionIndex, optionIndex)}
                           className="h-5 w-5 text-blue-500"
-                          disabled={questionsClosed} // Disable input if questions are closed
+                          disabled={questionsClosed}
                         />
                         <span>{option.text}</span>
                       </li>
@@ -102,14 +125,33 @@ export default function CourseExam() {
                 </li>
               ))}
             </ul>
-            <button
-              onClick={handleSubmitAnswers}
-              className="bg-green-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-green-600"
-              disabled={userAnswers.includes(undefined) || questionsClosed} // Disable submit button if questions are closed
-            >
-              Submit Answers
-            </button>
-            <p className="mt-2">Score: {score}</p>
+            {submitted ? (
+              <div>
+                <p className="mt-2">Score: {score}</p>
+                <p className="mt-2">Percentage: {percentage.toFixed(2)}%</p>
+                {result === 'success' ? (
+                  <p className="text-green-500 text-xl font-semibold mt-4">Success!</p>
+                ) : (
+                  <div>
+                    <p className="text-red-500 text-xl font-semibold mt-4">Failed</p>
+                    <button
+                      onClick={handleTryAgain}
+                      className="bg-blue text-white px-4 py-2 mt-4 rounded-md hover:bg-blue"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmitAnswers}
+                className="bg-green-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-green-600"
+                disabled={userAnswers.includes(undefined) || questionsClosed}
+              >
+                Submit Answers
+              </button>
+            )}
           </div>
         </div>
       </div>

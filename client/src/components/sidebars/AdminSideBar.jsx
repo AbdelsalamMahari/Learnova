@@ -5,6 +5,7 @@ import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import { Waveform } from '@uiball/loaders'
 
 export default function AdminSidebar() {
+  const imgURL="/usersProfiles/"
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -48,8 +49,8 @@ export default function AdminSidebar() {
               <div className="user border-2">
               <img
                 src={
-                  user.profilePic
-                    ? user.profilePic
+                  imgURL+user.profilePic
+                    ? imgURL+user.profilePic
                     : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
                 }
                 alt="profile"

@@ -5,15 +5,15 @@ const LessonSchema = new mongoose.Schema({
     type: String,
   },
   image: {
-    type: String, 
+    type: String,
+  },
+  subtitle: { 
+    type: String,
   },
 });
 
 const ChapterSchema = new mongoose.Schema({
   title: {
-    type: String,
-  },
-  subtitle: {
     type: String,
   },
   lessons: [LessonSchema],

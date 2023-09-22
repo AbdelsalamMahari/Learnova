@@ -5,16 +5,15 @@ const Question = require("../models/QuestionModel");
 const createCourse = async (req, res) => {
   try {
     const { name, description, content, instructor } = req.body;
-
     const mappedContent = content.map((chapter) => ({
       title: chapter.title,
-      subtitle: chapter.subtitle,
+   
       lessons: chapter.lessons.map((lesson) => ({
         content: lesson.content,
         image: lesson.image,
+        subtitle: lesson.subtitle, 
       })),
     }));
-
 
     const course = new Course({
       name,

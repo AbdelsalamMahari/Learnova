@@ -46,6 +46,10 @@ export default function CreateCourse() {
     const { name, value } = e.target;
     const updatedChapters = [...formData.chapters];
     updatedChapters[chapterIndex].subtitles[subtitleIndex] = value;
+    updatedChapters[chapterIndex].lessons[subtitleIndex].subtitle = value;
+  
+    console.log("Updated Chapters:", updatedChapters);
+  
     setFormData({
       ...formData,
       chapters: updatedChapters,
@@ -65,24 +69,26 @@ export default function CreateCourse() {
   const handleImageChange = (e, chapterIndex, subtitleIndex) => {
     const file = e.target.files[0];
     const fileName = file.name;
-
+  
     const updatedImageFiles = [...selectedImageFiles];
     updatedImageFiles.push({
       chapterIndex,
       subtitleIndex,
       file,
     });
-
+  
     setSelectedImageFiles(updatedImageFiles);
-
+  
     const updatedChapters = [...formData.chapters];
     updatedChapters[chapterIndex].lessons[subtitleIndex].image = fileName;
-
+    updatedChapters[chapterIndex].lessons[subtitleIndex].subtitle = formData.chapters[chapterIndex].subtitles[subtitleIndex]; // Include the subtitle here
+  
     setFormData({
       ...formData,
       chapters: updatedChapters,
     });
   };
+  
 
   const addChapter = () => {
     setFormData({
@@ -92,7 +98,7 @@ export default function CreateCourse() {
         {
           title: "",
           subtitles: [],
-          lessons: [{ content: "", image: null }],
+          lessons: [], 
         },
       ],
     });
@@ -106,16 +112,16 @@ export default function CreateCourse() {
       chapters: updatedChapters,
     });
   };
-
   const addSubtitle = (chapterIndex) => {
     const updatedChapters = [...formData.chapters];
     updatedChapters[chapterIndex].subtitles.push("");
-    updatedChapters[chapterIndex].lessons.push({ content: "", image: null });
+    updatedChapters[chapterIndex].lessons.push({ content: "", image: null, subtitle: "" }); 
     setFormData({
       ...formData,
       chapters: updatedChapters,
     });
   };
+  
 
   const removeSubtitle = (chapterIndex, subtitleIndex) => {
     const updatedChapters = [...formData.chapters];
@@ -126,47 +132,48 @@ export default function CreateCourse() {
       chapters: updatedChapters,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     for (const imageFile of selectedImageFiles) {
       const imageFormData = new FormData();
       imageFormData.append("image", imageFile.file);
-
+  
       try {
         const imageUploadResponse = await axios.post(
           "http://localhost:5000/image/upload",
           imageFormData
         );
-
+  
         console.log("Image uploaded successfully:", imageUploadResponse.data);
       } catch (error) {
         console.error("Error uploading image:", error);
         return;
       }
     }
-
+  
     const formDataToSend = {
       name: formData.name,
       description: formData.description,
       instructor: user._id,
       content: formData.chapters.map((chapter) => ({
         title: chapter.title,
-        subtitles: chapter.subtitles,
         lessons: chapter.lessons.map((lesson) => ({
           content: lesson.content,
           image: lesson.image,
+          subtitle: lesson.subtitle,
         })),
       })),
     };
-
+    
+  
     try {
+      console.log(formDataToSend)
       const response = await axios.post(
         "http://localhost:5000/courses/create",
         formDataToSend
       );
-
+  
       console.log("Course created successfully:", response.data);
     } catch (error) {
       console.error("Error creating course:", error);

@@ -63,7 +63,7 @@ function App() {
         <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
-        <Route path="certificate" element={<Certificate />} />
+        <Route path="/:id/certificate/:user" element={<Certificate />} />
         <Route
           path="/intructorDash"
           element={

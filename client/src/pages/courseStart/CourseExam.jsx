@@ -4,6 +4,7 @@ import axios from 'axios';
 import SideBar from '../../components/sidebars/StudentSideBar';
 import Icons from '../../assets/icons/icons';
 import UserInfo from '../../components/users/UserInfo';
+import { Link } from 'react-router-dom';
 
 export default function CourseExam() {
   const user = UserInfo();
@@ -130,7 +131,15 @@ export default function CourseExam() {
                 <p className="mt-2">Score: {score}</p>
                 <p className="mt-2">Percentage: {percentage.toFixed(2)}%</p>
                 {result === 'success' ? (
-                  <p className="text-green-500 text-xl font-semibold mt-4">Success!</p>
+                    <div>
+                    <p className="text-green-500 text-xl font-semibold mt-4">Success!</p>
+                    <Link
+                      to={`/${courseId}/certificate/${user._id}`}
+                      className="bg-blue text-white px-4 py-2 mt-4 rounded-md hover:bg-blue"
+                    >
+                      View Certificate
+                    </Link>
+                  </div>
                 ) : (
                   <div>
                     <p className="text-red-500 text-xl font-semibold mt-4">Failed</p>

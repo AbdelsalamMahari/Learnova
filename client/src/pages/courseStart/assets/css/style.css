@@ -5,6 +5,18 @@
 * {
   box-sizing: border-box;
 }
+.navigation-btn{
+  background-color: #e9b10a;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+  width: 80px;
+}
+.course-navigation{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 .main-course-title{
   font-size: 40px;
   font-weight: bold;

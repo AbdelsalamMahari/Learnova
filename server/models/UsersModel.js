@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema(
     phoneNumber: { type: String },
     isAdmin: { type: Boolean, default: false },
     verified: { type: Boolean, default: false },
+ 
   },
   { timestamps: true }
 );

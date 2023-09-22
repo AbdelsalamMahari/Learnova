@@ -9,6 +9,7 @@ const subscriptionSchema = new Schema({
   plan: { type: String, required: true }, // 'monthly' or 'annual'
   amount: { type: Number, required: true }, // Amount in cents
   createdAt: { type: Date, default: Date.now },
+  
 });
 
 const Subscription = model("Subscription", subscriptionSchema);

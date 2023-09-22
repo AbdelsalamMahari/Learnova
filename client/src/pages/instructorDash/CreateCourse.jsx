@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
-import ImageUpload from "../../components/ImageUpload/ImageUpload";
-import UserInfo from "../../components/users/UserInfo";
+import UserInfo from '../../components/users/UserInfo';
 
 export default function CreateCourse() {
   const user = UserInfo();
@@ -19,10 +18,6 @@ export default function CreateCourse() {
       },
     ],
   });
-
-  const [selectedImageFiles, setSelectedImageFiles] = useState([]);
-  const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
-  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,33 +51,13 @@ export default function CreateCourse() {
     });
   };
 
-  const handleLessonContentChange = (e, chapterIndex, subtitleIndex) => {
-    const { name, value } = e.target;
-    const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].lessons[subtitleIndex].content = value;
-    setFormData({
-      ...formData,
-      chapters: updatedChapters,
-    });
-  };
+  const handleImageChange = (e, chapterIndex, lessonIndex) => {
+    const file = e.target.files[0]; 
+    const fileName = file.name; 
 
-  const handleImageChange = (e, chapterIndex, subtitleIndex) => {
-    const file = e.target.files[0];
-    const fileName = file.name;
-  
-    const updatedImageFiles = [...selectedImageFiles];
-    updatedImageFiles.push({
-      chapterIndex,
-      subtitleIndex,
-      file,
-    });
-  
-    setSelectedImageFiles(updatedImageFiles);
-  
     const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].lessons[subtitleIndex].image = fileName;
-    updatedChapters[chapterIndex].lessons[subtitleIndex].subtitle = formData.chapters[chapterIndex].subtitles[subtitleIndex]; // Include the subtitle here
-  
+    updatedChapters[chapterIndex].lessons[lessonIndex].image = fileName; 
+
     setFormData({
       ...formData,
       chapters: updatedChapters,
@@ -103,55 +78,10 @@ export default function CreateCourse() {
       ],
     });
   };
-
-  const removeChapter = (chapterIndex) => {
-    const updatedChapters = [...formData.chapters];
-    updatedChapters.splice(chapterIndex, 1);
-    setFormData({
-      ...formData,
-      chapters: updatedChapters,
-    });
-  };
-  const addSubtitle = (chapterIndex) => {
-  const updatedChapters = [...formData.chapters];
-  updatedChapters[chapterIndex].subtitles.push("");
-  updatedChapters[chapterIndex].lessons.push({ content: "", image: null, subtitle: "" }); 
   
-  setFormData({
-    ...formData,
-    chapters: updatedChapters,
-  });
-};
-
-
-  const removeSubtitle = (chapterIndex, subtitleIndex) => {
-    const updatedChapters = [...formData.chapters];
-    updatedChapters[chapterIndex].subtitles.splice(subtitleIndex, 1);
-    updatedChapters[chapterIndex].lessons.splice(subtitleIndex, 1);
-    setFormData({
-      ...formData,
-      chapters: updatedChapters,
-    });
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    for (const imageFile of selectedImageFiles) {
-      const imageFormData = new FormData();
-      imageFormData.append("image", imageFile.file);
-  
-      try {
-        const imageUploadResponse = await axios.post(
-          "http://localhost:5000/image/upload",
-          imageFormData
-        );
-  
-        console.log("Image uploaded successfully:", imageUploadResponse.data);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        return;
-      }
-    }
+    console.log("formData:", formData);
   
     const formDataToSend = {
       name: formData.name,
@@ -166,20 +96,16 @@ export default function CreateCourse() {
         })),
       })),
     };
-    
   
     try {
-      console.log(formDataToSend)
-      const response = await axios.post(
-        "http://localhost:5000/courses/create",
-        formDataToSend
-      );
+      const response = await axios.post("http://localhost:5000/courses/create", formDataToSend);
   
       console.log("Course created successfully:", response.data);
     } catch (error) {
       console.error("Error creating course:", error);
     }
   };
+  
 
   return (
     <>
@@ -274,30 +200,20 @@ export default function CreateCourse() {
                         required
                         className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                       ></textarea>
-                      <label className="block text-gray-700 font-bold mb-2">
-                        Lesson Image:
-                      </label>
-                      <input
+
+             
+                      <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">
+                          Lesson Image:
+                        </label>
+                        <input
                         name="image"
-                        type="file"
-                        onChange={(e) =>
-                          handleImageChange(
-                            e,
-                            chapterIndex,
-                            subtitleIndex
-                          )
-                        }
-                        className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                      />
-                      <button
-                        type="button"
-                        className="border border-red-500 text-red-500 px-2 py-1 rounded mt-2"
-                        onClick={() =>
-                          removeSubtitle(chapterIndex, subtitleIndex)
-                        }
-                      >
-                        Remove Subtitle
-                      </button>
+                          type="file"
+                          
+                          onChange={(e) => handleImageChange(e, chapterIndex, lessonIndex)}
+                          className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
                     </div>
                   ))}
                   <button

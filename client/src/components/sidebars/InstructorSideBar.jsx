@@ -45,14 +45,17 @@ export default function InstructorSidebar() {
             <Link to="/">
               <span className="icon">
                 <div className="user border-2">
-                  <img
-                    src={
-                      imgURL + user.profilePic
-                        ? imgURL + user.profilePic
-                        : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
-                    }
-                    alt="profile"
-                  />
+                {user.profilePic ? (
+                    <img
+                      src={`http://localhost:5000/users/userProfile/${user._id}`}
+                      alt="Upload"
+                    />
+                  ) : (
+                    <img
+                      src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                      alt="Default Profile"
+                    />
+                  )}
                 </div>
               </span>
               <span className="title">

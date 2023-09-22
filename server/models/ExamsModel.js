@@ -1,20 +1,32 @@
 const mongoose = require('mongoose');
 
 const examSchema = new mongoose.Schema({
-  name: {
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course',
+  },
+  questionText: {
     type: String,
     required: true,
   },
-  course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course', // Replace 'Course' with the actual name of your Course model
-    required: true,
-  },
-  questions: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Question',
-  }],
-  // Add other exam-related fields as needed
+  options: [
+    {
+      text: String,
+      isTrue: Boolean,
+    },
+    {
+      text: String,
+      isTrue: Boolean,
+    },
+    {
+      text: String,
+      isTrue: Boolean,
+    },
+    {
+      text: String,
+      isTrue: Boolean,
+    },
+  ]
 });
 
 const Exam = mongoose.model('Exam', examSchema);

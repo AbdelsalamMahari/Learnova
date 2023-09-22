@@ -8,9 +8,10 @@ const {
   updateCourse,
   deleteCourse,
   getCoursesByUserId,
+  courseBackdrop,
 } = require("../controllers/CourseController");
 
-
+router.post("/courseBackdrop", courseBackdrop);
 router.post("/create", createCourse);
 router.get("/", getAllCourses);
 router.get("/:id", getCourseById);

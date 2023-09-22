@@ -14,7 +14,6 @@ const Signup = () => {
     email: "",
     password: "",
     role: "",
-    cv: "",
     phoneNumber: "",
   });
 
@@ -126,17 +125,6 @@ const Signup = () => {
                   {/* Conditionally render cv and phone number fields for Instructor */}
                   {data.role === "instructor" && (
                     <>
-                      <div className="mb-4">
-                        <label htmlFor="student-cv">CV:</label>
-                        <input
-                          type="file"
-                          name="cv"
-                          className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
-                          value={data.cv}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
                       <div className="mb-4">
                         <label htmlFor="student-phoneNumber">Phone Number:</label>
                         <input

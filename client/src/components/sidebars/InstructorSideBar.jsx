@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Icons from "../../assets/icons/icons";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
-import { Waveform } from '@uiball/loaders'
+import { Waveform } from "@uiball/loaders";
 
 export default function InstructorSidebar() {
-  const imgURL="/usersProfiles/"
+  const imgURL = "/usersProfiles/";
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -17,7 +17,6 @@ export default function InstructorSidebar() {
     getUserInfo();
   }, []);
   useEffect(() => {
-
     let list = document.querySelectorAll(".navigation-dash li");
 
     function activeLink() {
@@ -29,7 +28,6 @@ export default function InstructorSidebar() {
 
     list.forEach((item) => item.addEventListener("mouseover", activeLink));
 
-    
     let toggle = document.querySelector(".toggle");
     let navigation = document.querySelector(".navigation-dash");
     let main = document.querySelector(".main-dash");
@@ -42,29 +40,31 @@ export default function InstructorSidebar() {
   return (
     <div className="navigation-dash">
       <ul>
-      { user ? (
-        <li>
-          <Link to="/">
-            <span className="icon">
-              <div className="user border-2">
-              <img
-                src={
-                  imgURL+user.profilePic
-                    ? imgURL+user.profilePic
-                    : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
-                }
-                alt="profile"
-              />
-              </div>
-            </span>
-            <span className="title">{user.firstName} {user.lastName}</span>
-          </Link>
-        </li>
-      ) : (
-        <div className="flex justify-center items-center">
-        <Waveform size={25} color="#fff" />
-        </div>
-      )}
+        {user ? (
+          <li>
+            <Link to="/">
+              <span className="icon">
+                <div className="user border-2">
+                  <img
+                    src={
+                      imgURL + user.profilePic
+                        ? imgURL + user.profilePic
+                        : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                    }
+                    alt="profile"
+                  />
+                </div>
+              </span>
+              <span className="title">
+                {user.firstName} {user.lastName}
+              </span>
+            </Link>
+          </li>
+        ) : (
+          <div className="flex justify-center items-center">
+            <Waveform size={25} color="#fff" />
+          </div>
+        )}
 
         <li>
           <Link to="/intructorDash">
@@ -99,6 +99,14 @@ export default function InstructorSidebar() {
               <Icons.edit size={30} />
             </span>
             <span className="title">Edit Courses</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/intructorDash/dashCoursesExams">
+            <span className="icon">
+              <Icons.Question size={30} />
+            </span>
+            <span className="title">Create Exam</span>
           </Link>
         </li>
 

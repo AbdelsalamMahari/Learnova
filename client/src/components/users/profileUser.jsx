@@ -110,14 +110,16 @@ const ProfileUser = ({ user }) => {
             htmlFor="photo-upload"
             className="cursor-pointer block w-28 h-28"
           >
+            {user.profilePic ? (
+
             <img
-              src={
-                imgURL + Profile ||
-                "https://img.freepik.com/free-icon/man_318-677829.jpg"
-              }
+              src={`http://localhost:5000/users/userProfile/${user._id}`}
               alt="Upload"
               className="w-28 h-28 rounded-full object-cover"
             />
+            ) : (
+              <img src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max" alt="Default Profile"
+              className="w-28 h-28 rounded-full object-cover"/>)}
           </label>
         </div>
         <div className="flex justify-center items-start flex-col ml-4">

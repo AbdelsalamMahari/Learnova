@@ -24,11 +24,15 @@ import AdminRoute from "./utils/Admin/protectedRoute";
 import CourseQuestion from "./pages/courseStart/CourseQuestion";
 import Certificate from "./pages/certificatee/Certificate";
 import CourseEdit from "./pages/instructorDash/CourseEdit";
+import CourseExam from "./pages/courseStart/CourseExam";
+
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
 import CreateCourse from "./pages/instructorDash/CreateCourse";
 import CreateQuestion from "./pages/instructorDash/CreateQuestion";
 import DashCourses from "./pages/instructorDash/Courses";
+import DashCoursesExams from "./pages/instructorDash/ExamsCourses";
+import DashExam from "./pages/instructorDash/CreateExam";
 
 // Admin Dashboard
 import AdminDash from "./pages/adminDash/AdminDash";
@@ -57,9 +61,10 @@ function App() {
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
         <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
         <Route path="/questions/:id" element={<CourseQuestion />} />
+        <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="imageupload" element={<ImageUpload />} />
-        <Route path="certificate" element={<Certificate />} />
+        <Route path="/:id/certificate/:user" element={<Certificate />} />
         <Route
           path="/intructorDash"
           element={
@@ -102,6 +107,24 @@ function App() {
             <InstructorRoute
               element={<DashCourses />}
               path="/intructorDash/dashCourses"
+            />
+          }
+        />
+        <Route
+          path="/intructorDash/dashCoursesExams"
+          element={
+            <InstructorRoute
+              element={<DashCoursesExams />}
+              path="/intructorDash/dashCoursesExams"
+            />
+          }
+        />
+        <Route
+          path="/intructorDash/createQuestionExam/:id"
+          element={
+            <InstructorRoute
+              element={<DashExam />}
+              path="/intructorDash/createQuestionExam/:id"
             />
           }
         />

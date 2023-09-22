@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const verify = require('../verifyToken');
-const { updateUser, deleteUser, getUser, getAllUser, statUser, updatePassword, profile, getAllInstructors, getStudents, getInstructors } = require('../controllers/UsersController');
+const { updateUser, deleteUser, getUser, getAllUser, statUser, updatePassword, profile, getAllInstructors, getStudents, getInstructors, getProfilePhoto } = require('../controllers/UsersController');
 
 const router = Router();
 
@@ -14,5 +14,6 @@ router.post('/users/profile', profile );
 router.get('/users/role/instructor', verify, getAllInstructors );
 router.get('/users/allInstructor', verify, getInstructors );
 router.get('/users/allStudents', verify, getStudents );
+router.get('/users/userProfile/:profilePhotoID', getProfilePhoto );
 
 module.exports = router;

@@ -1,6 +1,8 @@
 const { User, validatePassword } = require('../models/UsersModel');
 const bcrypt = require("bcrypt");
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,6 +31,33 @@ module.exports.profile = (req, res) => {
         return res.status(200).json({ fileName: req.file.filename });
   });
 
+};
+
+module.exports.getProfilePhoto = async (req, res) => {
+  try {
+    const profilePhoto = await User.findById(req.params.profilePhotoID);
+    if (!profilePhoto) {
+      return res.status(404).json({ error: 'profilePhoto not found.' });
+    }
+
+    const relativeImagePath = profilePhoto.profilePic;
+
+    const absoluteImagePath = path.join(__dirname, '..', '..', 'client', 'public', 'usersProfiles', relativeImagePath);
+
+    
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    
+    console.error('Error retrieving certificateUpload photo:', err);
+
+    
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
 };
 
 // Update

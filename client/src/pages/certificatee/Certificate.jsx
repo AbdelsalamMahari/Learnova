@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import './Certificate.css';
 
-
 const Certificate = () => {
+   const { id, user } = useParams();
+   const [course, setCourse] = useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
+
+   useEffect(() => {
+      // Fetch course name and user details using Axios
+      async function fetchData() {
+        try {
+          const courseResponse = await axios.get(`http://localhost:5000/courses/${id}`);
+          const userResponse = await axios.get(`http://localhost:5000/users/find/${user}`);
+ 
+          setCourse(courseResponse.data);
+          setFirstName(userResponse.data.firstName);
+          setLastName(userResponse.data.lastName);
+        } catch (error) {
+          console.error(error);
+          // Handle error, e.g., display an error message
+        } 
+      }
+ 
+      fetchData();
+    }, [id, user]);
+
    const generatePDF = () => {
      const input = document.getElementById('certificate');
  
@@ -35,7 +60,7 @@ const Certificate = () => {
             <div className="pm-certificate-body">
                <div className="content-certificate">
                   <div className="pm-certificate-name">
-                     <span className="pm-name-text">Wafik Safa</span>
+                     <span className="pm-name-text">{firstName} {lastName}</span>
                      <hr className='pm-name-under' />
                   </div>
                </div>
@@ -51,7 +76,7 @@ const Certificate = () => {
 
                <div className="content-certificate">
                   <div className="pm-course-title">
-                     <span className="pm-credits-course">HTML</span>
+                     <span className="pm-credits-course">{course.name}</span>
                      <hr className='pm-name-under' />
                   </div>
                </div>

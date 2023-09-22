@@ -75,7 +75,7 @@ export default function CourseStart() {
                             className="courseinfo-images"
                           />
                         )}
-
+                        <h2>{lesson.subtitle}</h2>
                         <h3>{lesson.content}</h3>
                       </li>
                     ))}

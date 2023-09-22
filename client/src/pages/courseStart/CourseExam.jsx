@@ -12,6 +12,7 @@ export default function CourseExam() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
   const [score, setScore] = useState(0);
+  const [questionsClosed, setQuestionsClosed] = useState(false); // New state variable
 
   useEffect(() => {
     if (user && user._id) {
@@ -37,6 +38,11 @@ export default function CourseExam() {
   }, [courseId, user]);
 
   const handleSelectAnswer = (questionIndex, optionIndex) => {
+    // Do not allow selecting answers if questions are closed
+    if (questionsClosed) {
+      return;
+    }
+
     const updatedAnswers = [...userAnswers];
     updatedAnswers[questionIndex] = optionIndex;
     setUserAnswers(updatedAnswers);
@@ -58,6 +64,9 @@ export default function CourseExam() {
     await axios.put(`http://localhost:5000/${user._id}/examScore/${courseId}`, {
       score: updatedScore,
     });
+
+    // Close the questions after submitting
+    setQuestionsClosed(true);
   };
 
   return (
@@ -84,6 +93,7 @@ export default function CourseExam() {
                           checked={userAnswers[questionIndex] === optionIndex}
                           onChange={() => handleSelectAnswer(questionIndex, optionIndex)}
                           className="h-5 w-5 text-blue-500"
+                          disabled={questionsClosed} // Disable input if questions are closed
                         />
                         <span>{option.text}</span>
                       </li>
@@ -95,7 +105,7 @@ export default function CourseExam() {
             <button
               onClick={handleSubmitAnswers}
               className="bg-green-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-green-600"
-              disabled={userAnswers.includes(undefined)}
+              disabled={userAnswers.includes(undefined) || questionsClosed} // Disable submit button if questions are closed
             >
               Submit Answers
             </button>

@@ -121,7 +121,7 @@ export default function CourseInfo() {
               {course.content.map((chapter, chapterIndex) => (
                 <div key={chapterIndex}>
                   <h2
-                    className="px-3 flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="px-3 flex items-center justify-between w-full p-5  text-left  border border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => toggleAccordion(chapterIndex)}
                   >
                     <span>{chapter.title}</span>
@@ -129,11 +129,11 @@ export default function CourseInfo() {
                   <div
                     className={`${
                       activeAccordion === chapterIndex ? "block" : "hidden"
-                    } p-5 border border-b-0 border-gray-200 dark:border-gray-700`}
+                    } p-5 border border-gray-200 dark:border-gray-700`}
                   >
               
                     {chapter.lessons.map((lesson, lessonIndex) => (
-                      <div key={lessonIndex} className="mt-3">
+                      <div key={lessonIndex} className="">
                         <p className="text-lg font-semibold">
                           {lesson.subtitle}
                         </p>
@@ -148,14 +148,14 @@ export default function CourseInfo() {
               <div
                 className={`${
                   activeAccordion === 2 ? "block" : "hidden"
-                } p-5 border border-t-0 border-gray-200 dark:border-gray-700`}
+                }  border  border-gray-200 dark:border-gray-700`}
               >
                 <div className="px-3">
-                  <p className="py-2 text-gray-500 dark:text-gray-400 border-b">
-                    Anatomy of tags
+                  <p className="py-2 text-gray-500 dark:text-gray-400 ">
+                   
                   </p>
                   <p className="py-2 text-gray-500 dark:text-gray-400">
-                    Selectors in CSS
+                    
                   </p>
                 </div>
               </div>

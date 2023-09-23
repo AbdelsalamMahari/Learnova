@@ -12,6 +12,7 @@ export default function CreateCourse() {
     instructor: "",
     backdrop: "",
     Price: "",
+    category: "",
     chapters: [
       {
         title: "",
@@ -24,6 +25,29 @@ export default function CreateCourse() {
   const [selectedImageFiles, setSelectedImageFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [showCustomCategoryInput, setShowCustomCategoryInput] = useState(false);
+
+  const handleChangeCategory = (e) => {
+    const { name, value } = e.target;
+    if (value === "Other") {
+   
+      setShowCustomCategoryInput(true);
+    } else {
+      setShowCustomCategoryInput(false);
+    }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+ const handleCustomCategoryChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleBackdrop = (e) => {
     const file = e.target.files[0];
@@ -172,13 +196,15 @@ export default function CreateCourse() {
         return;
       }
     }
-
     const formDataToSend = {
       name: formData.name,
       description: formData.description,
       backdrop: selectedFileName,
       Price: formData.Price,
       instructor: user._id,
+      category: showCustomCategoryInput
+        ? formData.customCategory 
+        : formData.category,
       content: formData.chapters.map((chapter) => ({
         title: chapter.title,
         lessons: chapter.lessons.map((lesson) => ({
@@ -240,6 +266,42 @@ export default function CreateCourse() {
                 className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               ></textarea>
             </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Category:
+              </label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChangeCategory}
+                required
+                className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Select a category</option>
+                <option value="Science">Science</option>
+                <option value="Math">Math</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Finance">Finance</option>
+                <option value="Language">Language</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            {showCustomCategoryInput && (
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">
+                  Custom Category:
+                </label>
+                <input
+                  type="text"
+                  name="customCategory"
+                  value={formData.customCategory}
+                  onChange={handleCustomCategoryChange}
+                  required
+                  className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            )}
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">
                 Course image:
@@ -365,6 +427,8 @@ export default function CreateCourse() {
             >
               Create Course
             </button>
+
+          
           </form>
         </div>
       </div>

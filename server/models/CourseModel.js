@@ -45,6 +45,9 @@ const CourseSchema = new mongoose.Schema({
   Price:{
     type: Number,
 
+  },
+  category:{
+    type :String ,
   }
 });
 

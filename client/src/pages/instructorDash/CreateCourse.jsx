@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
-import ImageUpload from "../../components/ImageUpload/ImageUpload";
 import UserInfo from "../../components/users/UserInfo";
 
 export default function CreateCourse() {
@@ -21,8 +20,7 @@ export default function CreateCourse() {
   });
 
   const [selectedImageFiles, setSelectedImageFiles] = useState([]);
-  const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
-  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

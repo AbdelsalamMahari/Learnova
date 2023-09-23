@@ -21,7 +21,7 @@ export default function CourseInfo() {
     completionStatus: 'Not Started',
     completedChapters: 0,
     grade: 0,
-    instructor: '', // Will be set to the course instructor
+    instructor: '', 
   });
 
   const { id } = useParams();
@@ -31,14 +31,14 @@ export default function CourseInfo() {
       const userInfo = await fetchUserInfoFromToken();
       setUser(userInfo);
 
-      // Fetch course information including the instructor
+    
       const courseResponse = await fetch(`http://localhost:5000/courses/${id}`);
       if (!courseResponse.ok) {
         throw new Error("Course not found");
       }
       const courseData = await courseResponse.json();
 
-      // Set the instructor field in EnrollmentData to be the instructor of the course
+      
       const updatedEnrollmentData = {
         user: userInfo._id,
         course: id,
@@ -46,10 +46,10 @@ export default function CourseInfo() {
         completionStatus: 'Not Started',
         completedChapters: 0,
         grade: 0,
-        instructor: courseData.instructor, // Use the instructor field from courseData
+        instructor: courseData.instructor, 
       };
 
-      // Make a POST request to create an enrollment with updated EnrollmentData
+
       const response = await axios.post("http://localhost:5000/add/enrollement", updatedEnrollmentData);
       console.log("Enrollment created:", response.data);
     } catch (error) {
@@ -61,12 +61,12 @@ export default function CourseInfo() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch user information from token when the component mounts
+     
         const userInfo = await fetchUserInfoFromToken();
         setUser(userInfo);
         console.log(userInfo);
 
-        // Fetch course information including the instructor
+   
         const response = await fetch(`http://localhost:5000/courses/${id}`);
         if (!response.ok) {
           throw new Error("Course not found");
@@ -115,19 +115,28 @@ export default function CourseInfo() {
               </Link>
             </div>
             <div className="mt-4 w-3/4 ml-12 ">
-              {course.content.map((chapter, index) => (
-                <div key={index}>
+              {course.content.map((chapter, chapterIndex) => (
+                <div key={chapterIndex}>
                   <h2
                     className="px-3 flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    onClick={() => toggleAccordion(chapterIndex)}
                   >
                     <span>{chapter.title}</span>
                   </h2>
                   <div
                     className={`${
-                      activeAccordion === index ? "block" : "hidden"
+                      activeAccordion === chapterIndex ? "block" : "hidden"
                     } p-5 border border-b-0 border-gray-200 dark:border-gray-700`}
                   >
-                    {/* Content for each chapter */}
+              
+                    {chapter.lessons.map((lesson, lessonIndex) => (
+                      <div key={lessonIndex} className="mt-3">
+                        <p className="text-lg font-semibold">
+                          {lesson.subtitle}
+                        </p>
+                       
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}

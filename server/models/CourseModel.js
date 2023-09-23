@@ -5,15 +5,18 @@ const LessonSchema = new mongoose.Schema({
     type: String,
   },
   image: {
-    type: String, 
+    type: String,
+  },
+  subtitle: { 
+    type: String,
+  },
+  backdrop: {
+    type: String,
   },
 });
 
 const ChapterSchema = new mongoose.Schema({
   title: {
-    type: String,
-  },
-  subtitle: {
     type: String,
   },
   lessons: [LessonSchema],
@@ -33,8 +36,7 @@ const CourseSchema = new mongoose.Schema({
     type: Date,
   },
   instructor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    type: String,
   },
   content: [ChapterSchema],
   image: {

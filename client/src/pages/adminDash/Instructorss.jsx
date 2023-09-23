@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import UserInfo from '../../components/users/UserInfo';
-import Sidebar from "../../components/sidebars/AdminSideBar";
+
 import "./assets/css/style.css";
 import Cookies from 'js-cookie';
 const Instructorss = () => {

@@ -41,17 +41,18 @@ const imgURL="/courseimages/"
           {course ? (
             
             <div className="course-content">
-              <h2>{course.name}</h2>
-              <p>{course.description}</p>
-              {course.content.map((courseItem) => (
+              <h2 className="main-course-title">{course.name}</h2>
+             
+              {course.content.map((courseItem,index) => (
                 <div key={courseItem._id["$oid"]}>
-                  <h2>{courseItem.title}</h2>
-                  <p>{courseItem.subtitle}</p>
+                  <h1 className="course-title"> Chapter {index + 1}: {courseItem.title} </h1>
+                  <p className="course-subtitle">{courseItem.subtitle}</p>
                   <ul>
                     {courseItem.lessons.map((lesson) => (
                       <li key={lesson._id["$oid"]}>
-                        <h3>{lesson.content}</h3>
                         <img src={imgURL+lesson.image} alt={lesson.image} className="courseinfo-images"/>
+                        <h3>{lesson.content}</h3>
+                        
                       </li>
                     ))}
                   </ul>

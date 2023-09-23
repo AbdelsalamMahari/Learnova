@@ -141,15 +141,17 @@ export default function About() {
                   {item.user && (
                     <div className="author">
                       <div className="image">
-                        <img
-                          decoding="async"
-                          src={
-                            imgURL + item.user.profilePic
-                              ? `${imgURL + item.user.profilePic}`
-                              : "https://img.freepik.com/free-icon/man_318-677829.jpg"
-                          }
-                          alt={`${item.user.firstName}`}
-                        />
+                      {item.user.profilePic ? (
+                    <img
+                      src={`http://localhost:5000/users/userProfile/${item.user._id}`}
+                      alt="Upload"
+                    />
+                  ) : (
+                    <img
+                      src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                      alt="Default Profile"
+                    />
+                  )}
                       </div>
                       <div className="info">
                         <h3 className="name">{`${item.user.firstName} ${item.user.lastName}`}</h3>

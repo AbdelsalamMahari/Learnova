@@ -1,0 +1,39 @@
+/* dashcours.css */
+
+/* Style for the search input */
+.search-container input {
+    width: 35%; /* Take up the entire width of the container */
+    padding: 10px;
+    border: 1px solid black; /* Set border color to black */
+    border-radius: 10px;
+    font-size: 16px;
+    margin-top: auto;
+    outline: none; /* Remove the default input focus outline */
+  }
+  
+  /* Style for the course container */
+  .course-container {
+    display: flex; /* Display the divs side by side */
+    flex-wrap: wrap; /* Allow courses to wrap to the next line */
+    gap: 20px; /* Add gap between courses */
+    padding: 20px;
+  }
+  
+  .course-item {
+    background-color: #007991de;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    flex-basis: calc(50% - 20px); /* Set the width for each course item, considering the gap */
+  }
+  
+  .course-item:hover {
+    transform: translateY(-5px);
+  }
+  h2 {
+    font-size: 28px; /* Increase the font size */
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold; /* Add boldness */
+  }

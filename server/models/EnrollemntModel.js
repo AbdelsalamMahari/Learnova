@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const EnrollmentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user', // Reference the Student model
+    ref: 'user', 
     required: true,
   },
   course: {
@@ -26,6 +26,10 @@ const EnrollmentSchema = new mongoose.Schema({
     enum: ['Not Started', 'In Progress', 'Completed'],
     default: 'Not Started',
   },
+  completedChapters:{
+type:Number,
+default:0,
+  },
   grade: {
     type: Number,
     min: 0,
@@ -33,7 +37,7 @@ const EnrollmentSchema = new mongoose.Schema({
   },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Teacher', // Reference the Teacher model
+    ref: 'Teacher', 
     required: true,
   },
 });

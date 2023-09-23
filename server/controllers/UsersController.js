@@ -1,6 +1,8 @@
 const { User, validatePassword } = require('../models/UsersModel');
 const bcrypt = require("bcrypt");
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -14,21 +16,56 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports.profile = (req, res) => {
-  upload.single('image')(req, res, (err) => {
+  upload.single('profilePic')(req, res, async (err) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(400).send('File upload failed.');
-    
     }
 
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
     }
 
-        // Return the file name in the response
-        return res.status(200).json({ fileName: req.file.filename });
-  });
+    try {
+      const user = await User.findById(req.params.id);
 
+      user.profilePic = req.file.originalname;
+
+      await user.save();
+
+      return res.status(200).json('File uploaded successfully.');
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Internal server error.');
+    }
+  });
+};
+
+module.exports.getProfilePhoto = async (req, res) => {
+  try {
+    const profilePhoto = await User.findById(req.params.profilePhotoID);
+    if (!profilePhoto) {
+      return res.status(404).json({ error: 'profilePhoto not found.' });
+    }
+
+    const relativeImagePath = profilePhoto.profilePic;
+
+    const absoluteImagePath = path.join(__dirname, '..', '..', 'client', 'public', 'usersProfiles', relativeImagePath);
+
+    
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    
+    console.error('Error retrieving certificateUpload photo:', err);
+
+    
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
 };
 
 // Update

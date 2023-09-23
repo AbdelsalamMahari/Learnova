@@ -4,9 +4,18 @@ import "./assets/css/style.css";
 import Sidebar from "../../components/sidebars/AdminSideBar";
 import Icons from "../../assets/icons/icons";
 import Cookies from "js-cookie";
+import CVModal from "../../components/modals/cvModal"; // Import your modal component
 
 export default function Requests() {
   const [instructors, setInstructors] = useState([]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCVUrl, setSelectedCVUrl] = useState("");
+
+  const handleCVClick = (cvUrl) => {
+    setSelectedCVUrl(cvUrl);
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     fetchRequests();
@@ -102,6 +111,7 @@ export default function Requests() {
                       <th>Last Name</th>
                       <th>Email</th>
                       <th>Phone Number</th>
+                      <th>Cv</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -112,6 +122,12 @@ export default function Requests() {
                         <td>{instructor.lastName}</td>
                         <td>{instructor.email}</td>
                         <td>{instructor.phoneNumber}</td>
+                        <td
+              className="cursor-pointer text-blue-500"
+              onClick={() => handleCVClick(`http://localhost:5000/users/userCv/${instructor._id}`)}
+            >
+              View CV
+            </td>
                         <td className="flex justify-center items-center gap-2">
                           <button className="bg-green-500 p-2 rounded-md text-white" onClick={() => handleAccept(instructor._id)}>
                             <Icons.Check/>
@@ -123,6 +139,11 @@ export default function Requests() {
                       </tr>
                     ))}
                   </tbody>
+                  <CVModal
+        isOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        cvUrl={selectedCVUrl}
+      />
                 </table>
               </div>
             )}

@@ -3,13 +3,14 @@ import { PiCertificateBold, PiSmileySad, PiStudent, PiChalkboardTeacher } from "
 import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft, BsCheckLg, BsQuestionSquare } from "react-icons/bs";
 import { BiBookBookmark, BiDollar } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-import { AiOutlineArrowUp, AiOutlineHome, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineArrowUp, AiOutlineHome, AiOutlineUser,AiFillEdit } from "react-icons/ai";
 import { HiArrowsRightLeft } from "react-icons/hi2";
 import { MdLocationPin, MdEmail, MdOutlineAdminPanelSettings } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { IoCreateOutline } from "react-icons/io5";
 
 const Icons = {
+  edit:AiFillEdit,
   Facebook: FaFacebook,
   Certificate: PiCertificateBold,
   Clock: BsClock,
@@ -35,6 +36,7 @@ const Icons = {
   Users: FiUsers,
   Create: IoCreateOutline,
   Question: BsQuestionSquare,
+  edit:AiFillEdit
 };
 
 export default Icons;

@@ -218,14 +218,13 @@ module.exports.getAllInstructors = async (req, res) => {
 };
 
 module.exports.getInstructors = async (req, res) => {
-  
     try {
       const instructors = await User.find({ isInstructor: true }); // Filter by 'role' and 'isInstructor'
 
       res.status(200).json(instructors);
     } catch (err) {
       res.status(500).json(err);
-    }  
+    }
 };
 
 module.exports.getStudents = async (req, res) => {

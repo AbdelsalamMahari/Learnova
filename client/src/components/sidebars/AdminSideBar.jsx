@@ -89,6 +89,15 @@ export default function AdminSidebar() {
         </li>
 
         <li>
+          <Link to="/adminDash/allInstructors">
+            <span className="icon">
+              <Icons.Teacher size={30} />
+            </span>
+            <span className="title">Instructors</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/adminDash">
             <span className="icon">
               <Icons.Users size={30} />
@@ -98,22 +107,13 @@ export default function AdminSidebar() {
         </li>
 
         <li>
-          <Link to="/adminDash/instructorss">
+          <Link to="/adminDash/feedbacks">
             <span className="icon">
               <Icons.Users size={30} />
             </span>
-            <span className="title">Instructors</span>
+            <span className="title">Feedbacks</span>
           </Link>
         </li>
-
-        <li>
-            <Link to="/adminDash/feedback">
-            <span className="icon">
-                <Icons.Feedback />
-                </span>
-                <span className="title">Feedbacks</span>
-            </Link>
-          </li>
 
         <li>
           <Link to="/">

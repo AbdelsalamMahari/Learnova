@@ -25,7 +25,7 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm({ amount, handlePaymentSuccess }) {
+export default function PaymentForm({ amount, handlePurchase }) {
   const [success, setSuccess] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -51,7 +51,7 @@ export default function PaymentForm({ amount, handlePaymentSuccess }) {
           toast.success(response.data.success, {
             theme: "colored",
           });
-          handlePaymentSuccess();
+          handlePurchase();
         }
       } catch (error) {
         console.log("Error", error);

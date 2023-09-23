@@ -39,6 +39,23 @@ const storage = multer.diskStorage({
       }
     });
   };
+
+  module.exports.cvNoId = (req, res) => {
+    upload.single('cv')(req, res, (err) => {
+      if (err) {
+        console.log(err)
+        return res.status(400).send('Cv upload failed.');
+      
+      }
+  
+      if (!req.file) {
+        return res.status(400).send('No cv uploaded.');
+      }
+  
+          // Return the file name in the response
+          return res.status(200).json('Cv uploaded successfully.');
+    });
+  };
   
   module.exports.getCv = async (req, res) => {
     try {

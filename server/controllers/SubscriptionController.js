@@ -1,7 +1,6 @@
 const Subscription = require("../models/SubscriptionModel");
 
 // Create a new subscription
-module.exports.createSubscription = async (req, res) => {
   module.exports.createSubscription = async (req, res) => {
     try {
       const { userId, plan, amount } = req.body;
@@ -16,7 +15,6 @@ module.exports.createSubscription = async (req, res) => {
       res.status(500).json({ error: "Server error" });
     }
   };
-};
 
 // Get the total amount of subscriptions for all users
 module.exports.getTotalSubscriptionAmount = async (req, res) => {

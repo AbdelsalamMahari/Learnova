@@ -38,6 +38,7 @@ import DashExam from "./pages/instructorDash/CreateExam";
 import AdminDash from "./pages/adminDash/AdminDash";
 import ImageUpload from "./components/ImageUpload/ImageUpload";
 import Requests from "./pages/adminDash/Requests";
+import AllInstructors from "./pages/adminDash/AllInstructors";
 
 function App() {
   return (
@@ -136,6 +137,12 @@ function App() {
           path="/adminDash/requests"
           element={
             <AdminRoute element={<Requests />} path="/adminDash/requests" />
+          }
+        />
+                <Route
+          path="/adminDash/allInstructors"
+          element={
+            <AdminRoute element={<AllInstructors />} path="/adminDash/allInstructors" />
           }
         />
       </Routes>

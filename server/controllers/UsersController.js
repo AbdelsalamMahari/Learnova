@@ -218,7 +218,6 @@ module.exports.getAllInstructors = async (req, res) => {
 };
 
 module.exports.getInstructors = async (req, res) => {
-  if (req.user.isAdmin) {
     try {
       const instructors = await User.find({ isInstructor: true }); // Filter by 'role' and 'isInstructor'
 
@@ -226,9 +225,6 @@ module.exports.getInstructors = async (req, res) => {
     } catch (err) {
       res.status(500).json(err);
     }
-  } else {
-    res.status(403).json({ message: 'You are not allowed to see all instructors' });
-  }
 };
 
 module.exports.getStudents = async (req, res) => {

@@ -12,7 +12,7 @@ router.get('/users', verify, getAllUser );
 router.get('/users/stats', verify, statUser );
 router.post('/users/profile/:id', profile );
 router.get('/users/role/instructor', verify, getAllInstructors );
-router.get('/users/allInstructor', verify, getInstructors );
+router.get('/users/allInstructor', getInstructors );
 router.get('/users/allStudents', verify, getStudents );
 router.get('/users/userProfile/:profilePhotoID', getProfilePhoto );
 router.post('/users/cv/:id', cv );

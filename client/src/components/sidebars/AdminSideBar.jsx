@@ -90,6 +90,15 @@ export default function AdminSidebar() {
         </li>
 
         <li>
+          <Link to="/adminDash/allInstructors">
+            <span className="icon">
+              <Icons.Teacher size={30} />
+            </span>
+            <span className="title">Instructors</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/adminDash">
             <span className="icon">
               <Icons.Users size={30} />

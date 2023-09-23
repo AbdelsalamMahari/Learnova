@@ -66,15 +66,27 @@ const ProfileUser = ({ user }) => {
             className="cursor-pointer block w-28 h-28"
           >
             {user.profilePic ? (
-
-            <img
-              src={`http://localhost:5000/users/userProfile/${user._id}`}
-              alt="Upload"
-              className="w-28 h-28 rounded-full object-cover"
-            />
+              // Check if the profilePic URL contains "googleusercontent.com"
+              user.profilePic.includes("googleusercontent.com") ? (
+                <img
+                  src={user.profilePic} // Use the Google-hosted URL directly
+                  alt="Profile"
+                  className="w-28 h-28 rounded-full object-cover"
+                />
+              ) : (
+                <img
+                  src={`http://localhost:5000/users/userProfile/${user._id}`} // Use the local URL
+                  alt="Upload"
+                  className="w-28 h-28 rounded-full object-cover"
+                />
+              )
             ) : (
-              <img src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max" alt="Default Profile"
-              className="w-28 h-28 rounded-full object-cover"/>)}
+              <img
+                src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                alt="Default Profile"
+                className="w-28 h-28 rounded-full object-cover"
+              />
+            )}
           </label>
         </div>
         <div className="flex justify-center items-start flex-col ml-4">
@@ -86,8 +98,18 @@ const ProfileUser = ({ user }) => {
       </div>
       {isImageSelected && (
         <div className="flex justify-end">
-          <button className="px-2 py-3 m-2 rounded-md bg-green-600 text-white" onClick={handleUpdate}>Update</button>
-          <button className="px-2 py-3 m-2 rounded-md bg-red-600 text-white" onClick={handleCancel}>Cancel</button>
+          <button
+            className="px-2 py-3 m-2 rounded-md bg-green-600 text-white"
+            onClick={handleUpdate}
+          >
+            Update
+          </button>
+          <button
+            className="px-2 py-3 m-2 rounded-md bg-red-600 text-white"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
         </div>
       )}
     </>

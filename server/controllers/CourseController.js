@@ -1,6 +1,8 @@
 const Course = require("../models/CourseModel");
 const Question = require("../models/QuestionModel");
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,6 +31,33 @@ const courseBackdrop = (req, res) => {
         return res.status(200).json('File uploaded successfully.');
   });
 
+};
+
+const getCourseBackdrop = async (req, res) => {
+  try {
+    const courseBackdrop = await Course.findById(req.params.backdropId);
+    if (!courseBackdrop) {
+      return res.status(404).json({ error: 'course backdrop not found.' });
+    }
+
+    const relativeImagePath = courseBackdrop.backdrop;
+
+    const absoluteImagePath = path.join(__dirname, '..', '..', 'client', 'public', 'courseBackdrop', relativeImagePath);
+
+    
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    
+    console.error('Error retrieving certificateUpload photo:', err);
+
+    
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
 };
 
 const createCourse = async (req, res) => {
@@ -142,5 +171,6 @@ module.exports = {
   updateCourse,
   deleteCourse,
   getCoursesByUserId,
-  courseBackdrop
+  courseBackdrop,
+  getCourseBackdrop
 };

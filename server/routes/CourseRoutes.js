@@ -9,9 +9,11 @@ const {
   deleteCourse,
   getCoursesByUserId,
   courseBackdrop,
+  getCourseBackdrop,
 } = require("../controllers/CourseController");
 
 router.post("/courseBackdrop", courseBackdrop);
+router.get("/getBackdrop/:backdropId", getCourseBackdrop);
 router.post("/create", createCourse);
 router.get("/", getAllCourses);
 router.get("/:id", getCourseById);

@@ -3,7 +3,8 @@ import axios from "axios";
 import "./AllCourses.css";
 import TopPage from "../../components/topPage/TopPage";
 import { Link } from "react-router-dom";
-import Loading from "../../components/loading/loading"; 
+import Loading from "../../components/loading/loading";
+import Footer from "../../layout/footer/Footer"
 
 export default function AllCourses() {
   const [courses, setCourses] = useState([]);
@@ -36,11 +37,19 @@ export default function AllCourses() {
           {courses.map((course, index) => (
             <div key={index} className="flex-1 shadow-2xl">
               <div>
+              {course.backdrop ? (
+
                 <img
-                  src={course.imageSrc || ""}
-                  alt={`course${index + 1}`}
-                  className="w-full"
+                  src={`http://localhost:5000/courses/getBackdrop/${course._id}`} // Use the local URL
+                  alt="Upload"
                 />
+              
+            ) : (
+              <img
+                src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                alt="Default Profile"
+              />
+            )}
               </div>
               <div className="flex flex-col p-3 gap-3 bg-white border">
                 <div>
@@ -59,6 +68,7 @@ export default function AllCourses() {
           ))}
         </div>
       )}
+      <Footer/>
     </>
   );
 }

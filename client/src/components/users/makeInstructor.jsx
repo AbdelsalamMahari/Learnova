@@ -89,7 +89,7 @@ const MakeInstructor = ({ user }) => {
       </div>
       <div className="mb-4">
         <label className="block font-bold mb-1 text-gray-500">
-          Phone Number
+          Your Cv
         </label>
         <input
           type="file"

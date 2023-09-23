@@ -108,6 +108,15 @@ export default function AdminSidebar() {
         </li>
 
         <li>
+          <Link to="/adminDash/feedbacks">
+            <span className="icon">
+              <Icons.Users size={30} />
+            </span>
+            <span className="title">Feedbacks</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/">
             <span className="icon">
               <Icons.ArrowLeft size={30} />

@@ -39,6 +39,7 @@ import AdminDash from "./pages/adminDash/AdminDash";
 import ImageUpload from "./components/ImageUpload/ImageUpload";
 import Requests from "./pages/adminDash/Requests";
 import AllInstructors from "./pages/adminDash/AllInstructors";
+import FeedbacksPage from "./pages/adminDash/Feedbacks";
 
 function App() {
   return (
@@ -93,16 +94,16 @@ function App() {
             />
           }
         />
-         <Route
+        <Route
           path="/intructorDash/editCourses"
           element={
             <InstructorRoute
-              element={<CourseEdit/>}
+              element={<CourseEdit />}
               path="/intructorDash/editCourses"
             />
           }
         />
-                <Route
+        <Route
           path="/intructorDash/dashCourses"
           element={
             <InstructorRoute
@@ -139,10 +140,22 @@ function App() {
             <AdminRoute element={<Requests />} path="/adminDash/requests" />
           }
         />
-                <Route
+        <Route
           path="/adminDash/allInstructors"
           element={
-            <AdminRoute element={<AllInstructors />} path="/adminDash/allInstructors" />
+            <AdminRoute
+              element={<AllInstructors />}
+              path="/adminDash/allInstructors"
+            />
+          }
+        />
+        <Route
+          path="/adminDash/feedbacks"
+          element={
+            <AdminRoute
+              element={<FeedbacksPage />}
+              path="/adminDash/feedbacks"
+            />
           }
         />
       </Routes>

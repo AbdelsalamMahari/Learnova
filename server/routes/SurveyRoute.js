@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { saveSurveyResponses, getSurveySchema} = require('../controllers/SurveyController');
+const { saveSurveyResponses, getSurveySchema } = require('../controllers/SurveyController');
 
 const router = Router();
 

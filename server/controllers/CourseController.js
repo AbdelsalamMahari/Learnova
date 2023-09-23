@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const courseBackdrop = (req, res) => {
-  upload.single('image')(req, res, (err) => {
+  upload.single('backdrop')(req, res, (err) => {
     if (err) {
       console.log(err)
       return res.status(400).send('File upload failed.');
@@ -26,14 +26,14 @@ const courseBackdrop = (req, res) => {
     }
 
         // Return the file name in the response
-        return res.status(200).json({ fileName: req.file.filename });
+        return res.status(200).json('File uploaded successfully.');
   });
 
 };
 
 const createCourse = async (req, res) => {
   try {
-    const { name, description, content, instructor } = req.body;
+    const { name, description, backdrop, content, instructor } = req.body;
     const mappedContent = content.map((chapter) => ({
       title: chapter.title,
    
@@ -47,6 +47,7 @@ const createCourse = async (req, res) => {
     const course = new Course({
       name,
       description,
+      backdrop,
       instructor,
       content: mappedContent,
     });

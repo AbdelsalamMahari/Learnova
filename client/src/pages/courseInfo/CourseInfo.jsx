@@ -26,7 +26,7 @@ export default function CourseInfo() {
     instructor: "",
   });
 
-  const [showModal, setShowModal] = useState(false); // State to control the modal display
+  const [showModal, setShowModal] = useState(false); 
 
   const closeModal = () => {
     setShowModal(false);
@@ -45,13 +45,13 @@ export default function CourseInfo() {
 
   const handlePurchase  = async () => {
     try {
+  
       const response = await axios.post("http://localhost:5000/purchases/create", {
-        userId: user._id, // Pass the user's unique identifier
+        userId: user._id, 
         courseId: course._id,
         amount: course.Price,
       });
       console.log(response.data.message);
-      // Refresh user subscriptions after creating a new one
     } catch (error) {
       console.error(error);
     }
@@ -59,7 +59,6 @@ export default function CourseInfo() {
 
   const HandleStartButton = async (e) => {
     try {
-
       const courseResponse = await fetch(`http://localhost:5000/courses/${id}`);
       if (!courseResponse.ok) {
         throw new Error("Course not found");
@@ -134,7 +133,7 @@ export default function CourseInfo() {
           <div>
             <h1 className="flex justify-between lg:text-4xl font-bold ">
               Course Description{" "}
-              <div className="ml-5">Price: ${course.Price}</div>
+              <div className="ml-5">Price: {course.Price}$</div>
             </h1>
             <p className="mt-5">{course.description}</p>
 
@@ -143,15 +142,29 @@ export default function CourseInfo() {
           <div className="mt-10">
             <div className="flex justify-between">
               <h1 className="lg:text-4xl font-bold">Course Content</h1>
-              <Link to={`/courseMaterial/${course._id}`}>
-                <Button text="START" onClick={HandleStartButton} />
-              </Link>
-              <button
-                className="bg-blue text-white font-bold py-2 px-4 rounded"
-                onClick={() => setShowModal(true)} // Open the modal when clicked
-              >
-                PURCHASE
-              </button>
+              {user && user._id ? (
+                <Link to={`/courseMaterial/${course._id}`}>
+                  <Button text="START" onClick={HandleStartButton} />
+                </Link>
+              ) : null }
+              {user && user._id ? (
+        <button
+          className="bg-blue text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            try {
+              handlePurchase();
+              setShowModal(true);
+            } catch (error) {
+              console.error(error.message);
+            
+            }
+          }}
+        >
+          PURCHASE
+        </button>
+      ) : (
+        <Link to="/login"    className="bg-blue text-white font-bold py-2 px-4 rounded">Log in to make a purchase</Link>
+      )}
             </div>
             <div className="mt-4 w-3/4 ml-12 ">
               {course.content.map((chapter, chapterIndex) => (

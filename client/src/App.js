@@ -145,7 +145,7 @@ function App() {
           element={<AdminRoute element={<Instructorss />} path="/adminDash/instructorss" />}
         />
          <Route
-          path="/adminDash/feedback"
+          path="/adminDash/feedbacks"
           element={<AdminRoute element={<Feedbacks />} path="/adminDash/feedbacks" />}
         />
       </Routes>

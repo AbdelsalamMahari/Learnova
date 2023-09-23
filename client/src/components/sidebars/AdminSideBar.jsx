@@ -5,7 +5,6 @@ import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import { Waveform } from "@uiball/loaders";
 
 export default function AdminSidebar() {
-  const imgURL = "/usersProfiles/";
   const [user, setUser] = useState(null);
 
   useEffect(() => {

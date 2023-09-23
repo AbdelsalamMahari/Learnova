@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Icons from "../../assets/icons/icons";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
-import { Waveform } from '@uiball/loaders'
+import { Waveform } from '@uiball/loaders';
 
 export default function AdminSidebar() {
   const imgURL="/usersProfiles/"
@@ -92,6 +92,24 @@ export default function AdminSidebar() {
             <span className="title">Users</span>
           </Link>
         </li>
+
+        <li>
+          <Link to="/adminDash/instructorss">
+            <span className="icon">
+              <Icons.Users size={30} />
+            </span>
+            <span className="title">Instructors</span>
+          </Link>
+        </li>
+
+        <li>
+            <Link to="/adminDash/feedback">
+            <span className="icon">
+                <Icons.Feedback />
+                </span>
+                <span className="title">Feedbacks</span>
+            </Link>
+          </li>
 
         <li>
           <Link to="/">

@@ -12,7 +12,7 @@ router.get('/users', verify, getAllUser );
 router.get('/users/stats', verify, statUser );
 router.post('/users/profile', profile );
 router.get('/users/role/instructor', verify, getAllInstructors );
-router.get('/users/allInstructor', verify, getInstructors );
+router.get('/users/allInstructor', getInstructors );
 router.get('/users/allStudents', verify, getStudents );
 
 module.exports = router;

@@ -34,6 +34,8 @@ import DashCourses from "./pages/instructorDash/Courses";
 import AdminDash from "./pages/adminDash/AdminDash";
 import ImageUpload from "./components/ImageUpload/ImageUpload";
 import Requests from "./pages/adminDash/Requests";
+import Instructorss from "./pages/adminDash/Instructorss";
+import Feedbacks from "./pages/adminDash/feedback";
 
 function App() {
   return (
@@ -105,6 +107,14 @@ function App() {
           element={
             <AdminRoute element={<Requests />} path="/adminDash/requests" />
           }
+        />
+         <Route
+          path="/adminDash/instructorss"
+          element={<AdminRoute element={<Instructorss />} path="/adminDash/instructorss" />}
+        />
+         <Route
+          path="/adminDash/feedback"
+          element={<AdminRoute element={<Feedbacks />} path="/adminDash/feedbacks" />}
         />
       </Routes>
     </BrowserRouter>

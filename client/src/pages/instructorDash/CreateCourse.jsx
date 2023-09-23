@@ -11,6 +11,7 @@ export default function CreateCourse() {
     name: "",
     description: "",
     instructor: "",
+    backdrop: "",
     chapters: [
       {
         title: "",
@@ -23,6 +24,21 @@ export default function CreateCourse() {
   const [selectedImageFiles, setSelectedImageFiles] = useState([]);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState(""); // State for the file name
+  
+  const handleBackdrop = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    
+    if (file) {
+      const fileName = file.name; // Access the name property of the file
+      console.log("Selected file name:", fileName);
+      
+      setSelectedFile(file); // Set the selected file
+      setSelectedFileName(fileName); // Set the selected file name
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -135,6 +151,19 @@ export default function CreateCourse() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formDataBackdrop = new FormData();
+    formDataBackdrop.append("backdrop", selectedFile);
+  
+      const backdropResponse = axios.post(
+        'http://localhost:5000/courses/courseBackdrop',
+        formDataBackdrop,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
   
     for (const imageFile of selectedImageFiles) {
       const imageFormData = new FormData();
@@ -156,6 +185,7 @@ export default function CreateCourse() {
     const formDataToSend = {
       name: formData.name,
       description: formData.description,
+      backdrop: selectedFileName,
       instructor: user._id,
       content: formData.chapters.map((chapter) => ({
         title: chapter.title,
@@ -218,6 +248,18 @@ export default function CreateCourse() {
                 required
                 className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               ></textarea>
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Course image:
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBackdrop}
+                required
+                className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              ></input>
             </div>
             <div className="mb-4">
               {formData.chapters.map((chapter, chapterIndex) => (

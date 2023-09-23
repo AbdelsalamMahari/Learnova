@@ -42,6 +42,10 @@ const CourseSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  Price:{
+    type: Number,
+
+  }
 });
 
 const Course = mongoose.model('Course', CourseSchema);

@@ -104,8 +104,11 @@ export default function CourseInfo() {
       <section>
         <div className="m-10 p-10 bg-white rounded">
           <div>
-            <h1 className="lg:text-4xl font-bold">Course Description</h1>
+            <h1 className="flex justify-between lg:text-4xl font-bold ">Course Description <div className="ml-5">Price: ${course.Price}</div></h1>
             <p className="mt-5">{course.description}</p>
+          
+  <h2 className="lg:text-2xl font-semibold"></h2>
+
           </div>
           <div className="mt-10">
             <div className="flex justify-between">

@@ -33,7 +33,7 @@ const courseBackdrop = (req, res) => {
 
 const createCourse = async (req, res) => {
   try {
-    const { name, description, backdrop, content, instructor } = req.body;
+    const { name, description, backdrop, content, instructor, Price } = req.body;
     const mappedContent = content.map((chapter) => ({
       title: chapter.title,
    
@@ -49,6 +49,7 @@ const createCourse = async (req, res) => {
       description,
       backdrop,
       instructor,
+      Price, 
       content: mappedContent,
     });
 

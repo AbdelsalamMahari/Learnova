@@ -3,11 +3,11 @@ import "./Instructors.css";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import Axios from "axios";
-import UserInfo from '../../components/users/UserInfo';
+import UserInfo from "../../components/users/UserInfo";
 
 export default function Instructors() {
   const [instructors, setInstructors] = useState([]);
-  const user = UserInfo();  // Assuming UserInfo fetches user instructor information
+  const user = UserInfo(); // Assuming UserInfo fetches user instructor information
 
   useEffect(() => {
     Axios.get("http://localhost:5000/users/allInstructor")
@@ -18,7 +18,7 @@ export default function Instructors() {
         console.error("Error fetching instructors:", error);
       });
   }, []);
-  
+
   return (
     <>
       <TopPage
@@ -34,26 +34,49 @@ export default function Instructors() {
           <div className="second-instructor">
             <div className="second-instructor-pro">
               <p>
-                Explore a comprehensive online course management system designed to empower both educators and learners.
+                Explore a comprehensive online course management system designed
+                to empower both educators and learners.
               </p>
             </div>
           </div>
         </div>
       </section>
       <section className="section2-instructor">
-  {instructors.map((instructor, index) => (
-    <div className="container2-instructor" key={index}>
-      <div className="first2-instructor">
-        <img src={instructor.profilePic} alt="instructor" />
-      </div>
-      <div className="second2-instructor">
-        <h1>{instructor.firstName} {instructor.lastName}</h1>
-        <h3>{instructor.email}</h3>
-        <p>PHONE NUMBER: {instructor.phoneNumber}</p>
-      </div>
-    </div>
-  ))}
-</section>
+        {instructors.map((instructor, index) => (
+          <div className="container2-instructor" key={index}>
+            <div className="first2-instructor">
+            {instructor.profilePic ? (
+                // Check if the profilePic URL contains "googleusercontent.com"
+                instructor.profilePic.includes("googleusercontent.com") ? (
+                  <img
+                    src={instructor.profilePic} // Use the Google-hosted URL directly
+                    alt="Profile"
+                    className="w-28 h-28 rounded-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={`http://localhost:5000/users/userProfile/${instructor._id}`} // Use the local URL
+                    alt="Upload"
+                    className="w-28 h-28 rounded-full object-cover"
+                  />
+                )
+              ) : (
+                <img
+                  src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                  alt="Default Profile"
+                  className="w-28 h-28 rounded-full object-cover"
+                />
+              )}
+            </div>
+            <div className="second2-instructor">
+              <h1>
+                {instructor.firstName} {instructor.lastName}
+              </h1>
+              <h3>{instructor.email}</h3>
+            </div>
+          </div>
+        ))}
+      </section>
 
       <Footer />
     </>

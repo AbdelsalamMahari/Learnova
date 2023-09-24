@@ -8,65 +8,93 @@ import Loading from "../../components/loading/loading";
 import UserInfo from "../../components/users/UserInfo";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import axios from "axios";
+import StripeContainer from "../../components/payment/StripeContainer";
 
 export default function CourseInfo() {
+  
   const [user, setUser] = useState(null);
   const [course, setCourse] = useState(null);
   const [activeAccordion, setActiveAccordion] = useState(null);
 
   const [EnrollmentData, setEnrollmentData] = useState({
-    user: '',
-    course: '',
-    enrollmentStatus: 'Enrolled',
-    completionStatus: 'Not Started',
+    user: "",
+    course: "",
+    enrollmentStatus: "Enrolled",
+    completionStatus: "Not Started",
     completedChapters: 0,
     grade: 0,
-    instructor: '', 
+    instructor: "",
   });
+
+  const [showModal, setShowModal] = useState(false); // State to control the modal display
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const { id } = useParams();
 
-  const HandleStartButton = async (e) => {
-    try {
+    useEffect(() => {
+    async function getUserInfo() {
       const userInfo = await fetchUserInfoFromToken();
       setUser(userInfo);
+    }
 
-    
+    getUserInfo();
+  }, []);
+
+  const handlePurchase  = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/purchases/create", {
+        userId: user._id, // Pass the user's unique identifier
+        courseId: course._id,
+        amount: course.Price,
+      });
+      console.log(response.data.message);
+      // Refresh user subscriptions after creating a new one
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const HandleStartButton = async (e) => {
+    try {
+
       const courseResponse = await fetch(`http://localhost:5000/courses/${id}`);
       if (!courseResponse.ok) {
         throw new Error("Course not found");
       }
       const courseData = await courseResponse.json();
 
-      
       const updatedEnrollmentData = {
-        user: userInfo._id,
+        user: user._id,
         course: id,
-        enrollmentStatus: 'Enrolled',
-        completionStatus: 'Not Started',
+        enrollmentStatus: "Enrolled",
+        completionStatus: "Not Started",
         completedChapters: 0,
         grade: 0,
-        instructor: courseData.instructor, 
+        instructor: courseData.instructor,
       };
 
-
-      const response = await axios.post("http://localhost:5000/add/enrollement", updatedEnrollmentData);
+      const response = await axios.post(
+        "http://localhost:5000/add/enrollement",
+        updatedEnrollmentData
+      );
       console.log("Enrollment created:", response.data);
     } catch (error) {
       console.error("Error creating enrollment:", error);
     }
   };
-  
+
+
 
   useEffect(() => {
     async function fetchData() {
       try {
-     
         const userInfo = await fetchUserInfoFromToken();
         setUser(userInfo);
         console.log(userInfo);
 
-   
         const response = await fetch(`http://localhost:5000/courses/${id}`);
         if (!response.ok) {
           throw new Error("Course not found");
@@ -104,11 +132,13 @@ export default function CourseInfo() {
       <section>
         <div className="m-10 p-10 bg-white rounded">
           <div>
-            <h1 className="flex justify-between lg:text-4xl font-bold ">Course Description <div className="ml-5">Price: ${course.Price}</div></h1>
+            <h1 className="flex justify-between lg:text-4xl font-bold ">
+              Course Description{" "}
+              <div className="ml-5">Price: ${course.Price}</div>
+            </h1>
             <p className="mt-5">{course.description}</p>
-          
-  <h2 className="lg:text-2xl font-semibold"></h2>
 
+            <h2 className="lg:text-2xl font-semibold"></h2>
           </div>
           <div className="mt-10">
             <div className="flex justify-between">
@@ -116,6 +146,12 @@ export default function CourseInfo() {
               <Link to={`/courseMaterial/${course._id}`}>
                 <Button text="START" onClick={HandleStartButton} />
               </Link>
+              <button
+                className="bg-blue text-white font-bold py-2 px-4 rounded"
+                onClick={() => setShowModal(true)} // Open the modal when clicked
+              >
+                PURCHASE
+              </button>
             </div>
             <div className="mt-4 w-3/4 ml-12 ">
               {course.content.map((chapter, chapterIndex) => (
@@ -131,13 +167,11 @@ export default function CourseInfo() {
                       activeAccordion === chapterIndex ? "block" : "hidden"
                     } p-5 border border-b-0 border-gray-200 dark:border-gray-700`}
                   >
-              
                     {chapter.lessons.map((lesson, lessonIndex) => (
                       <div key={lessonIndex} className="mt-3">
                         <p className="text-lg font-semibold">
                           {lesson.subtitle}
                         </p>
-                       
                       </div>
                     ))}
                   </div>
@@ -163,6 +197,26 @@ export default function CourseInfo() {
           </div>
         </div>
       </section>
+       {/* Modal */}
+       {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 overflow-x-hidden overflow-y-auto">
+          {/* Modal Background */}
+          <div className="fixed inset-0 bg-gray-800 opacity-50"></div>
+          {/* Modal Content */}
+          <div className="modal fixed inset-0 flex items-center justify-center">
+            <div className="modal-content bg-white w-1/3 p-6 rounded-lg shadow-lg relative">
+              <button
+                className="modal-close-btn absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                onClick={closeModal}
+              >
+                <Icons.Close />
+              </button>
+              {/* Display the StripeContainer component within the modal */}
+              <StripeContainer amount={course.Price} handlePurchase={handlePurchase} />
+            </div>
+          </div>
+        </div>
+      )}
       <Footer />
     </>
   );

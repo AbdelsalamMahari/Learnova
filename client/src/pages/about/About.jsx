@@ -10,11 +10,10 @@ import Footer from "../../layout/footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
-
-
+import { Link } from "react-router-dom";
 
 export default function About() {
-  const imgURL="/usersProfiles/"
+  const imgURL = "/usersProfiles/";
   const [testimonialItems, setTestimonialItems] = useState([]);
 
   useEffect(() => {
@@ -98,7 +97,7 @@ export default function About() {
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <TopPage
         title="About Us"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2021/03/bg-07-free-img.jpg"
@@ -111,7 +110,10 @@ export default function About() {
           <div className="second-about">
             <div className="second-about-pro">
               <p>
-                Explore a comprehensive online course management system designed to empower both educators and learners. Our platform offers a seamless educational experience with advanced features that simplify the learning journey.
+                Explore a comprehensive online course management system designed
+                to empower both educators and learners. Our platform offers a
+                seamless educational experience with advanced features that
+                simplify the learning journey.
               </p>
             </div>
           </div>
@@ -120,13 +122,22 @@ export default function About() {
       <section className="section3-about">
         <div className="container2-about">
           <div className="first2-about">
-            <img src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/about-01-free-img.jpg" alt="hello" />
+            <img
+              src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/about-01-free-img.jpg"
+              alt="hello"
+            />
           </div>
           <div className="second2-about">
             <h1>Learn Something Every Day</h1>
-            <div className="tilted-box" style={{ '--skew-angle': '40deg' }}></div>
+            <div
+              className="tilted-box"
+              style={{ "--skew-angle": "40deg" }}
+            ></div>
             <p>
-              Discover our user-friendly online course management system, carefully crafted to provide you with the tools you need to excel in your studies. Whether you're a student or an instructor, our platform is here to support your educational goals.
+              Discover our user-friendly online course management system,
+              carefully crafted to provide you with the tools you need to excel
+              in your studies. Whether you're a student or an instructor, our
+              platform is here to support your educational goals.
             </p>
           </div>
         </div>
@@ -135,23 +146,36 @@ export default function About() {
         <h1 className="font-bold">What They're Talking About us?</h1>
         <div className="testimonial-container">
           <div className="slider-feedback">
-            <Slider {...settings} >
+            <Slider {...settings}>
               {testimonialItems.map((item, index) => (
                 <div key={index} className="feedback-item">
                   {item.user && (
                     <div className="author">
                       <div className="image">
-                      {item.user.profilePic ? (
-                    <img
-                      src={`http://localhost:5000/users/userProfile/${item.user._id}`}
-                      alt="Upload"
-                    />
-                  ) : (
-                    <img
-                      src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
-                      alt="Default Profile"
-                    />
-                  )}
+                        {item.user.profilePic ? (
+                          // Check if the profilePic URL contains "googleusercontent.com"
+                          item.user.profilePic.includes(
+                            "googleusercontent.com"
+                          ) ? (
+                            <img
+                              src={item.user.profilePic} // Use the Google-hosted URL directly
+                              alt="Profile"
+                              className="w-28 h-28 rounded-full object-cover"
+                            />
+                          ) : (
+                            <img
+                              src={`http://localhost:5000/users/userProfile/${item.user._id}`} // Use the local URL
+                              alt="Upload"
+                              className="w-28 h-28 rounded-full object-cover"
+                            />
+                          )
+                        ) : (
+                          <img
+                            src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                            alt="Default Profile"
+                            className="w-28 h-28 rounded-full object-cover"
+                          />
+                        )}
                       </div>
                       <div className="info">
                         <h3 className="name">{`${item.user.firstName} ${item.user.lastName}`}</h3>
@@ -165,7 +189,11 @@ export default function About() {
             </Slider>
           </div>
           <div className="moviesNowPlaying-about">
-            <img src="	https://demo.ovatheme.com/aovis/wp-content/uploads/2023/02/image-testimonial-home-2.png" alt="" width={400} />
+            <img
+              src="	https://demo.ovatheme.com/aovis/wp-content/uploads/2023/02/image-testimonial-home-2.png"
+              alt=""
+              width={400}
+            />
           </div>
         </div>
       </section>
@@ -177,17 +205,27 @@ export default function About() {
             <h1>Who We Are</h1>
           </div>
           <div className="second3-about">
-            <h2>"It is impossible for a man to learn what he thinks he already knows."</h2>
+            <h2>
+              "It is impossible for a man to learn what he thinks he already
+              knows."
+            </h2>
             <p>
-              At the core of our online course management system is a commitment to continuous improvement. We believe that learning is a lifelong endeavor, and our platform is dedicated to helping you acquire knowledge at your own pace.
+              At the core of our online course management system is a commitment
+              to continuous improvement. We believe that learning is a lifelong
+              endeavor, and our platform is dedicated to helping you acquire
+              knowledge at your own pace.
             </p>
             <div className="second2-about-pro">
               <div className="first-div-about">
                 <p>
-                  Our vision for the online course management system is simple: to foster a dynamic learning environment where individuals can expand their horizons and challenge their preconceptions. Join us on this educational journey.
+                  Our vision for the online course management system is simple:
+                  to foster a dynamic learning environment where individuals can
+                  expand their horizons and challenge their preconceptions. Join
+                  us on this educational journey.
                 </p>
                 <p>
-                  Our system ensures a seamless learning journey, equipped with advanced features that simplify the educational process.
+                  Our system ensures a seamless learning journey, equipped with
+                  advanced features that simplify the educational process.
                 </p>
               </div>
             </div>
@@ -199,23 +237,37 @@ export default function About() {
           <div className="flex flex-col gap-5 md:flex-row">
             <div className="flex-1">
               <Icons.Crown className="icons-about" />
-              <h1 className="text-2xl font-bold my-3">Learn From Industry Leaders</h1>
+              <h1 className="text-2xl font-bold my-3">
+                Learn From Industry Leaders
+              </h1>
               <p>
-                Our platform allows you to learn from industry leaders, giving you the opportunity to benefit from their expertise and knowledge in various fields. Start your educational journey with us today.
+                Our platform allows you to learn from industry leaders, giving
+                you the opportunity to benefit from their expertise and
+                knowledge in various fields. Start your educational journey with
+                us today.
               </p>
             </div>
             <div className="flex-1">
               <Icons.Clock className="icons-about" />
-              <h1 className="text-2xl font-bold my-3">Learn at Your Own Pace</h1>
+              <h1 className="text-2xl font-bold my-3">
+                Learn at Your Own Pace
+              </h1>
               <p>
-                We provide you with the opportunity to learn at your own pace. Choose when and how you study, and we'll be here to support you in achieving your educational goals in the best way possible.
+                We provide you with the opportunity to learn at your own pace.
+                Choose when and how you study, and we'll be here to support you
+                in achieving your educational goals in the best way possible.
               </p>
             </div>
             <div className="flex-1">
               <Icons.Certificate className="icons-about" />
-              <h1 className="text-2xl font-bold my-3">Professional Certification</h1>
+              <h1 className="text-2xl font-bold my-3">
+                Professional Certification
+              </h1>
               <p>
-                Earn a professional certification that enhances your career prospects. Through our online course management system, you'll have the chance to obtain recognized certificates that boost your job opportunities and success.
+                Earn a professional certification that enhances your career
+                prospects. Through our online course management system, you'll
+                have the chance to obtain recognized certificates that boost
+                your job opportunities and success.
               </p>
             </div>
           </div>
@@ -236,12 +288,15 @@ export default function About() {
                 onChange={handleFeedbackChange}
               />
               <div className="feedback-submit">
-              <button type="submit">Submit</button>
+                <button type="submit">Submit</button>
               </div>
             </form>
           </div>
         </div>
       </section>
+      <button>
+        <Link to="/survey">Take Survey</Link>
+      </button>
       <Footer />
     </>
   );

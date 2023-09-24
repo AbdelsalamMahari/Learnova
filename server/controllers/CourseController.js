@@ -1,6 +1,8 @@
 const Course = require("../models/CourseModel");
 const Question = require("../models/QuestionModel");
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -14,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const courseBackdrop = (req, res) => {
-  upload.single('image')(req, res, (err) => {
+  upload.single('backdrop')(req, res, (err) => {
     if (err) {
       console.log(err)
       return res.status(400).send('File upload failed.');
@@ -26,14 +28,41 @@ const courseBackdrop = (req, res) => {
     }
 
         // Return the file name in the response
-        return res.status(200).json({ fileName: req.file.filename });
+        return res.status(200).json('File uploaded successfully.');
   });
 
 };
 
+const getCourseBackdrop = async (req, res) => {
+  try {
+    const courseBackdrop = await Course.findById(req.params.backdropId);
+    if (!courseBackdrop) {
+      return res.status(404).json({ error: 'course backdrop not found.' });
+    }
+
+    const relativeImagePath = courseBackdrop.backdrop;
+
+    const absoluteImagePath = path.join(__dirname, '..', '..', 'client', 'public', 'courseBackdrop', relativeImagePath);
+
+    
+    if (!fs.existsSync(absoluteImagePath)) {
+      return res.status(404).json({ error: 'File not found.', imagePath: absoluteImagePath });
+    }
+
+    
+    res.sendFile(absoluteImagePath);
+  } catch (err) {
+    
+    console.error('Error retrieving certificateUpload photo:', err);
+
+    
+    res.status(500).json({ error: 'Internal Server Error', errorMessage: err.message });
+  }
+};
+
 const createCourse = async (req, res) => {
   try {
-    const { name, description, content, instructor } = req.body;
+    const { name, description, backdrop, content, instructor, Price } = req.body;
     const mappedContent = content.map((chapter) => ({
       title: chapter.title,
    
@@ -47,7 +76,9 @@ const createCourse = async (req, res) => {
     const course = new Course({
       name,
       description,
+      backdrop,
       instructor,
+      Price, 
       content: mappedContent,
     });
 
@@ -140,5 +171,6 @@ module.exports = {
   updateCourse,
   deleteCourse,
   getCoursesByUserId,
-  courseBackdrop
+  courseBackdrop,
+  getCourseBackdrop
 };

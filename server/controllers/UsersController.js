@@ -16,21 +16,29 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports.profile = (req, res) => {
-  upload.single('image')(req, res, (err) => {
+  upload.single('profilePic')(req, res, async (err) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(400).send('File upload failed.');
-    
     }
 
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
     }
 
-        // Return the file name in the response
-        return res.status(200).json({ fileName: req.file.filename });
-  });
+    try {
+      const user = await User.findById(req.params.id);
 
+      user.profilePic = req.file.originalname;
+
+      await user.save();
+
+      return res.status(200).json('File uploaded successfully.');
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Internal server error.');
+    }
+  });
 };
 
 module.exports.getProfilePhoto = async (req, res) => {
@@ -210,7 +218,6 @@ module.exports.getAllInstructors = async (req, res) => {
 };
 
 module.exports.getInstructors = async (req, res) => {
-  if (req.user.isAdmin) {
     try {
       const instructors = await User.find({ isInstructor: true }); // Filter by 'role' and 'isInstructor'
 
@@ -218,9 +225,6 @@ module.exports.getInstructors = async (req, res) => {
     } catch (err) {
       res.status(500).json(err);
     }
-  } else {
-    res.status(403).json({ message: 'You are not allowed to see all instructors' });
-  }
 };
 
 module.exports.getStudents = async (req, res) => {

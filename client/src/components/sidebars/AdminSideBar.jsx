@@ -5,7 +5,6 @@ import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
 import { Waveform } from "@uiball/loaders";
 
 export default function AdminSidebar() {
-  const imgURL = "/usersProfiles/";
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -48,14 +47,25 @@ export default function AdminSidebar() {
               <span className="icon">
                 <div className="user border-2">
                   {user.profilePic ? (
-                    <img
-                      src={`http://localhost:5000/users/userProfile/${user._id}`}
-                      alt="Upload"
-                    />
+                    // Check if the profilePic URL contains "googleusercontent.com"
+                    user.profilePic.includes("googleusercontent.com") ? (
+                      <img
+                        src={user.profilePic} // Use the Google-hosted URL directly
+                        alt="Profile"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={`http://localhost:5000/users/userProfile/${user._id}`} // Use the local URL
+                        alt="Upload"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                    )
                   ) : (
                     <img
                       src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
                       alt="Default Profile"
+                      className="w-28 h-28 rounded-full object-cover"
                     />
                   )}
                 </div>
@@ -90,11 +100,29 @@ export default function AdminSidebar() {
         </li>
 
         <li>
+          <Link to="/adminDash/allInstructors">
+            <span className="icon">
+              <Icons.Teacher size={30} />
+            </span>
+            <span className="title">Instructors</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/adminDash">
             <span className="icon">
               <Icons.Users size={30} />
             </span>
             <span className="title">Users</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/adminDash/feedbacks">
+            <span className="icon">
+              <Icons.Users size={30} />
+            </span>
+            <span className="title">Feedbacks</span>
           </Link>
         </li>
 

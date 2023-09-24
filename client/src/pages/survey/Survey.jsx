@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Survey.css';
 import axios from 'axios';
+import UserInfo from '../../components/users/UserInfo';
+import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const surveyQuestions = [
   {
@@ -102,28 +107,59 @@ function Survey() {
   };
   const isNextDisabled = step !== 0 && !responses[step];
 
+  const user = UserInfo();
+
+  const isUserLoggedIn = () => {
+    const token = document.cookie.split(';').find(cookie => cookie.includes('token'));
+
+    return token !== undefined;
+  };
+
   const handleSubmit = async () => {
+    if (!isUserLoggedIn()) {
+      // Redirect to the login page if the user is not logged in
+      window.location.href = '/login';
+      return;
+    }
+
     setIsSubmitting(true);
-  
+
     try {
-      const formattedResponses = {};
-      surveyQuestions.forEach((question) => {
-        const rating = parseFloat(responses[question.id]);
-        formattedResponses[`question${question.id}`] = !isNaN(rating) ? rating : 0;
-      });
-  
+      const formattedResponses = surveyQuestions.map(question => ({
+        questionId: question.id,
+        rating: responses[question.id] || 0
+      }));
+
       const response = await axios.post('http://localhost:5000/surveys/save', {
+        userId: user, // Assuming user is the userId
         responses: formattedResponses,
       });
-  
+
       console.log('Survey responses saved successfully:', response.data.message);
       setIsSubmitted(true);
+      toast.success('Survey responses saved successfully!', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000,
+    });
     } catch (error) {
-      console.error('Error saving survey responses:', error);
+      if (error.response && error.response.status === 400) {
+        // Survey responses already submitted for this user
+        toast.warn('You have already submitted the survey!', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+        });
+      } else {
+        console.error('Error saving survey responses:', error);
+        toast.error('Error saving survey responses. Please try again later.', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
+  
   
 
   return (
@@ -158,18 +194,18 @@ function Survey() {
               <div className="radio-options">
                 {surveyQuestions[step - 1].responses.map((response, index) => (
                   <label
-                  key={index}
-                  className={responses[step] === response.rating ? 'selected' : ''}
-                >
-                  <input
-                    type="radio"
-                    name={`question-${step}`}
-                    value={response.response}
-                    checked={responses[step] === response.rating}
-                    onChange={handleResponseChange}
-                  />
-                  {response.response}
-                </label>
+                    key={index}
+                    className={responses[step] === response.rating ? 'selected' : ''}
+                  >
+                    <input
+                      type="radio"
+                      name={`question-${step}`}
+                      value={response.response}
+                      checked={responses[step] === response.rating}
+                      onChange={handleResponseChange}
+                    />
+                    {response.response}
+                  </label>
                 ))}
               </div>
               <div className="form">
@@ -205,10 +241,14 @@ function Survey() {
         </div>
         {isSubmitted && (
           <div className="thank-you-message">
-            <p>Thank you for submitting the survey!</p>
-          </div>
+          <p>Thank you for submitting the survey!</p>
+          <Link to="/" className="submit">
+            Back to Home
+          </Link>
+        </div>
         )}
       </form>
+      <ToastContainer />
     </div>
   );
 }

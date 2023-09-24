@@ -6,6 +6,12 @@ import Cookies from "js-cookie";
 
 const MakeInstructor = ({ user }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleCv = (e) => {
+    console.log(e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
+  };
 
 
   const handlePhoneNumberChange = (event) => {
@@ -14,12 +20,26 @@ const MakeInstructor = ({ user }) => {
 
   const handleUpdate = async () => {
     try {
-        const updatedInst = {
-            phoneNumber: phoneNumber,
-            role: "instructor",
-          };
-
-      const response = await axios.put(
+      const formData = new FormData();
+      formData.append("cv", selectedFile);
+  
+      const cvResponse = axios.post(
+        `http://localhost:5000/users/cv/${user._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: `Bearer ${Cookies.get("token")}`,
+          },
+        }
+      );
+  
+      const updatedInst = {
+        phoneNumber: phoneNumber,
+        role: "instructor",
+      };
+  
+      const userUpdateResponse = axios.put(
         `http://localhost:5000/users/${user._id}`,
         updatedInst,
         {
@@ -28,8 +48,16 @@ const MakeInstructor = ({ user }) => {
           },
         }
       );
-
-      console.log("User updated:", response.data);
+  
+      // Use Promise.all to wait for both requests to complete
+      const [cvResult, updateUserResult] = await Promise.all([
+        cvResponse,
+        userUpdateResponse,
+      ]);
+  
+      console.log("CV Upload Result:", cvResult.data);
+      console.log("User Update Result:", updateUserResult.data);
+  
       toast.success("User Updated Successfully!", {
         theme: "colored",
       });
@@ -40,6 +68,7 @@ const MakeInstructor = ({ user }) => {
       });
     }
   };
+  
 
   return (
     <div className="flex flex-col p-8">
@@ -56,6 +85,18 @@ const MakeInstructor = ({ user }) => {
           value={phoneNumber}
           className="input-field bg-gray-100 px-4 py-4 w-full border border-s-pink2"
           onChange={handlePhoneNumberChange}
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block font-bold mb-1 text-gray-500">
+          Your Cv
+        </label>
+        <input
+          type="file"
+          name="cv"
+          className="input-field bg-gray-100 px-4 py-4 w-full border border-s-pink2"
+          onChange={handleCv}
+          accept=".pdf"
         />
       </div>
       <div className="flex justify-center items-center">

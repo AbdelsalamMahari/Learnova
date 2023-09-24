@@ -15,18 +15,53 @@ const Signup = () => {
     password: "",
     role: "",
     phoneNumber: "",
+    cv: "",
   });
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState("");
+
+  const handleCv = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileName = file.name;
+      setSelectedFile(file);
+      setSelectedFileName(fileName);
+    }
+  };
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
       const url = "http://localhost:5000/signup";
-      const { data: res } = await axios.post(url, data);
-      toast.success(res.message, {
+      
+      // Create a new FormData object to handle file upload for cv
+      const formDataCv = new FormData();
+      
+      if (selectedFile) {
+        formDataCv.append("cv", selectedFile);
+      }
+    
+      // Use Promise.all to send multiple requests concurrently
+      const [cvResponse, signupResponse] = await Promise.all([
+        selectedFile
+          ? axios.post("http://localhost:5000/users/cvNoId", formDataCv, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+          : Promise.resolve(null), // Skip the CV upload if no file selected
+        axios.post(url, {
+          ...data,
+          cv: selectedFileName || null, // Use null if selectedFileName is empty
+        }),
+      ]);
+    
+      toast.success(signupResponse.data.message, {
         theme: "colored",
       });
     } catch (error) {
@@ -41,6 +76,7 @@ const Signup = () => {
       }
     }
   };
+  
 
   // Define options for the role select input
   const roleOptions = ["student", "instructor"];
@@ -134,6 +170,17 @@ const Signup = () => {
                           className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
                           value={data.phoneNumber}
                           onChange={handleChange}
+                          required
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <label htmlFor="student-phoneNumber">Your CV:</label>
+                        <input
+                          type="file"
+                          placeholder="Phone Number"
+                          accept=".pdf"
+                          className="rounded w-full input-field bg-gray-100 px-4 py-4 border"
+                          onChange={handleCv}
                           required
                         />
                       </div>

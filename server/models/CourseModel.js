@@ -10,9 +10,6 @@ const LessonSchema = new mongoose.Schema({
   subtitle: { 
     type: String,
   },
-  backdrop: {
-    type: String,
-  },
 });
 
 const ChapterSchema = new mongoose.Schema({
@@ -29,6 +26,9 @@ const CourseSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  backdrop: {
+    type: String,
+  },
   startDate: {
     type: Date,
   },
@@ -42,6 +42,10 @@ const CourseSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  Price:{
+    type: Number,
+
+  }
 });
 
 const Course = mongoose.model('Course', CourseSchema);

@@ -1,6 +1,8 @@
+// Import necessary libraries and components
+
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import AuthWrapper from "./utils/authwrapper/AuthWrapper"; // Import your AuthWrapper component
 import Home from "./pages/home/Home";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
@@ -46,7 +48,21 @@ function App() {
     <BrowserRouter>
       <ScrollToTopButton />
       <Routes>
-        <Route index element={<Home />} />
+
+        <Route
+          element={
+            <AuthWrapper>
+              {/* Protected routes */}
+              <Route index element={<Home />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
+              <Route path="imageupload" element={<ImageUpload />} />
+              {/* ... other protected routes ... */}
+            </AuthWrapper>
+          }
+        />
+
+   
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="instructors" element={<Instructors />} />
@@ -55,18 +71,16 @@ function App() {
         <Route path="survey" element={<Survey />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="*" element={<NoPage />} />
         <Route path="google" element={<Google />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
         <Route path="/questions/:id" element={<CourseQuestion />} />
         <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
-        <Route path="imageupload" element={<ImageUpload />} />
         <Route path="/:id/certificate/:user" element={<Certificate />} />
+
+        {/* Intructor Dashboard routes */}
         <Route
           path="/intructorDash"
           element={
@@ -130,6 +144,8 @@ function App() {
             />
           }
         />
+
+  
         <Route
           path="/adminDash"
           element={<AdminRoute element={<AdminDash />} path="/adminDash" />}
@@ -158,6 +174,9 @@ function App() {
             />
           }
         />
+
+    
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
   );

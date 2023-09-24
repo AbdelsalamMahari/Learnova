@@ -80,6 +80,7 @@ function App() {
         <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="/:id/certificate/:user" element={<Certificate />} />
+        <Route path="*" element={<NoPage />} />
 
         {/* Intructor Dashboard routes */}
         <Route
@@ -175,11 +176,9 @@ function App() {
             />
           }
         />
-<<<<<<< HEAD
 
     
-        <Route path="*" element={<NoPage />} />
-=======
+
          <Route
           path="/adminDash/surveyAverages"
           element={
@@ -189,7 +188,6 @@ function App() {
             />
           }
         />
->>>>>>> wafik
       </Routes>
     </BrowserRouter>
   );

@@ -11,10 +11,10 @@ import axios from "axios";
 import StripeContainer from "../../components/payment/StripeContainer";
 
 export default function CourseInfo() {
-  
   const [user, setUser] = useState(null);
   const [course, setCourse] = useState(null);
   const [activeAccordion, setActiveAccordion] = useState(null);
+  const [hasPurchased, setHasPurchased] = useState(false);
 
   const [EnrollmentData, setEnrollmentData] = useState({
     user: "",
@@ -26,7 +26,7 @@ export default function CourseInfo() {
     instructor: "",
   });
 
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
   const closeModal = () => {
     setShowModal(false);
@@ -34,7 +34,7 @@ export default function CourseInfo() {
 
   const { id } = useParams();
 
-    useEffect(() => {
+  useEffect(() => {
     async function getUserInfo() {
       const userInfo = await fetchUserInfoFromToken();
       setUser(userInfo);
@@ -43,14 +43,16 @@ export default function CourseInfo() {
     getUserInfo();
   }, []);
 
-  const handlePurchase  = async () => {
+  const handlePurchase = async () => {
     try {
-  
-      const response = await axios.post("http://localhost:5000/purchases/create", {
-        userId: user._id, 
-        courseId: course._id,
-        amount: course.Price,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/purchases/create",
+        {
+          userId: user._id,
+          courseId: course._id,
+          amount: course.Price,
+        }
+      );
       console.log(response.data.message);
     } catch (error) {
       console.error(error);
@@ -85,14 +87,11 @@ export default function CourseInfo() {
     }
   };
 
-
-
   useEffect(() => {
     async function fetchData() {
       try {
         const userInfo = await fetchUserInfoFromToken();
         setUser(userInfo);
-        console.log(userInfo);
 
         const response = await fetch(`http://localhost:5000/courses/${id}`);
         if (!response.ok) {
@@ -100,8 +99,6 @@ export default function CourseInfo() {
         }
         const data = await response.json();
         setCourse(data);
-        console.log(data);
-        console.log(data.content[0].title);
       } catch (error) {
         console.error(error);
       }
@@ -109,6 +106,32 @@ export default function CourseInfo() {
 
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    async function fetchDataPurchase() {
+      try {
+        // Check if the user has purchased this course if user exists
+        if (user && course) {
+          const hasPurchasedResponse = await axios.post(
+            "http://localhost:5000/purchases/check",
+            {
+              userId: user._id,
+              courseId: course._id,
+            }
+          );
+  
+          if (hasPurchasedResponse.data.hasPurchased) {
+            setHasPurchased(true);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    fetchDataPurchase();
+  }, [user, course]);
+  
 
   const toggleAccordion = (index) => {
     if (activeAccordion === index) {
@@ -143,28 +166,21 @@ export default function CourseInfo() {
             <div className="flex justify-between">
               <h1 className="lg:text-4xl font-bold">Course Content</h1>
               {user && user._id ? (
-                <Link to={`/courseMaterial/${course._id}`}>
-                  <Button text="START" onClick={HandleStartButton} />
-                </Link>
-              ) : null }
-              {user && user._id ? (
-        <button
-          className="bg-blue text-white font-bold py-2 px-4 rounded"
-          onClick={() => {
-            try {
-              handlePurchase();
-              setShowModal(true);
-            } catch (error) {
-              console.error(error.message);
-            
-            }
-          }}
-        >
-          PURCHASE
-        </button>
-      ) : (
-        <Link to="/login"    className="bg-blue text-white font-bold py-2 px-4 rounded">Log in to make a purchase</Link>
-      )}
+                <div>
+                  {hasPurchased ? (
+                    <Link to={`/courseMaterial/${course._id}`}>
+                      <Button text="START" onClick={HandleStartButton} />
+                    </Link>
+                  ) : (
+                    <button
+                      className="bg-blue text-white font-bold py-2 px-4 rounded"
+                      onClick={() => setShowModal(true)}
+                    >
+                      PURCHASE
+                    </button>
+                  )}
+                </div>
+              ) : null}
             </div>
             <div className="mt-4 w-3/4 ml-12 ">
               {course.content.map((chapter, chapterIndex) => (
@@ -198,20 +214,16 @@ export default function CourseInfo() {
                 }  border  border-gray-200 dark:border-gray-700`}
               >
                 <div className="px-3">
-                  <p className="py-2 text-gray-500 dark:text-gray-400 ">
-                   
-                  </p>
-                  <p className="py-2 text-gray-500 dark:text-gray-400">
-                    
-                  </p>
+                  <p className="py-2 text-gray-500 dark:text-gray-400 "></p>
+                  <p className="py-2 text-gray-500 dark:text-gray-400"></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-       {/* Modal */}
-       {showModal && (
+      {/* Modal */}
+      {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 overflow-x-hidden overflow-y-auto">
           {/* Modal Background */}
           <div className="fixed inset-0 bg-gray-800 opacity-50"></div>
@@ -225,7 +237,10 @@ export default function CourseInfo() {
                 <Icons.Close />
               </button>
               {/* Display the StripeContainer component within the modal */}
-              <StripeContainer amount={course.Price} handlePurchase={handlePurchase} />
+              <StripeContainer
+                amount={course.Price * 100}
+                handlePurchase={handlePurchase}
+              />
             </div>
           </div>
         </div>

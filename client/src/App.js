@@ -49,21 +49,20 @@ function App() {
     <BrowserRouter>
       <ScrollToTopButton />
       <Routes>
-
-        <Route
+      <Route
+          path="/courseMaterial/:id"
           element={
-            <AuthWrapper>
-              {/* Protected routes */}
-              <Route index element={<Home />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
-              <Route path="imageupload" element={<ImageUpload />} />
-              {/* ... other protected routes ... */}
-            </AuthWrapper>
+            <AuthWrapper
+              element={<CourseMaterial/>}
+              path="/courseMaterial/:id"
+            />
           }
         />
 
-   
+        
+        <Route path="imageupload" element={<ImageUpload />} />
+        <Route index element={<Home />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="instructors" element={<Instructors />} />
@@ -147,7 +146,6 @@ function App() {
           }
         />
 
-  
         <Route
           path="/adminDash"
           element={<AdminRoute element={<AdminDash />} path="/adminDash" />}

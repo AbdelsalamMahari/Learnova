@@ -54,16 +54,15 @@ function App() {
           element={
             <AuthWrapper>
               {/* Protected routes */}
-              <Route index element={<Home />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
               <Route path="imageupload" element={<ImageUpload />} />
               {/* ... other protected routes ... */}
             </AuthWrapper>
           }
         />
 
-   
+        <Route path="/courseMaterial/:id" element={<CourseMaterial />} />
+        <Route index element={<Home />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="instructors" element={<Instructors />} />
@@ -175,11 +174,9 @@ function App() {
             />
           }
         />
-<<<<<<< HEAD
 
     
         <Route path="*" element={<NoPage />} />
-=======
          <Route
           path="/adminDash/surveyAverages"
           element={
@@ -189,7 +186,6 @@ function App() {
             />
           }
         />
->>>>>>> wafik
       </Routes>
     </BrowserRouter>
   );

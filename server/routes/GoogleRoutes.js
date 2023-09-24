@@ -5,7 +5,7 @@ const { User } = require("../models/UsersModel");
 router.get("/login/success", async (req, res) => {
   if (req.user) {
     try {
-      const existingUser = await User.findOne({ googleId: req.user.id });
+      const existingUser = await User.findOne({ email: req.user.emails[0].value });
 
       if (existingUser) {
         // User exists, generate a token using the existing method
@@ -48,6 +48,7 @@ router.get("/login/success", async (req, res) => {
     res.status(403).json({ error: true, message: "Not Authorized" });
   }
 });
+
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({

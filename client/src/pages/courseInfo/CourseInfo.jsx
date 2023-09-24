@@ -170,7 +170,7 @@ export default function CourseInfo() {
               {course.content.map((chapter, chapterIndex) => (
                 <div key={chapterIndex}>
                   <h2
-                    className="px-3 flex items-center justify-between w-full p-5  text-left  border border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="px-3 flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => toggleAccordion(chapterIndex)}
                   >
                     <span>{chapter.title}</span>

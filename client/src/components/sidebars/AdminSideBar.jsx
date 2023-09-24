@@ -127,6 +127,15 @@ export default function AdminSidebar() {
         </li>
 
         <li>
+          <Link to="/adminDash/surveyAverages">
+            <span className="icon">
+              <Icons.Users size={30} />
+            </span>
+            <span className="title">SurveyAverage</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to="/">
             <span className="icon">
               <Icons.ArrowLeft size={30} />

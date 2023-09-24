@@ -42,6 +42,7 @@ import ImageUpload from "./components/ImageUpload/ImageUpload";
 import Requests from "./pages/adminDash/Requests";
 import AllInstructors from "./pages/adminDash/AllInstructors";
 import FeedbacksPage from "./pages/adminDash/Feedbacks";
+import SurveyAverage from "./pages/adminDash/SurveyAverage";
 
 function App() {
   return (
@@ -174,9 +175,21 @@ function App() {
             />
           }
         />
+<<<<<<< HEAD
 
     
         <Route path="*" element={<NoPage />} />
+=======
+         <Route
+          path="/adminDash/surveyAverages"
+          element={
+            <AdminRoute
+              element={<SurveyAverage />}
+              path="/adminDash/surveyAverages"
+            />
+          }
+        />
+>>>>>>> wafik
       </Routes>
     </BrowserRouter>
   );

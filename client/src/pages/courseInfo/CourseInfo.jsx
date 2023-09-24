@@ -171,7 +171,7 @@ export default function CourseInfo() {
     <>
       <TopPage
         title={course.name}
-        backgroundImageUrl="https://as2.ftcdn.net/v2/jpg/01/34/59/53/1000_F_134595318_krCNHoUx2KWoFZhFPGtJQg6Bv6dkrBMR.jpg"
+        backgroundImageUrl={`http://localhost:5000/courses/getBackdrop/${course._id}`}
       />
       <section>
         <div className="m-10 p-10 bg-white rounded">

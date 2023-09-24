@@ -15,6 +15,7 @@ export default function CourseInfo() {
   const [course, setCourse] = useState(null);
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [hasPurchased, setHasPurchased] = useState(false);
+  const [allEnrollments, setAllEnrollments] = useState([]);
 
   const [EnrollmentData, setEnrollmentData] = useState({
     user: "",
@@ -59,7 +60,27 @@ export default function CourseInfo() {
     }
   };
 
-  const HandleStartButton = async (e) => {
+  useEffect(() => {
+    async function fetchAllEnrollments() {
+      try {
+        const response = await axios.get("http://localhost:5000/get/enrollement");
+        if (response.status === 200) {
+          setAllEnrollments(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    fetchAllEnrollments();
+  }, []);
+
+  const HandleStartButton = async() => {
+  const isEnrolled = allEnrollments.some(
+    (enrollment) => enrollment.user === user._id && enrollment.course === id
+  );
+
+  if (!isEnrolled) {
     try {
       const courseResponse = await fetch(`http://localhost:5000/courses/${id}`);
       if (!courseResponse.ok) {
@@ -85,7 +106,8 @@ export default function CourseInfo() {
     } catch (error) {
       console.error("Error creating enrollment:", error);
     }
-  };
+  }
+};
 
   useEffect(() => {
     async function fetchData() {

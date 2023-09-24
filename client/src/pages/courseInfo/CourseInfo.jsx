@@ -204,7 +204,7 @@ export default function CourseInfo() {
                 </div>
               ) : null}
             </div>
-            <div className="mt-4 w-3/4 ml-12 ">
+            <div className="mt-4 w-full cursor-pointer">
               {course.content.map((chapter, chapterIndex) => (
                 <div key={chapterIndex}>
                   <h2

@@ -31,9 +31,3 @@
   .course-item:hover {
     transform: translateY(-5px);
   }
-  h2 {
-    font-size: 28px; /* Increase the font size */
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: bold; /* Add boldness */
-  }

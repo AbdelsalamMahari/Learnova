@@ -15,3 +15,21 @@ const Purchase = require("../models/PurchasesModel");
       res.status(500).json({ error: "Server error" });
     }
   };
+
+  module.exports.checkIfPurchased = async (req, res) => {
+    try {
+      const { userId, courseId } = req.body;
+      const purchase = await Purchase.findOne({ userId, courseId });
+  
+      if (purchase) {
+        // The user has purchased the course
+        res.status(200).json({ hasPurchased: true });
+      } else {
+        // The user has not purchased the course
+        res.status(200).json({ hasPurchased: false });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
+  };

@@ -13,6 +13,7 @@
     border-radius: 20px;
     object-fit: contain;
     max-width: 400px;
+    margin-left: 40px;
   }
 
   .first2-instructor img{
@@ -51,6 +52,7 @@
         max-width: 100%; 
         padding: 0px 20px; 
         background: linear-gradient(#ecf0f2, white);
+        margin-left: 0px;
       }
 
       .first2-instructor{

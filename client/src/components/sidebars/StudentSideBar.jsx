@@ -72,7 +72,7 @@ export default function Sidebar() {
         <li>
           <Link to={`/questions/${id}`}>
             <span className="icon">
-              <Icons.Book size={30} />
+              <Icons.Question size={30} />
             </span>
             <span className="title">Quizzes</span>
           </Link>
@@ -81,7 +81,7 @@ export default function Sidebar() {
         <li>
             <Link to={`/exam/${id}`}>
               <span className="icon">
-                <Icons.Book size={30} />
+                <Icons.Exam size={30} />
               </span>
               <span className="title">Exams</span>
             </Link>

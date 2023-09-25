@@ -12,36 +12,41 @@ const AllInstructors = () => {
   const [instructors, setInstructors] = useState([]);
   const user = UserInfo();
 
-  useEffect(() => {
-    const fetchInstructors = async () => {
-      try {
-        const response = await Axios.get('http://localhost:5000/users/allInstructor');
-        setInstructors(response.data);
-      } catch (error) {
-        console.error('Error fetching instructors:', error);
-      }
-    };
+  const fetchInstructors = async () => {
+    try {
+      const response = await Axios.get("http://localhost:5000/users/allInstructor", {
+        headers: {
+          token: `Bearer ${Cookies.get("token")} `,
+        },
+      });
+      setInstructors(response.data);
+    } catch (error) {
+      console.error("Error fetching instructors:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchInstructors();
   }, []);
 
   const handleDelete = async (userId) => {
     try {
-      
-  
-      // Send the delete request
       await Axios.delete(`http://localhost:5000/users/${userId}`, {
         headers: {
-          token: `Bearer ${Cookies.get('token')} `,
+          token: `Bearer ${Cookies.get("token")} `,
         },
       });
-  
-      // Update the instructors list after successful deletion
-      setInstructors(prevInstructors =>
-        prevInstructors.filter(instructor => instructor._id !== userId)
-      );
+
+      toast.success("User deleted successfully", {
+        theme: "colored",
+      });
+
+      fetchInstructors();
     } catch (error) {
-      console.error('Error deleting instructor:', error);
+      console.error("Error deleting instructor:", error);
+      toast.error("Error deleting user", {
+        theme: "colored",
+      });
     }
   };
   

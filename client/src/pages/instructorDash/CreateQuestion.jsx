@@ -178,7 +178,7 @@ function DashQuestion() {
               <div>
                 <button
                   type="submit"
-                  className="bg-blue text-black px-4 py-2 rounded-md hover:bg-blue-600"
+                  className="bg-blue text-white px-4 py-2 rounded-md hover:bg-blue-600"
                 >
                   {editMode ? 'Update Question' : 'Save Question'}
                 </button>
@@ -222,7 +222,7 @@ function DashQuestion() {
                     <td className="border px-4 py-2">
                       <button
                         onClick={() => handleEdit(q)}
-                        className="bg-blue text-black px-2 py-1 rounded-md hover:bg-blue-600"
+                        className="bg-blue text-white px-2 py-1 rounded-md hover:bg-blue-600"
                       >
                         Edit
                       </button>

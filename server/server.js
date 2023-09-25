@@ -17,7 +17,6 @@ const feedbackRoutes = require("./routes/FeedbackRoute");
 const coursesRoutes = require("./routes/CourseRoutes");
 const QuestionRoute = require("./routes/QuestionRoute");
 const EnrollemntRoute = require("./routes/EnrollentRoute");
-const PaymentEnrollemntRoute = require("./routes/PaymentEnrollemntRoute");
 const UserRoutes = require("./routes/UsersRoutes");
 const googleRoute = require('./routes/GoogleRoutes');
 const forgetPassRoute = require('./routes/ForgetPassRoutes');
@@ -70,7 +69,6 @@ app.use(
   examRoutes,
   feedbackRoutes,
   EnrollemntRoute,
-  PaymentEnrollemntRoute,
   UserRoutes,
   forgetPassRoute,
   contactRoutes,

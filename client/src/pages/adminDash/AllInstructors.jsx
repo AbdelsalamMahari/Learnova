@@ -3,9 +3,11 @@ import Axios from 'axios';
 import UserInfo from '../../components/users/UserInfo';
 import SideBar from '../../components/sidebars/AdminSideBar'
 import Icons from '../../assets/icons/icons';
-
 import "./assets/css/style.css";
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AllInstructors = () => {
   const [instructors, setInstructors] = useState([]);
   const user = UserInfo();
@@ -25,15 +27,24 @@ const AllInstructors = () => {
 
   const handleDelete = async (userId) => {
     try {
+      
+  
+      // Send the delete request
       await Axios.delete(`http://localhost:5000/users/${userId}`, {
         headers: {
-          token: `Bearer ${Cookies.get("token")} `,
-         },
-        });
+          token: `Bearer ${Cookies.get('token')} `,
+        },
+      });
+  
+      // Update the instructors list after successful deletion
+      setInstructors(prevInstructors =>
+        prevInstructors.filter(instructor => instructor._id !== userId)
+      );
     } catch (error) {
       console.error('Error deleting instructor:', error);
     }
   };
+  
 
   return (
     <>

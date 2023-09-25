@@ -43,23 +43,24 @@ import Requests from "./pages/adminDash/Requests";
 import AllInstructors from "./pages/adminDash/AllInstructors";
 import FeedbacksPage from "./pages/adminDash/Feedbacks";
 import SurveyAverage from "./pages/adminDash/SurveyAverage";
+import AllCoursesDach from "./pages/adminDash/AllCourses";
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTopButton />
       <Routes>
-      <Route
+        <Route
           path="/courseMaterial/:id"
           element={
             <AuthWrapper
-              element={<CourseMaterial/>}
+              element={<CourseMaterial />}
               path="/courseMaterial/:id"
             />
           }
         />
 
-        
+
         <Route path="imageupload" element={<ImageUpload />} />
         <Route index element={<Home />} />
         <Route path="profile" element={<Profile />} />
@@ -175,13 +176,23 @@ function App() {
           }
         />
 
-    
-         <Route
+
+        <Route
           path="/adminDash/surveyAverages"
           element={
             <AdminRoute
               element={<SurveyAverage />}
               path="/adminDash/surveyAverages"
+            />
+          }
+        />
+
+        <Route
+          path="/adminDash/allCoursesDach"
+          element={
+            <AdminRoute
+              element={<AllCoursesDach />}
+              path="/adminDash/allCoursesDach"
             />
           }
         />

@@ -512,7 +512,7 @@
 .table-container::-webkit-scrollbar-track {
   background-color: #f1f1f1; /* Color of the scrollbar track */
 }
-
+/* start from here for lernova!! */
 .dash-survey h2 {
   font-size: 24px;
   margin-bottom: 20px;
@@ -543,4 +543,43 @@
     justify-content: space-around;
     flex-direction: column;
   }
+  .courses-dash {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust for smaller screens */
+}
+}
+
+.couses-header h1{
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.course-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.course-info {
+  margin-bottom: 10px;
+}
+
+.course-info h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.delete-button {
+  background-color: #ff4b4b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 60px;
+}
+
+.delete-button:hover {
+  background-color: #ff3333;
 }

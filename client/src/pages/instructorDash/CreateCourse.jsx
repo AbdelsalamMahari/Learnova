@@ -308,7 +308,7 @@ export default function CreateCourse() {
               </label>
               <input
                 type="file"
-                accept="image/*"
+                accept=".png, .jpg, .jpeg"
                 onChange={handleBackdrop}
                 required
                 className="w-6/12 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"

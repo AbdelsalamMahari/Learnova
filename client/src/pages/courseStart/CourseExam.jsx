@@ -103,8 +103,9 @@ export default function CourseExam() {
               <Icons.Bars size={24} />
             </div>
           </div>
-          <div className='course-quiz p-4 bg-white rounded-lg shadow-lg'>
-            <h1 className="text-2xl font-bold mb-4">Questions for Course: {course.name || 'Loading...'}</h1>
+          <div className="dash-container">
+          <div className='course-quiz'>
+            <h1 className="text-2xl font-bold mb-5">Questions for Course: {course.name || 'Loading...'}</h1>
             <ul className="list-disc pl-4">
               {questions.map((question, questionIndex) => (
                 <li key={question._id} className="mb-4">
@@ -162,6 +163,7 @@ export default function CourseExam() {
               </button>
             )}
           </div>
+        </div>
         </div>
       </div>
     </>

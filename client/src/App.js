@@ -23,6 +23,7 @@ import ForgetPass from "./pages/forgetPass/ForgetPass";
 import PasswordReset from "./pages/passwordReset/PasswordReset";
 import InstructorRoute from "./utils/Instructor/protectedRoute";
 import AdminRoute from "./utils/Admin/protectedRoute";
+import SuperAdminRoute from "./utils/SuperAdmin/protectedRoute";
 import CourseQuestion from "./pages/courseStart/CourseQuestion";
 import Certificate from "./pages/certificatee/Certificate";
 import CourseEdit from "./pages/instructorDash/CourseEdit";
@@ -44,6 +45,7 @@ import AllInstructors from "./pages/adminDash/AllInstructors";
 import FeedbacksPage from "./pages/adminDash/Feedbacks";
 import SurveyAverage from "./pages/adminDash/SurveyAverage";
 import AllCoursesDach from "./pages/adminDash/AllCourses";
+import MakeAdmin from "./pages/adminDash/MakeAdmin";
 
 function App() {
   return (
@@ -59,7 +61,6 @@ function App() {
             />
           }
         />
-
 
         <Route path="imageupload" element={<ImageUpload />} />
         <Route index element={<Home />} />
@@ -176,7 +177,6 @@ function App() {
           }
         />
 
-
         <Route
           path="/adminDash/surveyAverages"
           element={
@@ -193,6 +193,16 @@ function App() {
             <AdminRoute
               element={<AllCoursesDach />}
               path="/adminDash/allCoursesDach"
+            />
+          }
+        />
+
+        <Route
+          path="/adminDash/makeAdmin"
+          element={
+            <SuperAdminRoute
+              element={<MakeAdmin />}
+              path="/adminDash/makeAdmin"
             />
           }
         />

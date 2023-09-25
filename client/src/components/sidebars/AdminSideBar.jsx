@@ -93,7 +93,7 @@ export default function AdminSidebar() {
         <li>
           <Link to="/adminDash/requests">
             <span className="icon">
-              <Icons.Teacher size={30} />
+              <Icons.Arrows size={30} />
             </span>
             <span className="title">Requests</span>
           </Link>
@@ -111,16 +111,27 @@ export default function AdminSidebar() {
         <li>
           <Link to="/adminDash">
             <span className="icon">
-              <Icons.Users size={30} />
+              <Icons.Student size={30} />
             </span>
-            <span className="title">Users</span>
+            <span className="title">Students</span>
           </Link>
         </li>
+
+        {user?.isSuperAdmin && (
+          <li>
+            <Link to="/adminDash/makeAdmin">
+              <span className="icon">
+                <Icons.Admin2 size={30} />
+              </span>
+              <span className="title">Make Admin</span>
+            </Link>
+          </li>
+        )}
 
         <li>
           <Link to="/adminDash/feedbacks">
             <span className="icon">
-              <Icons.Users size={30} />
+              <Icons.Feedback size={30} />
             </span>
             <span className="title">Feedbacks</span>
           </Link>
@@ -129,16 +140,16 @@ export default function AdminSidebar() {
         <li>
           <Link to="/adminDash/surveyAverages">
             <span className="icon">
-              <Icons.Users size={30} />
+              <Icons.Chart size={30} />
             </span>
-            <span className="title">SurveyAverage</span>
+            <span className="title">Survey Average</span>
           </Link>
         </li>
 
         <li>
           <Link to="/adminDash/allCoursesDach">
             <span className="icon">
-              <Icons.Users size={30} />
+              <Icons.Book size={30} />
             </span>
             <span className="title">AllCourses</span>
           </Link>

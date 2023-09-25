@@ -147,18 +147,20 @@ module.exports.getUser = async (req, res) => {
 
 //Get all
 module.exports.getAllUser = async (req, res) => {
-    const query = req.query.new;
-    if (req.user.isAdmin) {
-      try {
-        const students = query ? await Student.find().sort({_id:-1}).limit(10) : await Student.find();
-        res.status(200).json(students);
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(403).json({ message: 'You are not allowed to see all users' });
+  const query = req.query.new;
+  if (req.user.isAdmin) {
+    try {
+      const students = query
+        ? await User.find({ isSuperAdmin: { $ne: true } }).sort({ _id: -1 }).limit(10)
+        : await User.find({ isSuperAdmin: { $ne: true } });
+      res.status(200).json(students);
+    } catch (err) {
+      res.status(500).json(err);
     }
-  };
+  } else {
+    res.status(403).json({ message: 'You are not allowed to see all users' });
+  }
+};
 
 //Get user stats
 module.exports.statUser = async (req, res) => {
@@ -181,7 +183,7 @@ module.exports.statUser = async (req, res) => {
 ];
 if (req.user.isAdmin){
 try{
-    const data = await Student.aggregate([
+    const data = await User.aggregate([
         {
             $project:{
                 month: {$month: "$createdAt"}
@@ -219,7 +221,7 @@ module.exports.getAllInstructors = async (req, res) => {
 
 module.exports.getInstructors = async (req, res) => {
     try {
-      const instructors = await User.find({ isInstructor: true }); // Filter by 'role' and 'isInstructor'
+      const instructors = await User.find({ isInstructor: true, role: "instructor" }); // Filter by 'role' and 'isInstructor'
 
       res.status(200).json(instructors);
     } catch (err) {
@@ -230,7 +232,7 @@ module.exports.getInstructors = async (req, res) => {
 module.exports.getStudents = async (req, res) => {
   if (req.user.isAdmin) {
     try {
-      const Students = await User.find({ isInstructor: false }); // Filter by 'role' and 'isInstructor'
+      const Students = await User.find({ isInstructor: false, role: "student" }); // Filter by 'role' and 'isInstructor'
 
       res.status(200).json(Students);
     } catch (err) {

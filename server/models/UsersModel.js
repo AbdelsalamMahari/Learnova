@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema(
     cv: { type: String },
     phoneNumber: { type: String },
     isAdmin: { type: Boolean, default: false },
+    isSuperAdmin: { type: Boolean, default: false },
     verified: { type: Boolean, default: false },
  
   },
@@ -25,7 +26,7 @@ const UserSchema = new mongoose.Schema(
 UserSchema.methods.generateAuthToken = function () {
   // Generate access token
   const token = jwt.sign(
-    { id: this._id, isAdmin: this.isAdmin, isInstructor: this.isInstructor },
+    { id: this._id, isAdmin: this.isAdmin, isInstructor: this.isInstructor, isSuperAdmin: this.isSuperAdmin },
     process.env.SECRET_KEY,
     { expiresIn: "5d" }
   );

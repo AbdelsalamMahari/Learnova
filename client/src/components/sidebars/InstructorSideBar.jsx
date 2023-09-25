@@ -118,7 +118,7 @@ export default function InstructorSidebar() {
         <li>
           <Link to="/intructorDash/dashCoursesExams">
             <span className="icon">
-              <Icons.Question size={30} />
+              <Icons.Exam size={30} />
             </span>
             <span className="title">Create Exam</span>
           </Link>

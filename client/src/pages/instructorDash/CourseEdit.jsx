@@ -114,6 +114,9 @@ export default function CourseEdit() {
                       expandedCourse !== course._id ? "w-16/32" : "w-full"
                     }`}
                   >
+                      <label className="block text-gray-700 font-bold mb-2">
+                              Course Title:
+                            </label>
                     <input
                       type="text"
                       name="title"
@@ -125,6 +128,9 @@ export default function CourseEdit() {
                       }}
                       className="lg:text-2xl w-full border-b-2 border-blue-500 focus:outline-none"
                     />
+                      <label className="block text-gray-700 font-bold mb-2">
+                              Course Description:
+                            </label>
                     <textarea
                       name="description"
                       value={

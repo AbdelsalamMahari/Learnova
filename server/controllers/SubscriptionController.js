@@ -1,20 +1,30 @@
 const Subscription = require("../models/SubscriptionModel");
 
 // Create a new subscription
-  module.exports.createSubscription = async (req, res) => {
-    try {
-      const { userId, plan, amount } = req.body;
-  
-      // Create a new subscription record
-      const subscription = new Subscription({ userId, plan, amount });
+module.exports.createSubscription = async (req, res) => {
+  try {
+    const { instructorId, amount } = req.body;
+
+    // Check if there is an existing subscription for this instructor
+    const existingSubscription = await Subscription.findOne({ instructorId });
+
+    if (existingSubscription) {
+      // If there's an existing subscription, update it
+      existingSubscription.amount = amount;
+      await existingSubscription.save();
+    } else {
+      // If there's no existing subscription, create a new one
+      const subscription = new Subscription({ instructorId, amount });
       await subscription.save();
-  
-      res.status(201).json({ message: "Subscription created successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Server error" });
     }
-  };
+
+    res.status(201).json({ message: "Subscription created/updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 
 // Get the total amount of subscriptions for all users
 module.exports.getTotalSubscriptionAmount = async (req, res) => {
@@ -34,24 +44,5 @@ module.exports.getTotalSubscriptionAmount = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
-  }
-};
-
-module.exports.getUserSubscriptionPlan = async (req, res) => {
-  try {
-    const userId = req.params.id; // Assuming you have a route parameter for userId
-    // Use Subscription.find() to find all subscriptions for the specified user by userId field
-    const subscriptions = await Subscription.find({ userId });
-
-    if (!subscriptions || subscriptions.length === 0) {
-      return res.status(404).json({ message: "No subscriptions found for this user" });
-    }
-
-    // Extract all plans from the subscriptions
-    const plans = subscriptions.map((subscription) => subscription.plan);
-
-    res.json({ userId, plans });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
   }
 };

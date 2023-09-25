@@ -7,7 +7,4 @@ router.post("/subscriptions", subscriptionController.createSubscription);
 
 router.get("/subscriptions/total", subscriptionController.getTotalSubscriptionAmount);
 
-router.get("/subscriptions/:id", subscriptionController.getUserSubscriptionPlan);
-
-
 module.exports = router;

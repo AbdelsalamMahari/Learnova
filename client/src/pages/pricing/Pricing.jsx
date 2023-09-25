@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Pricing.css";
-import StripeContainer from "../../components/payment/StripeContainer";
+import StripeContainer from "../../components/subscriptionPayment/StripeContainer";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import Icons from "../../assets/icons/icons";
@@ -25,8 +25,7 @@ export default function Pricing() {
   const handlePaymentSuccess  = async () => {
     try {
       const response = await axios.post("http://localhost:5000/subscriptions", {
-        userId: user._id, // Pass the user's unique identifier
-        plan: selectedPlan,
+        instructorId: user._id, // Pass the user's unique identifier
         amount: amount,
       });
       console.log(response.data.message);
@@ -51,47 +50,6 @@ export default function Pricing() {
       />
       <div className="container mx-auto my-10 px-[40px]">
         <div className="flex justify-center gap-10 pricing-divs">
-          <div className="bg-white rounded-lg px-8 py-10 shadow-2xl text-center">
-            <h2 className="">Free</h2>
-            <p className="my-4">
-              <span className="text-4xl font-semibold">0$</span> /Month
-            </p>
-            <div
-              className="tilted-box2 w-1/4 m-auto"
-              style={{ "--skew-angle": "40deg" }}
-            ></div>
-            <div className="text-left my-3 leading-8">
-              <ul>
-                <li className="flex gap-1 items-center">
-                  <span>
-                    <Icons.Check size={20} />
-                  </span>
-                  Read All Chapters
-                </li>
-                <li className="flex gap-1 items-center">
-                  <span>
-                    <Icons.Check size={20} />
-                  </span>
-                  Exercise Files
-                </li>
-                <li className="flex gap-1 items-center text-gray-400">
-                  <span>
-                    <Icons.Close size={20} />
-                  </span>
-                  Courses Exams
-                </li>
-                <li className="flex gap-1 items-center text-gray-400">
-                  <span>
-                    <Icons.Close size={20} />
-                  </span>
-                  Certificate of Completion
-                </li>
-              </ul>
-            </div>
-            <button className="mt-4 bg-orange hover:bg-blue-700 text-white py-2 px-4 rounded-full">
-              Get Started
-            </button>
-          </div>
           {/* Plan 1 */}
           <div className="bg-white rounded-lg px-8 py-10 shadow-2xl text-center">
             <h2 className="">Monthly</h2>

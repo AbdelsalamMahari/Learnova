@@ -163,6 +163,7 @@ function Survey() {
   
 
   return (
+    <>
     <div className="survey-container">
       <form className="survey-form">
         <div className={`form-question${step}`} key={step}>
@@ -250,6 +251,12 @@ function Survey() {
       </form>
       <ToastContainer />
     </div>
+     <div className="back-to-home">
+     <Link to="/" className="submit">
+       Back to Home
+     </Link>
+   </div>
+   </>
   );
 }
 

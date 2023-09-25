@@ -146,47 +146,63 @@ export default function About() {
         <h1 className="font-bold">What They're Talking About us?</h1>
         <div className="testimonial-container">
           <div className="slider-feedback">
-            <Slider {...settings}>
-              {testimonialItems.map((item, index) => (
-                <div key={index} className="feedback-item">
-                  {item.user && (
-                    <div className="author">
-                      <div className="image">
-                        {item.user.profilePic ? (
-                          // Check if the profilePic URL contains "googleusercontent.com"
-                          item.user.profilePic.includes(
-                            "googleusercontent.com"
-                          ) ? (
-                            <img
-                              src={item.user.profilePic} // Use the Google-hosted URL directly
-                              alt="Profile"
-                              className="w-28 h-28 rounded-full object-cover"
-                            />
-                          ) : (
-                            <img
-                              src={`http://localhost:5000/users/userProfile/${item.user._id}`} // Use the local URL
-                              alt="Upload"
-                              className="w-28 h-28 rounded-full object-cover"
-                            />
-                          )
-                        ) : (
-                          <img
-                            src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
-                            alt="Default Profile"
-                            className="w-28 h-28 rounded-full object-cover"
-                          />
-                        )}
-                      </div>
-                      <div className="info">
-                        <h3 className="name">{`${item.user.firstName} ${item.user.lastName}`}</h3>
-                        <p className="job">{item.user.email}</p>
-                      </div>
-                    </div>
-                  )}
-                  <p className="content">{item.feedbackText}</p>
-                </div>
-              ))}
-            </Slider>
+          <Slider {...settings}>
+  {testimonialItems.map((item, index) => (
+    <div key={index} className="feedback-item">
+      {item.user ? (
+        <div className="author">
+          <div className="image">
+            {item.user.profilePic ? (
+              item.user.profilePic.includes("googleusercontent.com") ? (
+                <img
+                  src={item.user.profilePic}
+                  alt="Profile"
+                  className="w-28 h-28 rounded-full object-cover"
+                />
+              ) : (
+                <img
+                  src={`http://localhost:5000/users/userProfile/${item.user._id}`}
+                  alt="Upload"
+                  className="w-28 h-28 rounded-full object-cover"
+                />
+              )
+            ) : (
+              <img
+                src={
+                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                }
+                alt="Default Profile"
+                className="w-28 h-28 rounded-full object-cover"
+              />
+            )}
+          </div>
+          <div className="info">
+            <h3 className="name">{`${item.user.firstName} ${item.user.lastName}`}</h3>
+            <p className="job">{item.user.email}</p>
+          </div>
+        </div>
+      ) : (
+        <div className="author">
+          <div className="image">
+            <img
+              src={
+                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+              }
+              alt="Anonymous"
+              className="w-28 h-28 rounded-full object-cover"
+            />
+          </div>
+          <div className="info">
+            <h3 className="name">Anonymous</h3>
+            <p className="job">Anonymous</p>
+          </div>
+        </div>
+      )}
+      <p className="content">{item.feedbackText}</p>
+    </div>
+  ))}
+</Slider>
+
           </div>
           <div className="moviesNowPlaying-about">
             <img

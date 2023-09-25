@@ -99,12 +99,12 @@ function FeedbacksPage() {
       <td>{feedback.user ? (feedback.user.lastName || '') : ''}</td>
       <td>{feedback.user ? (feedback.user.email || 'Anonymous') : 'Anonymous'}</td>
       <td>{feedback.text}</td>
-      <td>
+      <td className="flex justify-center items-center gap-2">
         <button
           className={
             feedback.isAddedToSlider
-              ? 'bg-red-600 rounded-lg p-2 m-2'
-              : 'bg-green-600 rounded-lg p-2 m-2'
+              ? 'bg-red-500 p-2 rounded-md text-white'
+              : 'bg-green-500 p-2 rounded-md text-white'
           }
           onClick={() =>
             handleToggleSlider(feedback._id, feedback.isAddedToSlider)
@@ -113,7 +113,7 @@ function FeedbacksPage() {
           {feedback.isAddedToSlider ? 'Remove' : 'Add'}
         </button>
         <button
-          className="bg-red-600 rounded-lg p-2 m-2"
+          className="bg-red-500 p-2 rounded-md text-white"
           onClick={() => handleDeleteFeedback(feedback._id)}
         >
           Delete

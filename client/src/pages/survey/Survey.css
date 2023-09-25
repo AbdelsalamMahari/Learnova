@@ -14,7 +14,8 @@
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(#007991de, rgba(0, 0, 0, 0.6)),
-  url(https://thumbs.dreamstime.com/b/survey-person-using-laptop-white-table-130289059.jpg);  background-position: center center;
+    url(https://thumbs.dreamstime.com/b/survey-person-using-laptop-white-table-130289059.jpg);
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -30,7 +31,22 @@
   height: 100vh;
 }
 
-.survey-form{
+.back-to-home {
+  margin-left: 40%;
+  margin-right: 40%;
+  position: absolute;
+  padding: 15px;
+  background: #007991de;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-bottom: 10px;
+
+}
+.back-to-home:hover {
+  background-color: rgb(250, 191, 80);
+}
+
+.survey-form {
   position: relative;
   z-index: 1;
   margin: 150px 40px 40px 40px;
@@ -73,28 +89,37 @@ textarea {
 .survey-container button {
   border: none;
 }
+
 .radio-options label {
   display: flex;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 10px;
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 .radio-options input[type="radio"] {
-  margin-right: 10px; 
-  transform: scale(1.5); 
+  margin-right: 10px;
+  transform: scale(1.5);
 }
+
 .survey-container {
   width: 100%;
   margin: 10px auto 0 auto;
 }
-.thank-you-message{
+
+.thank-you-message {
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .survey-container {
-      max-width: 720px;
+    max-width: 720px;
+  }
+}
+@media (max-width: 768px) {
+  .back-to-home {
+    margin-left: 40%;
+    margin-right: 0%;
   }
 }
 
@@ -126,8 +151,19 @@ textarea {
 
 @media (max-width: 480px) {
   .survey-container form {
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+  }
+  .back-to-home {
+    margin-left: 30%;
+    margin-right: 30%;
+    position: absolute;
+    padding: 15px;
+    background: #007991de;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  
   }
 }
 
@@ -176,7 +212,6 @@ textarea {
   width: 100%;
   padding: 15px;
   background: #007991de;
-  color: inherit;
   border-radius: 2px;
   cursor: pointer;
   margin-bottom: 10px;

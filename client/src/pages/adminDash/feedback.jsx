@@ -18,10 +18,13 @@ function FeedbacksPage() {
       // For each feedback, fetch user information and combine them
       const feedbacksWithUserInfo = await Promise.all(
         response.data.map(async (feedback) => {
-          const userResponse = await axios.get(
-            `http://localhost:5000/users/find/${feedback.userId}`
-          );
-          const user = userResponse.data;
+          let user = null;
+          if (feedback.userId) {
+            const userResponse = await axios.get(
+              `http://localhost:5000/users/find/${feedback.userId}`
+            );
+            user = userResponse.data;
+          }
           return { ...feedback, user };
         })
       );
@@ -63,9 +66,10 @@ function FeedbacksPage() {
     }
   }
 
+
+
   return (
     <div className="dash-body">
-     
       <div className="content">
         <ToastContainer />
         <div className="title-info">
@@ -84,35 +88,35 @@ function FeedbacksPage() {
             </tr>
           </thead>
           <tbody>
-            {feedbacks.map((feedback, index) => (
-              <tr key={index}>
-                <td>{feedback.user.firstName}</td>
-                <td>{feedback.user.lastName}</td>
-                <td>{feedback.user.email}</td>
-                <td>{feedback.text}</td>
-                <td>
-                  <button
-                    className={
-                      feedback.isAddedToSlider
-                        ? "bg-red-600 rounded-lg p-2 m-2"
-                        : "bg-green-600 rounded-lg p-2 m-2"
-                    }
-                    onClick={() =>
-                      handleToggleSlider(feedback._id, feedback.isAddedToSlider)
-                    }
-                  >
-                    {feedback.isAddedToSlider ? "Remove" : "Add"}
-                  </button>
-                  <button
-                    className="bg-red-600 rounded-lg p-2 m-2"
-                    onClick={() => handleDeleteFeedback(feedback._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+  {feedbacks.map((feedback, index) => (
+    <tr key={index}>
+      <td>{feedback.user ? (feedback.user.firstName || 'Anonymous') : 'Anonymous'}</td>
+      <td>{feedback.user ? (feedback.user.lastName || '') : ''}</td>
+      <td>{feedback.user ? (feedback.user.email || 'Anonymous') : 'Anonymous'}</td>
+      <td>{feedback.text}</td>
+      <td>
+        <button
+          className={
+            feedback.isAddedToSlider
+              ? 'bg-red-600 rounded-lg p-2 m-2'
+              : 'bg-green-600 rounded-lg p-2 m-2'
+          }
+          onClick={() =>
+            handleToggleSlider(feedback._id, feedback.isAddedToSlider)
+          }
+        >
+          {feedback.isAddedToSlider ? 'Remove' : 'Add'}
+        </button>
+        <button
+          className="bg-red-600 rounded-lg p-2 m-2"
+          onClick={() => handleDeleteFeedback(feedback._id)}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
         </table>
       </div>
     </div>

@@ -79,21 +79,12 @@ export default function Sidebar() {
         </li>
 
         <li>
-          {isExamsUnlocked ? (
             <Link to={`/exam/${id}`}>
               <span className="icon">
                 <Icons.Book size={30} />
               </span>
               <span className="title">Exams</span>
             </Link>
-          ) : (
-              <Link>
-                <span className="icon">
-                  <Icons.Book size={30} />
-                </span>
-                <span className="title">Exams (Locked)</span>
-              </Link>
-          )}
         </li>
 
         <li>

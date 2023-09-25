@@ -15,6 +15,7 @@ export default function CourseInfo() {
   const [course, setCourse] = useState(null);
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [hasPurchased, setHasPurchased] = useState(false);
+  const [allEnrollments, setAllEnrollments] = useState([]);
 
   const [EnrollmentData, setEnrollmentData] = useState({
     user: "",
@@ -59,7 +60,27 @@ export default function CourseInfo() {
     }
   };
 
-  const HandleStartButton = async (e) => {
+  useEffect(() => {
+    async function fetchAllEnrollments() {
+      try {
+        const response = await axios.get("http://localhost:5000/get/enrollement");
+        if (response.status === 200) {
+          setAllEnrollments(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    fetchAllEnrollments();
+  }, []);
+
+  const HandleStartButton = async() => {
+  const isEnrolled = allEnrollments.some(
+    (enrollment) => enrollment.user === user._id && enrollment.course === id
+  );
+
+  if (!isEnrolled) {
     try {
       const courseResponse = await fetch(`http://localhost:5000/courses/${id}`);
       if (!courseResponse.ok) {
@@ -85,7 +106,8 @@ export default function CourseInfo() {
     } catch (error) {
       console.error("Error creating enrollment:", error);
     }
-  };
+  }
+};
 
   useEffect(() => {
     async function fetchData() {
@@ -149,7 +171,7 @@ export default function CourseInfo() {
     <>
       <TopPage
         title={course.name}
-        backgroundImageUrl="https://as2.ftcdn.net/v2/jpg/01/34/59/53/1000_F_134595318_krCNHoUx2KWoFZhFPGtJQg6Bv6dkrBMR.jpg"
+        backgroundImageUrl={`http://localhost:5000/courses/getBackdrop/${course._id}`}
       />
       <section>
         <div className="m-10 p-10 bg-white rounded">
@@ -182,7 +204,7 @@ export default function CourseInfo() {
                 </div>
               ) : null}
             </div>
-            <div className="mt-4 w-3/4 ml-12 ">
+            <div className="mt-4 w-full cursor-pointer">
               {course.content.map((chapter, chapterIndex) => (
                 <div key={chapterIndex}>
                   <h2

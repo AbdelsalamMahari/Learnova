@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import "./assets/css/style.css"
+import Axios from "axios"; // Import Axios
 import Sidebar from '../../components/sidebars/InstructorSideBar';
 import Icons from '../../assets/icons/icons';
 import Logo from '../../assets/images/LearnovaColoredLogo2.png'
+import UserInfo from "../../components/users/UserInfo";
 
 export default function Dash() {
+    const user = UserInfo();
+    const [totalAmount, setTotalAmount] = useState(0);
+
+    useEffect(() => {
+        // Make a GET request to your backend API to get the total subscription amount
+        if (user && user._id) { // Check if user is not null and has _id
+            Axios.get(`http://localhost:5000/users/balance/${user._id}`)
+              .then((response) => {
+                setTotalAmount(response.data.balance);
+              })
+              .catch((error) => {
+                console.error("Error fetching total subscription amount:", error);
+              });
+        }
+    }, [user]);
+    
   return (
 <>
 <div className="container-dash">
@@ -63,7 +81,7 @@ export default function Dash() {
 
                 <div className="card">
                     <div>
-                        <div className="numbers">$7,842</div>
+                        <div className="numbers">${totalAmount}</div>
                         <div className="cardName">Earning</div>
                     </div>
 

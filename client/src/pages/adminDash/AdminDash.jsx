@@ -14,9 +14,9 @@ export default function AdminDash() {
 
   useEffect(() => {
     // Make a GET request to your backend API to get the total subscription amount
-    Axios.get("http://localhost:5000/subscriptions/total")
+    Axios.get("http://localhost:5000/balance")
       .then((response) => {
-        setTotalSubscriptionAmount(response.data.totalAmount);
+        setTotalSubscriptionAmount(response.data.balance);
       })
       .catch((error) => {
         console.error("Error fetching total subscription amount:", error);

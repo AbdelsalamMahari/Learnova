@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from 'axios'; 
 import "./Home.css";
 import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
@@ -17,6 +18,21 @@ export default function Home() {
     typeSpeed: 60,
     deleteSpeed: 100,
   })
+
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    // Fetch the first 3 courses from the API using Axios
+    Axios.get("http://localhost:5000/courses")
+      .then((response) => {
+        // Get the first 3 courses
+        const first3Courses = response.data.slice(0, 3);
+        setCourses(first3Courses);
+      })
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
+  }, []);
 
   return (
     <>
@@ -53,98 +69,48 @@ export default function Home() {
           </div>
         </div>
         <div className="flex p-[40px] gap-6 cont-course">
-          {/* 1 */}
-          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
-            <div>
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/html-400x223.jpg"
-                alt="course1"
-                className="w-full rounded-3xl"
-              ></img>
-            </div>
-            <div className="flex flex-col p-5 gap-5">
+          {/* Map through the first 3 courses */}
+          {courses.map((course) => (
+            <div key={course._id} className="flex-1 shadow-2xl bg-white rounded-3xl">
               <div>
-                <h1 className="lg:text-4xl w-full ">HTML5/CSS3 Essentials</h1>
+              {course.backdrop ? (
+                  <img
+                    src={`http://localhost:5000/courses/getBackdrop/${course._id}`}
+                    alt="Upload"
+                    className="w-full rounded-3xl h-[250px] object-cover"
+                  />
+                ) : (
+                  <img
+                    src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                    alt="Default Profile"
+                    className="w-full rounded-3xl"
+                  />
+                )}
               </div>
-              <div>
-                <button
-                  onClick={() => navigate(`/courseInfo`)}
-                  className="bg-blue rounded w-full p-1 text-white"
-                >
-                  See more...
-                </button>
-              </div>
-              <div>
-                <div className="h-4 bg-gray-300 rounded-full w-full">
-                  <div
-                    className="h-full bg-orange rounded-full"
-                    style={{ width: "20%" }} // Use an object here
-                  ></div>
+              <div className="flex flex-col p-5 gap-5">
+                <div>
+                  <h1 className="lg:text-4xl w-full overflow-hidden overflow-ellipsis ">{course.name}</h1>
                 </div>
-                <span className="float-right">20% Complete</span>
-              </div>
-            </div>
-          </div>
-          {/* 2 */}
-          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
-            <div>
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/wordpress-400x223.jpg"
-                alt="course2"
-                className="w-full rounded-3xl"
-              ></img>
-            </div>
-            <div className="flex flex-col p-5 gap-5">
-              <div>
-                <h1 className="lg:text-4xl w-full ">
-                  WordPress Basic Tutorial
-                </h1>
-              </div>
-              <div>
-                <button className="bg-blue rounded w-full p-1 text-white">
-                  See more...
-                </button>
-              </div>
-              <div>
-                <div className="h-4 bg-gray-300 rounded-full w-full">
-                  <div
-                    className="h-full bg-orange rounded-full"
-                    style={{ width: "50%" }} // Use an object here
-                  ></div>
+                <div>
+                  <button
+                    onClick={() => navigate(`/courseInfo/${course._id}`)}
+                    className="bg-blue rounded w-full p-1 text-white"
+                  >
+                    See more...
+                  </button>
                 </div>
-                <span className="float-right">50% Complete</span>
-              </div>
-            </div>
-          </div>
-          {/* 3 */}
-          <div className="flex-1 shadow-2xl bg-white rounded-3xl">
-            <div>
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/04/ecommerce-400x223.jpg"
-                alt="course3"
-                className="w-full rounded-3xl"
-              ></img>
-            </div>
-            <div className="flex flex-col p-5 gap-5">
-              <div>
-                <h1 className="lg:text-4xl w-full ">E-Commerce Course</h1>
-              </div>
-              <div>
-                <button className="bg-blue rounded w-full p-1 text-white">
-                  See more...
-                </button>
-              </div>
-              <div>
-                <div className="h-4 bg-gray-300 rounded-full w-full">
-                  <div
-                    className="h-full bg-orange rounded-full"
-                    style={{ width: "70%" }} // Use an object here
-                  ></div>
+                <div>
+                  <div className="h-4 bg-gray-300 rounded-full w-full">
+                    <div
+                      className="h-full bg-orange rounded-full"
+                      style={{ width: `${course.progress}%` }}
+                    ></div>
+                  </div>
+                  <span className="float-right">{course.progress}% Complete</span>
                 </div>
-                <span className="float-right">70% Complete</span>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
       <section className="therd-section p-[40px] text-white">

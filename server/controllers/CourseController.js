@@ -94,7 +94,7 @@ const createCourse = async (req, res) => {
 const getAllCourses = async (req, res) => {
   try {
     const courses = await Course.find();
-    res.json(courses);
+    res.json(courses.reverse());
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

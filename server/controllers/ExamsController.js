@@ -109,7 +109,7 @@ module.exports.getRandomExamQuestions = async (req, res) => {
     const shuffledQuestions = shuffleArray(allQuestions);
 
     // Select the first 5 questions
-    const randomQuestions = shuffledQuestions.slice(0, 5);
+    const randomQuestions = shuffledQuestions.slice(0, 6);
 
     res.json(randomQuestions);
   } catch (err) {

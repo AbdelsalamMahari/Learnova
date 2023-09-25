@@ -28,6 +28,7 @@ import CourseQuestion from "./pages/courseStart/CourseQuestion";
 import Certificate from "./pages/certificatee/Certificate";
 import CourseEdit from "./pages/instructorDash/CourseEdit";
 import CourseExam from "./pages/courseStart/CourseExam";
+import MyCourses from "./pages/myCourses/MyCourses";
 
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
@@ -81,6 +82,7 @@ function App() {
         <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="/:id/certificate/:user" element={<Certificate />} />
+        <Route path="/myCourses" element={<MyCourses />} />
         <Route path="*" element={<NoPage />} />
 
         {/* Intructor Dashboard routes */}

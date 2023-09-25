@@ -38,49 +38,31 @@ export default function Navbar({ className, imgSrc }) {
         </div>
         <nav className="flex" ref={navRef}>
           {isAdmin && (
-            <Link
-              to="/adminDash"
-              className=" px-3 py-2 hover:text-orange"
-            >
-              <Icons.Admin size={24}/> 
+            <Link to="/adminDash" className=" px-3 py-2 hover:text-orange">
+              <Icons.Admin size={24} />
             </Link>
           )}
           {isInstructor && (
-            <Link
-              to="/intructorDash"
-              className=" px-3 py-2 hover:text-orange"
-            >
+            <Link to="/intructorDash" className=" px-3 py-2 hover:text-orange">
               Manage Course
             </Link>
           )}
-          <Link
-            to="/allCourses"
-            className=" px-3 py-2 hover:text-orange"
-          >
+          <Link to="/MyCourses" className=" px-3 py-2 hover:text-orange">
+            My Courses
+          </Link>
+          <Link to="/allCourses" className=" px-3 py-2 hover:text-orange">
             All Courses
           </Link>
-          <Link
-            to="/instructors"
-            className=" px-3 py-2 hover:text-orange"
-          >
+          <Link to="/instructors" className=" px-3 py-2 hover:text-orange">
             Instructors
           </Link>
-          <Link
-            to="/pricing"
-            className=" px-3 py-2 hover:text-orange"
-          >
+          <Link to="/pricing" className=" px-3 py-2 hover:text-orange">
             Pricing & FAQ
           </Link>
-          <Link
-            to="/contact"
-            className=" px-3 py-2 hover:text-orange"
-          >
+          <Link to="/contact" className=" px-3 py-2 hover:text-orange">
             Contact
           </Link>
-          <Link
-            to="/about"
-            className=" px-3 py-2 hover:text-orange"
-          >
+          <Link to="/about" className=" px-3 py-2 hover:text-orange">
             About
           </Link>
           {isLoggedIn ? (

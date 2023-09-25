@@ -67,7 +67,7 @@ export default function CourseExam() {
     const calculatedPercentage = (updatedScore / questions.length) * 100;
     setPercentage(calculatedPercentage);
 
-    if (calculatedPercentage > 50) {
+    if (calculatedPercentage >= 50) {
       setResult('success');
     } else {
       setResult('failed');
@@ -75,7 +75,7 @@ export default function CourseExam() {
 
     // Save the user's score in the database
     await axios.put(`http://localhost:5000/${user._id}/examScore/${courseId}`, {
-      score: updatedScore,
+      score: calculatedPercentage.toFixed(2),
     });
   };
 

@@ -18,7 +18,7 @@ module.exports.getUserExamScore = async (req, res) => {
   }
 };
 
-// Update user's score for a specific course
+// Update user's score and set completed status based on the score
 module.exports.updateUserExamScore = async (req, res) => {
   try {
     const { userId, courseId } = req.params;
@@ -31,14 +31,16 @@ module.exports.updateUserExamScore = async (req, res) => {
         userId,
         courseId,
         score,
+        completed: score >= 50, // Set completed to true if score >= 50, otherwise false
       });
     } else {
       userScore.score = score;
+      userScore.completed = score >= 50; // Update completed status based on the score
     }
 
     await userScore.save();
 
-    res.json({ message: 'User score updated successfully' });
+    res.json({ message: 'User score and completed status updated successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

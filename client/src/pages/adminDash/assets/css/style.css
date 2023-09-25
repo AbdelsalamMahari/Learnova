@@ -552,11 +552,6 @@
   font-size: 24px;
   margin-bottom: 15px;
 }
-.courses-dash {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Create three columns in each row */
-  gap: 10px;
-}
 
 .course-card {
   border: 1px solid #ccc;

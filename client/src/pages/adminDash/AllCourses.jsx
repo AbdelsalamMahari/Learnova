@@ -35,18 +35,20 @@ const AllCourses = () => {
         fetchInstructors();
     }, []);
 
-    // Function to get instructor information for a given instructor ID
     const getInstructorInfo = (instructorId) => {
         const instructor = instructors.find((inst) => inst._id === instructorId);
-        return instructor
-            ? (
-                <div>
-                    <p><b>Name:<br/>
-                        </b> {instructor.firstName}{instructor.lastName}  </p>
-                    <p><b>Email: </b> {instructor.email}</p>
-                </div>
-            )
-            : 'Instructor not found';
+        return instructor ? (
+            <>
+                <tr>
+                    <td><b>Name:</b></td>
+                    <td>{instructor.firstName} {instructor.lastName}</td>
+                </tr>
+                <tr>
+                    <td><b>Email:</b></td>
+                    <td>{instructor.email}</td>
+                </tr>
+            </>
+        ) : 'Instructor not found';
     };
 
     const handleDeleteCourse = async (courseId) => {
@@ -80,21 +82,33 @@ const AllCourses = () => {
                     </div>
                     <div className="dash-container">
                         <div className="couses-header">
-                    <h1><b>All Courses : </b></h1>
-                    </div>
-                        <div className="courses-dash">
-                            {courses.map((course) => (
-                                <div key={course._id} className="course-card">
-                                    <div className="course-info">
-                                        <h2>#{course.name}</h2>
-                                        <p> <b>Category:</b> {course.category}</p>
-                                        <p><b>Instructor Information: </b><br/> {getInstructorInfo(course.instructor)}</p>
-                                    </div>
-                                    <button className="delete-button" onClick={() => handleDeleteCourse(course._id)}>
-                                        Delete Course
-                                    </button>
-                                </div>
-                            ))}
+                            <h1><b>All Courses : </b></h1>
+                        </div>
+                        <div className="table-container">
+                            <table className="dash-table">
+                                <thead>
+                                    <tr>
+                                        <th>Course ID</th>
+                                        <th>Category</th>
+                                        <th>Instructor Information</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {courses.map((course) => (
+                                        <tr key={course._id}>
+                                            <td>{course.name}</td>
+                                            <td>{course.category}</td>
+                                            <td>{getInstructorInfo(course.instructor)}</td>
+                                            <td>
+                                                <button className="delete-button" onClick={() => handleDeleteCourse(course._id)}>
+                                                    Delete Course
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

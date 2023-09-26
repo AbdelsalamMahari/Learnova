@@ -5,14 +5,12 @@ import Sidebar from '../../components/sidebars/InstructorSideBar';
 import Icons from '../../assets/icons/icons';
 import Logo from '../../assets/images/LearnovaColoredLogo2.png'
 import UserInfo from "../../components/users/UserInfo";
+import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser"; // Update with the correct path
 
 export default function Dash() {
     const user = UserInfo();
-    const [courses, setCourses] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [instructors, setInstructors] = useState([]);
-    const [enrollments, setEnrollments] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
+    const [enrollments, setEnrollments] = useState([]);
 
     useEffect(() => {
         // Make a GET request to your backend API to get the total subscription amount
@@ -25,77 +23,24 @@ export default function Dash() {
                     console.error("Error fetching total subscription amount:", error);
                 });
         }
-
-        const fetchAllEnrollments = async () => {
-            try {
-                const response = await Axios.get('http://localhost:5000/enrollments');
-                setEnrollments(response.data);
-            } catch (error) {
-                console.error('Error fetching enrollment data:', error);
-            }
-        };
-
-        const fetchInstructors = async () => {
-            try {
-                const response = await Axios.get('http://localhost:5000/users/allInstructor');
-                setInstructors(response.data);
-            } catch (error) {
-                console.error('Error fetching instructors:', error);
-            }
-        };
-
-        const fetchAllCourses = async () => {
-            try {
-                const response = await Axios.get('http://localhost:5000/courses');
-                setCourses(response.data);
-            } catch (error) {
-                console.error('Error fetching course data:', error);
-            }
-        };
-
-        const fetchUsers = async (userId) => {
-            try {
-                const response = await Axios.get(`http://localhost:5000/users/find/${userId}`);
-                setUsers(prevUsers => ({
-                    ...prevUsers,
-                    [userId]: response.data
-                }));
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-
-        fetchAllEnrollments();
-        fetchInstructors();
-        fetchAllCourses();
-
-        // Fetch user info for each enrollment
-        enrollments.forEach(enrollment => {
-            fetchUsers(enrollment.userId);
-        });
     }, []);
 
-    const getInstructorInfo = (instructorId) => {
-        const instructor = instructors.find((inst) => inst._id === instructorId);
-        return instructor ? (
-            <>
-                <tr>
-                    <td><b>Name:</b></td>
-                    <td>{instructor.firstName} {instructor.lastName}</td>
-                </tr>
-                <tr>
-                    <td><b>Email:</b></td>
-                    <td>{instructor.email}</td>
-                </tr>
-            </>
-        ) : 'Instructor not found';
-    };
+    useEffect(() => {
+        const fetchEnrollments = async () => {
+            try {
+                if (user && user._id) {
+                    const response = await Axios.get(
+                        `http://localhost:5000/get/enrollments/instructor/${user._id}`
+                    );
+                    setEnrollments(response.data);
+                }
+            } catch (error) {
+                console.error("Error fetching enrollments:", error);
+            }
+        };
 
-    const getCourseInfo = (courseId) => {
-        const course = courses.find((course) => course._id === courseId);
-        return course ? `${course.name} - ${course.category}` : 'Course not found';
-    };
-
+        fetchEnrollments();
+    }, [user]);
 
     return (
         <>
@@ -173,17 +118,27 @@ export default function Dash() {
                             <table className="dash-table">
                                 <thead>
                                     <tr>
+                                        <th>Instructor</th>
                                         <th>User</th>
                                         <th>Course</th>
-                                        <th>Instructor Information</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {enrollments.map((enrollment) => (
                                         <tr key={enrollment._id}>
-                                            <td>{users[enrollment.userId] ? `${users[enrollment.userId].firstName} ${users[enrollment.userId].lastName}` : 'User not found'}</td>
-                                            <td>{getCourseInfo(enrollment.courseId)}</td>
-                                            <td>{getInstructorInfo(enrollment.instructorId)}</td>
+                                           
+                                            <td>
+                                                {enrollment.instructor
+                                                    ? `${enrollment.instructor.firstName} ${enrollment.instructor.lastName}`
+                                                    : "Instructor not found"}
+                                            </td>
+                                            <td>
+                                                {enrollment.user
+                                                    ? `${enrollment.user.firstName} ${enrollment.user.lastName}`
+                                                    : "User not found"}
+                                            </td>
+                                            <td>{enrollment.course ? enrollment.course.name : "Course not found"}</td>
+
                                         </tr>
                                     ))}
                                 </tbody>

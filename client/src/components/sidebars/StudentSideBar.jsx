@@ -70,6 +70,15 @@ export default function Sidebar({course}) {
         </li>
 
         <li>
+          <Link to={`/bankQuestion/${id}`}>
+            <span className="icon">
+              <Icons.Question size={30} />
+            </span>
+            <span className="title">Bank Questions</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to={`/questions/${id}`}>
             <span className="icon">
               <Icons.Question size={30} />

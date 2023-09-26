@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SideBar from '../../components/sidebars/StudentSideBar';
 import Icons from '../../assets/icons/icons';
@@ -15,6 +15,7 @@ function shuffleArray(array) {
 
 export default function CourseQuestion() {
   const user = UserInfo();
+  const navigate = useNavigate(); 
   const { id: courseId } = useParams();
   const [course, setCourse] = useState({});
   const [questions, setQuestions] = useState([]);
@@ -22,6 +23,32 @@ export default function CourseQuestion() {
   const [score, setScore] = useState(0);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    if (user && user._id) {
+      // Check if the user has purchased this course
+      async function checkPurchase() {
+        try {
+          const hasPurchasedResponse = await axios.post(
+            "http://localhost:5000/purchases/check",
+            {
+              userId: user._id,
+              courseId: courseId,
+            }
+          );
+
+          if (!hasPurchasedResponse.data.hasPurchased) {
+            // Redirect the user to a page indicating they haven't purchased the course
+            navigate(`/nopage`);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      checkPurchase();
+    }
+  }, [user, courseId, navigate]);
 
   useEffect(() => {
     if (user && user._id) {
@@ -121,7 +148,7 @@ export default function CourseQuestion() {
   return (
     <>
       <div className="container-dash-st">
-        <SideBar />
+        <SideBar course={course}/>
         <div className="main-dash-st mx-auto">
           <div className="topbar">
             <div className="toggle">

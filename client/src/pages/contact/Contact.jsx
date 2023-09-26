@@ -5,6 +5,7 @@ import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import "./Contact.css";
 import Icons from "../../assets/icons/icons";
+import { Link } from "react-router-dom";
 
 export default function Contact() {
   const [data, setData] = useState({
@@ -62,31 +63,44 @@ export default function Contact() {
               Contact Us
             </h1>
             <div
-                className="tilted-box"
-                style={{ "--skew-angle": "40deg" }}
-              ></div>
+              className="tilted-box"
+              style={{ "--skew-angle": "40deg" }}
+            ></div>
             <p className="mb-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
               tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
             </p>
             {/* Location */}
             <div className="mt-10">
-            <div className="flex">
-              <span><Icons.Location size={20} className="mr-2"/></span>
-              <p>Your Address, City, Country</p>
-            </div>
+              <div className="flex">
+                <span><Icons.Location size={20} className="mr-2" /></span>
+                <p>Your Address, City, Country</p>
+              </div>
 
-            {/* Email */}
-            <div className="flex">
-            <span><Icons.Email size={20} className="mr-2"/></span>
-              <p>example@example.com</p>
-            </div>
+              {/* Email */}
+              <div className="flex">
+                <span><Icons.Email size={20} className="mr-2" /></span>
+                <p>example@example.com</p>
+              </div>
 
-            {/* Phone Number */}
-            <div className="flex">
-            <span><Icons.Phone size={20} className="mr-2"/></span>
-              <p>+123 456 789</p>
+              {/* Phone Number */}
+              <div className="flex">
+                <span><Icons.Phone size={20} className="mr-2" /></span>
+                <p>+123 456 789</p>
+              </div>
             </div>
+            <div className="survey-submit mt-20">
+            <p className="text-4xl lg:text-4xl xl:text-5xl mb-4 font-bold"> Help Us Improve!</p>
+              <div
+                className="tilted-box"
+                style={{ "--skew-angle": "40deg" }}
+              ></div>
+              <p className="text-lg mb-4">We value your feedback! Help us enhance your experience by filling out our survey.</p>
+              <div className="flex justify-center mt-9">
+                  <button className="bg-pink2 text-black font-bold py-2 px-4 rounded button-contact input-contact">
+                  <Link to="/survey">Take our survey and help us improve!</Link>
+                  </button>
+                </div>
             </div>
           </div>
         </div>

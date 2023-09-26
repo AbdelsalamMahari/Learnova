@@ -36,6 +36,8 @@ import CreateCourse from "./pages/instructorDash/CreateCourse";
 import CreateQuestion from "./pages/instructorDash/CreateQuestion";
 import DashCourses from "./pages/instructorDash/Courses";
 import DashCoursesExams from "./pages/instructorDash/ExamsCourses";
+import DashCoursesBank from "./pages/instructorDash/BankCourses";
+import CreateBankQuestions from "./pages/instructorDash/CreateBankQuestions";
 import DashExam from "./pages/instructorDash/CreateExam";
 
 // Admin Dashboard
@@ -62,6 +64,20 @@ function App() {
             />
           }
         />
+        <Route
+          path="survey"
+          element={<AuthWrapper element={<Survey />} path="survey" />}
+        />
+        <Route
+          path="/questions/:id"
+          element={
+            <AuthWrapper element={<CourseQuestion />} path="/questions/:id" />
+          }
+        />
+        <Route
+          path="/exam/:id"
+          element={<AuthWrapper element={<CourseExam />} path="/exam/:id" />}
+        />
 
         <Route path="imageupload" element={<ImageUpload />} />
         <Route index element={<Home />} />
@@ -71,15 +87,12 @@ function App() {
         <Route path="instructors" element={<Instructors />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="allCourses" element={<AllCourses />} />
-        <Route path="survey" element={<Survey />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="google" element={<Google />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="/questions/:id" element={<CourseQuestion />} />
-        <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="/:id/certificate/:user" element={<Certificate />} />
         <Route path="/myCourses" element={<MyCourses />} />
@@ -137,6 +150,24 @@ function App() {
             <InstructorRoute
               element={<DashCoursesExams />}
               path="/intructorDash/dashCoursesExams"
+            />
+          }
+        />
+        <Route
+          path="/intructorDash/dashCoursesBank"
+          element={
+            <InstructorRoute
+              element={<DashCoursesBank />}
+              path="/intructorDash/dashCoursesBank"
+            />
+          }
+        />
+        <Route
+          path="/intructorDash/createBankQuestions/:id"
+          element={
+            <InstructorRoute
+              element={<CreateBankQuestions />}
+              path="/intructorDash/createBankQuestions/:id"
             />
           }
         />

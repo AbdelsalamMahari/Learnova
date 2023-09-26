@@ -10,7 +10,6 @@ import Footer from "../../layout/footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
-import { Link } from "react-router-dom";
 
 export default function About() {
   const imgURL = "/usersProfiles/";
@@ -310,9 +309,6 @@ export default function About() {
           </div>
         </div>
       </section>
-      <button>
-        <Link to="/survey">Take Survey</Link>
-      </button>
       <Footer />
     </>
   );

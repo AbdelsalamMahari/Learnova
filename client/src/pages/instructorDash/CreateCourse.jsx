@@ -7,6 +7,7 @@ import UserInfo from "../../components/users/UserInfo";
 export default function CreateCourse() {
   const user = UserInfo();
   const [formData, setFormData] = useState({
+    deployable:false,
     name: "",
     description: "",
     instructor: "",
@@ -197,6 +198,7 @@ export default function CreateCourse() {
       }
     }
     const formDataToSend = {
+      deployable:false,
       name: formData.name,
       description: formData.description,
       backdrop: selectedFileName,

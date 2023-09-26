@@ -163,6 +163,26 @@ const getCoursesByUserId = async (req, res) => {
   }
 };
 
+const updateDeployable = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const { deployable } = req.body; 
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      { deployable },
+      { new: true }
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.json(updatedCourse);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 
 module.exports = {
@@ -173,5 +193,6 @@ module.exports = {
   deleteCourse,
   getCoursesByUserId,
   courseBackdrop,
-  getCourseBackdrop
+  getCourseBackdrop,
+  updateDeployable
 };

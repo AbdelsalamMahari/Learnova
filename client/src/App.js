@@ -62,6 +62,20 @@ function App() {
             />
           }
         />
+        <Route
+          path="survey"
+          element={<AuthWrapper element={<Survey />} path="survey" />}
+        />
+        <Route
+          path="/questions/:id"
+          element={
+            <AuthWrapper element={<CourseQuestion />} path="/questions/:id" />
+          }
+        />
+        <Route
+          path="/exam/:id"
+          element={<AuthWrapper element={<CourseExam />} path="/exam/:id" />}
+        />
 
         <Route path="imageupload" element={<ImageUpload />} />
         <Route index element={<Home />} />
@@ -71,15 +85,12 @@ function App() {
         <Route path="instructors" element={<Instructors />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="allCourses" element={<AllCourses />} />
-        <Route path="survey" element={<Survey />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="google" element={<Google />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
         <Route path="/forgetPass" element={<ForgetPass />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-        <Route path="/questions/:id" element={<CourseQuestion />} />
-        <Route path="/exam/:id" element={<CourseExam />} />
         <Route path="courseInfo/:id" element={<CourseInfo />} />
         <Route path="/:id/certificate/:user" element={<Certificate />} />
         <Route path="/myCourses" element={<MyCourses />} />

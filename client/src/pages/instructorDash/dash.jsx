@@ -5,7 +5,6 @@ import Sidebar from '../../components/sidebars/InstructorSideBar';
 import Icons from '../../assets/icons/icons';
 import Logo from '../../assets/images/LearnovaColoredLogo2.png'
 import UserInfo from "../../components/users/UserInfo";
-import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser"; // Update with the correct path
 
 export default function Dash() {
     const user = UserInfo();
@@ -18,6 +17,7 @@ export default function Dash() {
             Axios.get(`http://localhost:5000/users/balance/${user._id}`)
                 .then((response) => {
                     setTotalAmount(response.data.balance);
+                    console.log(response.data.balance)
                 })
                 .catch((error) => {
                     console.error("Error fetching total subscription amount:", error);

@@ -90,8 +90,8 @@ const[CoursePercentage,SetCoursePercentage]=useState(0)
     if (course && enrollmentData) {
       const currentChapter = course.content[currentChapterIndex];
       const AddPercentage = 100 / course.content.length;
-      const updatedCoursePercentage = CoursePercentage + AddPercentage; // Calculate the updated percentage
-      SetCoursePercentage(updatedCoursePercentage); // Update the state
+      const updatedCoursePercentage = CoursePercentage + AddPercentage; 
+      SetCoursePercentage(updatedCoursePercentage); 
   
       try {
         if (!enrollmentData.completedChapters.includes(currentChapter.title)) {
@@ -234,6 +234,8 @@ useEffect(() => {
                       >
                         Next
                       </button>
+
+                      <button   className="navigation-btn" onClick={handleCompleteChapter}>Complete</button>
                     </div>
                   </div>
                 ))

@@ -13,8 +13,21 @@ export default function AllCourses() {
   useEffect(() => {
     axios
       .get("http://localhost:5000/courses")
-      .then((response) => {
-        setCourses(response.data);
+      .then(async (response) => {
+        const coursesData = response.data;
+
+        // Fetch instructor data for each course
+        const coursesWithInstructors = await Promise.all(
+          coursesData.map(async (course) => {
+            const instructorResponse = await axios.get(
+              `http://localhost:5000/users/find/${course.instructor}`
+            );
+            const instructorData = instructorResponse.data;
+            return { ...course, instructorData };
+          })
+        );
+
+        setCourses(coursesWithInstructors);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -52,6 +65,10 @@ export default function AllCourses() {
               </div>
               <div className="second2-instructor">
                 <h1>{course.name}</h1>
+                <p>
+                  Instructor: {course.instructorData.firstName}{" "}
+                  {course.instructorData.lastName}
+                </p>
                 <Link to={`/courseInfo/${course._id}`}>
                   <button className="bg-blue rounded w-full p-1 text-white">
                     See more...
@@ -59,7 +76,6 @@ export default function AllCourses() {
                 </Link>
               </div>
             </div>
-
           ))}
         </div>
       )}

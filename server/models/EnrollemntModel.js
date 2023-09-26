@@ -26,10 +26,11 @@ const EnrollmentSchema = new mongoose.Schema({
     enum: ['Not Started', 'In Progress', 'Completed'],
     default: 'Not Started',
   },
-  completedChapters:{
-type:Number,
-default:0,
+  completedChapters: {
+    type: [String], 
+    default: [], 
   },
+  
   grade: {
     type: Number,
     min: 0,
@@ -40,6 +41,7 @@ default:0,
     ref: 'Teacher', 
     required: true,
   },
+  
 });
 
 const Enrollment = mongoose.model('Enrollment', EnrollmentSchema);

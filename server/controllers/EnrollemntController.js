@@ -1,6 +1,5 @@
 const  Enrollment  = require("../models/EnrollemntModel");
 
-// Create a new enrollment
 module.exports.createEnrollment = async (req, res) => {
   try {
     const enrollment = new Enrollment(req.body);
@@ -12,7 +11,6 @@ module.exports.createEnrollment = async (req, res) => {
   }
 };
 
-// Get all enrollments
 module.exports.getAllEnrollments = async (req, res) => {
   try {
     const enrollments = await Enrollment.find();

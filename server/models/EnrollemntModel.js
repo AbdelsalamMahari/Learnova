@@ -41,6 +41,10 @@ const EnrollmentSchema = new mongoose.Schema({
     ref: 'Teacher', 
     required: true,
   },
+  completedPercentage:{
+    type :Number ,
+    default:0,
+  }
   
 });
 

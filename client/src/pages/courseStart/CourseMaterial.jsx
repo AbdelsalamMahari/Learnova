@@ -11,7 +11,7 @@ export default function CourseStart() {
   const [course, setCourse] = useState(null);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
   const imgURL = "/courseimages/";
-  const [enrollmentData, setEnrollmentData] = useState({ completedChapters: [] }); // Initialize with empty completedChapters
+  const [enrollmentData, setEnrollmentData] = useState({ completedChapters: [], }); // Initialize with empty completedChapters
 
   const handleNextChapter = () => {
     if (currentChapterIndex < course.content.length - 1) {
@@ -33,12 +33,15 @@ export default function CourseStart() {
         if (!enrollmentData.completedChapters.includes(currentChapter.title)) {
           // Append the current chapter title to the completed chapters array
           enrollmentData.completedChapters.push(currentChapter.title);
-
+  
           // Send a PUT request to update the enrollment with the new completed chapters
-          await axios.put(`http://localhost:5000/update/enrollement/651325a895273f5365ef4140`, {
-            completedChapters: enrollmentData.completedChapters,
-          });
-
+          await axios.put(
+            `http://localhost:5000/update/enrollement/${enrollmentData._id}`, // Use the enrollment's _id
+            {
+              completedChapters: enrollmentData.completedChapters,
+            }
+          );
+  
           // Update the enrollment data in the state
           setEnrollmentData((prevEnrollmentData) => ({
             ...prevEnrollmentData,
@@ -50,6 +53,7 @@ export default function CourseStart() {
       }
     }
   };
+  
 
   useEffect(() => {
     const fetchCourseAndEnrollmentData = async () => {

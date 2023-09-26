@@ -25,6 +25,7 @@ const subscriptionRoute = require('./routes/SubscriptionRoute');
 const scoreRoute = require('./routes/ScoreRoute');
 const examScoreRoute = require('./routes/ScoreExamRoute');
 const purchaseRoute = require('./routes/PurchasesRoute');
+const bankQuestionRoute = require('./routes/BankQuestionRoute');
 require("dotenv").config();
 
 const app = express();
@@ -76,7 +77,8 @@ app.use(
   subscriptionRoute,
   scoreRoute,
   examScoreRoute,
-  purchaseRoute
+  purchaseRoute,
+  bankQuestionRoute
 );
 app.use("/courses", coursesRoutes);
 app.use('/auth', googleRoute);

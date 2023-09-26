@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {  createEnrollment,getAllEnrollments,getOneEnrollment,updateEnrollment,deleteEnrollment} = require('../controllers/EnrollemntController');
+const {  createEnrollment,getAllEnrollments,getOneEnrollment,updateEnrollment,deleteEnrollment,getEnrollmentsByInstructorId} = require('../controllers/EnrollemntController');
 
 const router = Router();
 
@@ -17,5 +17,8 @@ router.put("/update/enrollement/:id", updateEnrollment);
 
 // Delete an enrollment by ID
 router.delete("/delete/enrollement/:id", deleteEnrollment);
+
+// Get enrollments by instructor ID
+router.get("/get/enrollments/instructor/:instructorId", getEnrollmentsByInstructorId);
 
 module.exports = router;

@@ -62,8 +62,6 @@ module.exports.createPurchase = async (req, res) => {
   }
 };
 
-
-
   module.exports.checkIfPurchased = async (req, res) => {
     try {
       const { userId, courseId } = req.body;

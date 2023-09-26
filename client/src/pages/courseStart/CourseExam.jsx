@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SideBar from '../../components/sidebars/StudentSideBar';
 import Icons from '../../assets/icons/icons';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 export default function CourseExam() {
   const user = UserInfo();
   const { id: courseId } = useParams();
+  const navigate = useNavigate(); 
   const [course, setCourse] = useState({});
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
@@ -17,6 +18,32 @@ export default function CourseExam() {
   const [percentage, setPercentage] = useState(0);
   const [result, setResult] = useState(null); // 'success', 'failed', or null
   const [submitted, setSubmitted] = useState(false); // Track if answers are submitted
+
+  useEffect(() => {
+    if (user && user._id) {
+      // Check if the user has purchased this course
+      async function checkPurchase() {
+        try {
+          const hasPurchasedResponse = await axios.post(
+            "http://localhost:5000/purchases/check",
+            {
+              userId: user._id,
+              courseId: courseId,
+            }
+          );
+
+          if (!hasPurchasedResponse.data.hasPurchased) {
+            // Redirect the user to a page indicating they haven't purchased the course
+            navigate(`/nopage`);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      checkPurchase();
+    }
+  }, [user, courseId, navigate]);
 
   useEffect(() => {
     if (user && user._id) {
@@ -96,7 +123,7 @@ export default function CourseExam() {
   return (
     <>
       <div className="container-dash-st">
-        <SideBar />
+        <SideBar course={course}/>
         <div className="main-dash-st">
           <div className="topbar">
             <div className="toggle">

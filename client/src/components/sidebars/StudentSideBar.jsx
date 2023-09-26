@@ -4,7 +4,7 @@ import Icons from "../../assets/icons/icons";
 import axios from "axios";
 import UserInfo from "../users/UserInfo";
 
-export default function Sidebar() {
+export default function Sidebar({course}) {
   const user = UserInfo();
   const { id } = useParams(); // Get the id from URL params
   const [isExamsUnlocked, setIsExamsUnlocked] = useState(false);
@@ -56,7 +56,7 @@ export default function Sidebar() {
       <ul>
         <li>
           <Link to="/">
-            <span className="title text-xl">Html/Css</span>
+            <span className="title text-xl">{course ? course.name : "Course Name Loading..."}</span>
           </Link>
         </li>
 

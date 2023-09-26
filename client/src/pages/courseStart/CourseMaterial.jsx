@@ -13,33 +13,40 @@ export default function CourseStart() {
   const imgURL = "/courseimages/";
   const [enrollmentData, setEnrollmentData] = useState({ completedChapters: [] });
   const [user, setUser] = useState(null);
-
+const[CoursePercentage,SetCoursePercentage]=useState(0)
   const handleNextChapter = () => {
     if (currentChapterIndex < course.content.length - 1) {
       setCurrentChapterIndex(currentChapterIndex + 1);
+      
     }
   };
 
   const handlePreviousChapter = () => {
     if (currentChapterIndex > 0) {
       setCurrentChapterIndex(currentChapterIndex - 1);
+      console.log(CoursePercentage)
     }
   };
 
   const handleCompleteChapter = async () => {
     if (course && enrollmentData) {
       const currentChapter = course.content[currentChapterIndex];
+      const AddPercentage = 100 / course.content.length;
+      const updatedCoursePercentage = CoursePercentage + AddPercentage; // Calculate the updated percentage
+      SetCoursePercentage(updatedCoursePercentage); // Update the state
+  
       try {
         if (!enrollmentData.completedChapters.includes(currentChapter.title)) {
           enrollmentData.completedChapters.push(currentChapter.title);
-
+  
           await axios.put(
             `http://localhost:5000/update/enrollement/${enrollmentData._id}`,
             {
               completedChapters: enrollmentData.completedChapters,
+              completedPercentage: updatedCoursePercentage, // Send the updated percentage to the database
             }
           );
-
+  
           setEnrollmentData((prevEnrollmentData) => ({
             ...prevEnrollmentData,
             completedChapters: enrollmentData.completedChapters,
@@ -50,7 +57,7 @@ export default function CourseStart() {
       }
     }
   };
-// ...
+  
 
 useEffect(() => {
   async function fetchUserData() {
@@ -79,7 +86,6 @@ useEffect(() => {
       if (enrollmentsResponse.status === 200) {
         const enrollments = enrollmentsResponse.data;
 
-        // Check if the user object is null before accessing its _id property
         if (user && user._id) {
           const matchingEnrollment = enrollments.find(
             (enrollment) =>
@@ -105,7 +111,6 @@ useEffect(() => {
   fetchCourseAndEnrollmentData();
 }, [id, user]);
 
-// ...
 
 
   const isChapterCompleted = course

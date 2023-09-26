@@ -198,7 +198,7 @@ export default function Dash() {
                             <table className="dash-table">
                                 <thead>
                                     <tr>
-                                        <th>User</th>
+                                        <th>Student User</th>
                                         <th>Course</th>
                                         <th>Score Questions</th>
                                         <th>Exam Score</th>

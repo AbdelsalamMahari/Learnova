@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import SideBar from "../../components/sidebars/StudentSideBar";
 import Icons from "../../assets/icons/icons";
 import "./assets/css/style.css";
-import axios from "axios";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
+import axios from "axios";
 
 export default function CourseStart() {
   const { id } = useParams();

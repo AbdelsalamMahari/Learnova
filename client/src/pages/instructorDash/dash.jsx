@@ -5,7 +5,6 @@ import Sidebar from '../../components/sidebars/InstructorSideBar';
 import Icons from '../../assets/icons/icons';
 import Logo from '../../assets/images/LearnovaColoredLogo2.png'
 import UserInfo from "../../components/users/UserInfo";
-import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser"; // Update with the correct path
 
 export default function Dash() {
     const user = UserInfo();
@@ -18,6 +17,7 @@ export default function Dash() {
             Axios.get(`http://localhost:5000/users/balance/${user._id}`)
                 .then((response) => {
                     setTotalAmount(response.data.balance);
+                    console.log(response.data.balance)
                 })
                 .catch((error) => {
                     console.error("Error fetching total subscription amount:", error);
@@ -53,18 +53,41 @@ export default function Dash() {
             return 0; // Return 0 if an error occurs
         }
     };
-    
-const ScoreDisplay = ({ userId, courseId }) => {
-    const [score, setScore] = useState(null);
-  
-    useEffect(() => {
-      getScoreForCourse(userId, courseId).then((score) => {
-        setScore(score);
-      });
-    }, [userId, courseId]);
-  
-    return score !== null ? score : "Loading score...";
-  };
+
+    const ScoreDisplay = ({ userId, courseId }) => {
+        const [score, setScore] = useState(null);
+
+        useEffect(() => {
+            getScoreForCourse(userId, courseId).then((score) => {
+                setScore(score);
+            });
+        }, [userId, courseId]);
+
+        return score !== null ? score : "Loading score...";
+    };
+
+    const getExamScoreForCourse = async (userId, courseId) => {
+        try {
+            const response = await Axios.get(
+                `http://localhost:5000/${userId}/examScore/${courseId}`
+            );
+            return response.data.score;
+        } catch (error) {
+            console.error(`Error fetching exam score for user ${userId}, course ${courseId}:`, error);
+            return 0; // Return 0 if an error occurs
+        }
+    };
+    const ExamScoreDisplay = ({ userId, courseId }) => {
+        const [examScore, setExamScore] = useState(null);
+
+        useEffect(() => {
+            getExamScoreForCourse(userId, courseId).then((score) => {
+                setExamScore(score);
+            });
+        }, [userId, courseId]);
+
+        return examScore !== null ? examScore : "Loading exam score...";
+    };
 
     return (
         <>
@@ -145,6 +168,7 @@ const ScoreDisplay = ({ userId, courseId }) => {
                                         <th>User</th>
                                         <th>Course</th>
                                         <th>Score Questions</th>
+                                        <th>Exam Score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -165,6 +189,16 @@ const ScoreDisplay = ({ userId, courseId }) => {
                                                     />
                                                 ) : (
                                                     "Score not available"
+                                                )}
+                                            </td>
+                                            <td>
+                                                {enrollment.user && enrollment.course ? (
+                                                    <ExamScoreDisplay
+                                                        userId={enrollment.user._id}
+                                                        courseId={enrollment.course._id}
+                                                    />
+                                                ) : (
+                                                    "Exam Score not available"
                                                 )}
                                             </td>
 

@@ -163,6 +163,24 @@ const getCoursesByUserId = async (req, res) => {
   }
 };
 
+const getCoursesByInstructorId = async (req, res) => {
+  try {
+    const instructorId = req.params.instructorId;
+
+    // Use Course.find() to find courses for the specified instructor by instructor field
+    const courses = await Course.find({ instructor: instructorId });
+
+    if (!courses || courses.length === 0) {
+      return res.status(404).json({ message: "No courses found for this instructor" });
+    }
+
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 
 
 module.exports = {
@@ -173,5 +191,6 @@ module.exports = {
   deleteCourse,
   getCoursesByUserId,
   courseBackdrop,
-  getCourseBackdrop
+  getCourseBackdrop,
+  getCoursesByInstructorId
 };

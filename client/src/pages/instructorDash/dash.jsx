@@ -11,6 +11,8 @@ export default function Dash() {
     const user = UserInfo();
     const [totalAmount, setTotalAmount] = useState(0);
     const [enrollments, setEnrollments] = useState([]);
+    const [totalEnrollments, setTotalEnrollments] = useState(0);
+    const [totalCourses, setTotalCourses] = useState(0);
 
     useEffect(() => {
         // Make a GET request to your backend API to get the total subscription amount
@@ -32,7 +34,10 @@ export default function Dash() {
                     const response = await Axios.get(
                         `http://localhost:5000/get/enrollments/instructor/${user._id}`
                     );
+                    const totalEnrollments = response.data.length;  // Calculate total enrollments
+                    setTotalEnrollments(totalEnrollments);  // Update total enrollments state
                     setEnrollments(response.data);
+                    
                 }
             } catch (error) {
                 console.error("Error fetching enrollments:", error);
@@ -63,7 +68,14 @@ export default function Dash() {
             });
         }, [userId, courseId]);
 
-        return score !== null ? score : "Loading score...";
+        // Determine the color based on the score range
+        const scoreColor = score >= 0 && score <= 2 ? "red" : "green";
+
+        return (
+            <div style={{ color: scoreColor }}>
+                {score !== null ? score : "Loading score..."}
+            </div>
+        );
     };
 
     const getExamScoreForCourse = async (userId, courseId) => {
@@ -86,8 +98,29 @@ export default function Dash() {
             });
         }, [userId, courseId]);
 
-        return examScore !== null ? examScore : "Loading exam score...";
+        const examScoreColor = examScore >= 0 && examScore <= 49 ? "red" : "green";
+
+        return (
+            <div style={{ color: examScoreColor }}>
+                {examScore !== null ? examScore : "Loading exam score..."}
+            </div>
+        );
     };
+
+    useEffect(() => {
+        const fetchTotalCourses = async () => {
+            try {
+                if (user && user._id) {
+                    const response = await Axios.get(`http://localhost:5000/courses/instructor/${user._id}/courses`);
+                    setTotalCourses(response.data.length);
+                }
+            } catch (error) {
+                console.error("Error fetching total courses:", error);
+            }
+        };
+
+        fetchTotalCourses();
+    }, [user]);
 
     return (
         <>
@@ -114,8 +147,8 @@ export default function Dash() {
                     <div className="cardBox">
                         <div className="card">
                             <div>
-                                <div className="numbers">1,504</div>
-                                <div className="cardName">Daily Views</div>
+                                <div className="numbers">{totalEnrollments}</div>
+                                <div className="cardName">Total Enrollments</div>
                             </div>
 
                             <div className="iconBx">
@@ -124,9 +157,9 @@ export default function Dash() {
                         </div>
 
                         <div className="card">
-                            <div>
-                                <div className="numbers">80</div>
-                                <div className="cardName">Sales</div>
+                        <div>
+                                <div className="numbers">{totalCourses}</div>
+                                <div className="cardName">Total Course Number</div>
                             </div>
 
                             <div className="iconBx">

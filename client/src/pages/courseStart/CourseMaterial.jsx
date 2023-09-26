@@ -234,6 +234,8 @@ useEffect(() => {
                       >
                         Next
                       </button>
+
+                      <button   className="navigation-btn" onClick={handleCompleteChapter}>Complete</button>
                     </div>
                   </div>
                 ))

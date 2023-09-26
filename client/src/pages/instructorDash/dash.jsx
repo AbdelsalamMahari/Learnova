@@ -42,6 +42,30 @@ export default function Dash() {
         fetchEnrollments();
     }, [user]);
 
+    const getScoreForCourse = async (userId, courseId) => {
+        try {
+            const response = await Axios.get(
+                `http://localhost:5000/${userId}/score/${courseId}`
+            );
+            return response.data.score;
+        } catch (error) {
+            console.error(`Error fetching score for user ${userId}, course ${courseId}:`, error);
+            return 0; // Return 0 if an error occurs
+        }
+    };
+    
+const ScoreDisplay = ({ userId, courseId }) => {
+    const [score, setScore] = useState(null);
+  
+    useEffect(() => {
+      getScoreForCourse(userId, courseId).then((score) => {
+        setScore(score);
+      });
+    }, [userId, courseId]);
+  
+    return score !== null ? score : "Loading score...";
+  };
+
     return (
         <>
             <div className="container-dash">
@@ -118,26 +142,31 @@ export default function Dash() {
                             <table className="dash-table">
                                 <thead>
                                     <tr>
-                                        <th>Instructor</th>
                                         <th>User</th>
                                         <th>Course</th>
+                                        <th>Score Questions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {enrollments.map((enrollment) => (
                                         <tr key={enrollment._id}>
-                                           
-                                            <td>
-                                                {enrollment.instructor
-                                                    ? `${enrollment.instructor.firstName} ${enrollment.instructor.lastName}`
-                                                    : "Instructor not found"}
-                                            </td>
                                             <td>
                                                 {enrollment.user
                                                     ? `${enrollment.user.firstName} ${enrollment.user.lastName}`
                                                     : "User not found"}
                                             </td>
                                             <td>{enrollment.course ? enrollment.course.name : "Course not found"}</td>
+
+                                            <td>
+                                                {enrollment.user && enrollment.course ? (
+                                                    <ScoreDisplay
+                                                        userId={enrollment.user._id}
+                                                        courseId={enrollment.course._id}
+                                                    />
+                                                ) : (
+                                                    "Score not available"
+                                                )}
+                                            </td>
 
                                         </tr>
                                     ))}

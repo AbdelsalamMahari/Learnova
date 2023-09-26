@@ -14,6 +14,7 @@ export default function CourseStart() {
   const [user, setUser] = useState(null);
   const [hasPurchased, setHasPurchased] = useState(false);
   const imgURL = "/courseimages/";
+  const [enrollmentData, setEnrollmentData] = useState({ completedChapters: [], }); // Initialize with empty completedChapters
 
   useEffect(() => {
     async function fetchCourseContent() {
@@ -81,6 +82,70 @@ export default function CourseStart() {
       setCurrentChapterIndex(currentChapterIndex - 1);
     }
   };
+
+  const handleCompleteChapter = async () => {
+    if (course && enrollmentData) {
+      const currentChapter = course.content[currentChapterIndex];
+      try {
+        // Check if the current chapter title is not already in the completed chapters array
+        if (!enrollmentData.completedChapters.includes(currentChapter.title)) {
+          // Append the current chapter title to the completed chapters array
+          enrollmentData.completedChapters.push(currentChapter.title);
+  
+          // Send a PUT request to update the enrollment with the new completed chapters
+          await axios.put(
+            `http://localhost:5000/update/enrollement/${enrollmentData._id}`, // Use the enrollment's _id
+            {
+              completedChapters: enrollmentData.completedChapters,
+            }
+          );
+  
+          // Update the enrollment data in the state
+          setEnrollmentData((prevEnrollmentData) => ({
+            ...prevEnrollmentData,
+            completedChapters: enrollmentData.completedChapters,
+          }));
+        }
+      } catch (error) {
+        console.error("Error marking chapter as completed:", error);
+      }
+    }
+  };
+  
+
+  useEffect(() => {
+    const fetchCourseAndEnrollmentData = async () => {
+      try {
+        const [courseResponse, enrollmentResponse] = await Promise.all([
+          fetch(`http://localhost:5000/courses/${id}`),
+          axios.get(`http://localhost:5000/get/enrollement/651325a895273f5365ef4140`),
+        ]);
+
+        if (courseResponse.ok) {
+          const courseData = await courseResponse.json();
+          setCourse(courseData);
+        } else {
+          console.error("Error fetching course content");
+        }
+
+        if (enrollmentResponse.status === 200) {
+          const enrollmentData = enrollmentResponse.data;
+          setEnrollmentData(enrollmentData);
+        } else {
+          console.error("Error fetching enrollment data");
+        }
+      } catch (error) {
+        console.error("Error fetching course and enrollment data:", error);
+      }
+    };
+
+    fetchCourseAndEnrollmentData();
+  }, [id]);
+
+  // Check if the current chapter is completed based on enrollment data
+  const isChapterCompleted = course
+    ? enrollmentData.completedChapters.includes(course.content[currentChapterIndex]?.title)
+    : false;
 
   return (
     <>

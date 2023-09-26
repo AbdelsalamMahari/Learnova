@@ -22,7 +22,7 @@ export default function CourseInfo() {
     course: "",
     enrollmentStatus: "Enrolled",
     completionStatus: "Not Started",
-    completedChapters: 0,
+    completedChapters: [],
     grade: 0,
     instructor: "",
   });

@@ -26,7 +26,7 @@ export default function Home() {
     Axios.get("http://localhost:5000/courses")
       .then((response) => {
         // Get the first 3 courses
-        const first3Courses = response.data.slice(0, 3);
+        const first3Courses = response.data;
         setCourses(first3Courses);
       })
       .catch((error) => {

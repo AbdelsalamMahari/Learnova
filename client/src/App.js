@@ -29,6 +29,7 @@ import Certificate from "./pages/certificatee/Certificate";
 import CourseEdit from "./pages/instructorDash/CourseEdit";
 import CourseExam from "./pages/courseStart/CourseExam";
 import MyCourses from "./pages/myCourses/MyCourses";
+import CourseBank from "./pages/courseStart/CourseBank";
 
 // Intructor Dashboard
 import IntructorDash from "./pages/instructorDash/dash";
@@ -77,6 +78,10 @@ function App() {
         <Route
           path="/exam/:id"
           element={<AuthWrapper element={<CourseExam />} path="/exam/:id" />}
+        />
+                <Route
+          path="/bankQuestion/:id"
+          element={<AuthWrapper element={<CourseBank />} path="/bankQuestion/:id" />}
         />
 
         <Route path="imageupload" element={<ImageUpload />} />

@@ -36,6 +36,8 @@ import CreateCourse from "./pages/instructorDash/CreateCourse";
 import CreateQuestion from "./pages/instructorDash/CreateQuestion";
 import DashCourses from "./pages/instructorDash/Courses";
 import DashCoursesExams from "./pages/instructorDash/ExamsCourses";
+import DashCoursesBank from "./pages/instructorDash/BankCourses";
+import CreateBankQuestions from "./pages/instructorDash/CreateBankQuestions";
 import DashExam from "./pages/instructorDash/CreateExam";
 
 // Admin Dashboard
@@ -148,6 +150,24 @@ function App() {
             <InstructorRoute
               element={<DashCoursesExams />}
               path="/intructorDash/dashCoursesExams"
+            />
+          }
+        />
+        <Route
+          path="/intructorDash/dashCoursesBank"
+          element={
+            <InstructorRoute
+              element={<DashCoursesBank />}
+              path="/intructorDash/dashCoursesBank"
+            />
+          }
+        />
+        <Route
+          path="/intructorDash/createBankQuestions/:id"
+          element={
+            <InstructorRoute
+              element={<CreateBankQuestions />}
+              path="/intructorDash/createBankQuestions/:id"
             />
           }
         />

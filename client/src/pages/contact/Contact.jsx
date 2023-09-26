@@ -96,8 +96,8 @@ export default function Contact() {
                 style={{ "--skew-angle": "40deg" }}
               ></div>
               <p className="text-lg mb-4">We value your feedback! Help us enhance your experience by filling out our survey.</p>
-              <div className="flex justify-center mt-9">
-                  <button className="bg-pink2 text-black font-bold py-2 px-4 rounded button-contact input-contact">
+              <div className="flex mt-9">
+                  <button className="bg-orange rounded-full text-white px-4 py-2">
                   <Link to="/survey">Take our survey and help us improve!</Link>
                   </button>
                 </div>

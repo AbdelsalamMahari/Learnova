@@ -36,6 +36,9 @@ export default function AllCourses() {
       });
   }, []);
 
+  // Filter courses with deployable: true
+  const deployableCourses = courses.filter((course) => course.deployable === true);
+
   return (
     <>
       <TopPage
@@ -46,9 +49,8 @@ export default function AllCourses() {
       {isLoading ? (
         <Loading />
       ) : (
-        // Updated allcourse.jsx with class names from instructors.jsx
         <div className="section2-instructor">
-          {courses.map((course, index) => (
+          {deployableCourses.map((course, index) => (
             <div className="container2-instructor" key={index}>
               <div className="first2-instructor">
                 {course.backdrop ? (

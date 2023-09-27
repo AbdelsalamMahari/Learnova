@@ -76,7 +76,9 @@ export default function CourseEdit() {
     const updatedCourse = updatedCourses[courseId];
 
     if (updatedCourse) {
+
       try {
+        updatedCourse.deployable = false;
         const response = await axios.put(
           `http://localhost:5000/courses/update/${courseId}`,
           updatedCourse

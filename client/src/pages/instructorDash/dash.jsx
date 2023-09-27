@@ -177,27 +177,27 @@ export default function Dash() {
   
   useEffect(() => {
     const updateTotalSuccess = async () => {
-      if (enrollments.length === 0) return;
-  
-      // Fetch total success count for each enrollment
-      const successCounts = await Promise.all(
-        enrollments.map(async (enrollment) => {
-          const courseId = enrollment.course._id;
-  
-          // Fetch exam score count only if the course ID matches
-          if (courseId === enrollment.course._id) {
-            const count = await fetchExamScoresCount(courseId);
-            return count;
-          }
-  
-          return 0;
-        })
-      );
-  
-      const totalSuccessCount = successCounts.reduce((acc, count) => acc + count, 0);
-      setTotalSuccess(totalSuccessCount);
-    };
-  
+        if (enrollments.length === 0) return;
+      
+        // Fetch total success count for each enrollment
+        const successCounts = await Promise.all(
+          enrollments.map(async (enrollment) => {
+            const courseId = enrollment.course._id;
+      
+            // Fetch exam score count only if the course ID matches and score is >= 50
+            if (courseId === enrollment.course._id) {
+              const examScore = await getExamScoreForCourse(enrollment.user._id, courseId);
+              return examScore >= 50 ? 1 : 0;
+            }
+      
+            return 0;
+          })
+        );
+      
+        const totalSuccessCount = successCounts.reduce((acc, count) => acc + count, 0);
+        setTotalSuccess(totalSuccessCount);
+      };
+      
     updateTotalSuccess();
   }, [enrollments]);
   

@@ -12,10 +12,18 @@ export default function AdminDash() {
   const [instructors, setInstructors] = useState([]);
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [recentPurchases, setRecentPurchases] = useState([]); 
+  const [recentPurchases, setRecentPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
 
+
+  const filteredRecentPurchases = recentPurchases.filter((purchase) => {
+    const usernameMatches = purchase.username.toLowerCase().includes(searchTerm.toLowerCase());
+    const courseMatches = purchase.course.toLowerCase().includes(searchTerm.toLowerCase());
+    return usernameMatches || courseMatches;
+  });
+  
   useEffect(() => {
     // Make a GET request to your backend API to get the total subscription amount
     Axios.get("http://localhost:5000/balance")
@@ -48,17 +56,17 @@ export default function AdminDash() {
       .catch((error) => {
         console.error("Error fetching students:", error);
       });
-      Axios.get("http://localhost:5000/courses", {
-        headers: {
-          token: `Bearer ${Cookies.get("token")}`,
-        },
+    Axios.get("http://localhost:5000/courses", {
+      headers: {
+        token: `Bearer ${Cookies.get("token")}`,
+      },
+    })
+      .then((response) => {
+        setCourses(response.data);
       })
-        .then((response) => {
-            setCourses(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching students:", error);
-        });
+      .catch((error) => {
+        console.error("Error fetching students:", error);
+      });
   }, []);
 
   useEffect(() => {
@@ -67,14 +75,14 @@ export default function AdminDash() {
     Axios.get("http://localhost:5000/purchases")
       .then((response) => {
         const purchaseData = response.data;
-  
+
         // Map the purchase data to the required format
         const formattedPurchaseData = purchaseData.map((purchase) => ({
           username: `${purchase.firstName} ${purchase.lastName}`,
           course: purchase.courseName,
           balance: `$${purchase.amount}`,
         }));
-  
+
         // Set the formatted purchase data in the state
         setRecentPurchases(formattedPurchaseData);
       })
@@ -88,112 +96,117 @@ export default function AdminDash() {
 
   return (
     <>
-            {isLoading ? (
-          <Loading /> // Display loading spinner while data is being fetched
-        ) : (
-      <div className="container-admin">
-        <Sidebar />
-        <div className="main-admin">
-          <div className="topbar">
-            <div className="toggle">
-              <Icons.Bars size={24} />
-            </div>
-
-            <div className="search">
-              <label>
-                <input type="text" placeholder="Search here" />
-                <ion-icon name="search-outline"></ion-icon>
-              </label>
-            </div>
-            <div className="w-32">
-              <img src={Logo} alt="logo"></img>
-            </div>
-          </div>
-
-          <div className="cardBox-admin">
-            <div className="card">
-              <div>
-                <div className="numbers">{courses.length}</div>
-                <div className="cardName">Courses</div>
+      {isLoading ? (
+        <Loading /> // Display loading spinner while data is being fetched
+      ) : (
+        <div className="container-admin">
+          <Sidebar />
+          <div className="main-admin">
+            <div className="topbar">
+              <div className="toggle">
+                <Icons.Bars size={24} />
               </div>
 
-              <div className="iconBx">
-              <Icons.Book size={24} />
+              <div className="search">
+                <label>
+                <input
+                    type="text"
+                    placeholder="Search here"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <ion-icon name="search-outline"></ion-icon>
+                </label>
+              </div>
+              <div className="w-32">
+                <img src={Logo} alt="logo"></img>
               </div>
             </div>
 
-            <div className="card">
-              <div>
-                <div className="numbers">{students.length}</div>
-                <div className="cardName">Students</div>
+            <div className="cardBox-admin">
+              <div className="card">
+                <div>
+                  <div className="numbers">{courses.length}</div>
+                  <div className="cardName">Courses</div>
+                </div>
+
+                <div className="iconBx">
+                  <Icons.Book size={24} />
+                </div>
               </div>
 
-              <div className="iconBx">
-              <Icons.Student size={24} />
+              <div className="card">
+                <div>
+                  <div className="numbers">{students.length}</div>
+                  <div className="cardName">Students</div>
+                </div>
+
+                <div className="iconBx">
+                  <Icons.Student size={24} />
+                </div>
+              </div>
+
+              <div className="card">
+                <div>
+                  <div className="numbers">{instructors.length}</div>
+                  <div className="cardName">Instructors</div>
+                </div>
+
+                <div className="iconBx">
+                  <Icons.Teacher size={24} />
+                </div>
+              </div>
+
+              <div className="card">
+                <div>
+                  <div className="numbers">${totalSubscriptionAmount}</div>
+                  <div className="cardName">Earning</div>
+                </div>
+
+                <div className="iconBx">
+                  <Icons.Dollar size={24} />
+                </div>
               </div>
             </div>
 
-            <div className="card">
-              <div>
-                <div className="numbers">{instructors.length}</div>
-                <div className="cardName">Instructors</div>
-              </div>
+            <div className="details">
+              <div className="recentOrders">
+                <div className="cardHeader">
+                  <h2>Recent Orders</h2>
+                  <a href="/" className="btn">
+                    View All
+                  </a>
+                </div>
 
-              <div className="iconBx">
-              <Icons.Teacher size={24} />
-              </div>
-            </div>
-
-            <div className="card">
-              <div>
-                <div className="numbers">${totalSubscriptionAmount}</div>
-                <div className="cardName">Earning</div>
-              </div>
-
-              <div className="iconBx">
-              <Icons.Dollar size={24} />
-              </div>
-            </div>
-          </div>
-
-          <div className="details">
-            <div className="recentOrders">
-              <div className="cardHeader">
-                <h2>Recent Orders</h2>
-                <a href="/" className="btn">
-                  View All
-                </a>
-              </div>
-
-              <table>
-                <thead>
-                  <tr>
-                    <td>Username</td>
-                    <td>Course</td>
-                    <td>Balance</td>
-                    <td>Status</td>
-                  </tr>
-                </thead>
-
-                <tbody>
-                {recentPurchases.map((purchase, index) => (
-                    <tr key={index}>
-                      <td>{purchase.username}</td>
-                      <td>{purchase.course}</td>
-                      <td>{purchase.balance}</td>
-                      <td>
-                      <span className="status delivered">Paid</span>
-                    </td>
+                <table>
+                  <thead>
+                    <tr>
+                      <td>Username</td>
+                      <td>Course Name</td>
+                      <td>Balance</td>
+                      <td>Status</td>
                     </tr>
-                  ))}
-   
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                  {filteredRecentPurchases.map((purchase, index) => (
+                      <tr key={index}>
+                        <td>{purchase.username}</td>
+                        <td>{purchase.course}</td>
+                        <td>{purchase.balance}</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
+                    ))}
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-        )}
+      )}
     </>
   );
 }

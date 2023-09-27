@@ -8,10 +8,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
+
 const AllCourses = () => {
     const [courses, setCourses] = useState([]);
     const [instructors, setInstructors] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const user = UserInfo();
+
 
     useEffect(() => {
         const fetchAllCourses = async () => {
@@ -37,37 +40,51 @@ const AllCourses = () => {
     }, []);
 
     const getInstructorInfo = (instructorId) => {
+        // Check if instructors array is defined and instructorId is valid
+        if (!instructors || !instructorId) {
+            return 'Instructor information not available';
+        }
+
         const instructor = instructors.find((inst) => inst._id === instructorId);
-        return instructor ? (
-            <>
-                <tr>
-                    <td><b>Name:</b></td>
-                    <td>{instructor.firstName} {instructor.lastName}</td>
-                </tr>
-                <tr>
-                    <td><b>Email:</b></td>
-                    <td>{instructor.email}</td>
-                </tr>
-            </>
-        ) : 'Instructor not found';
+
+        // Check if instructor is found
+        if (!instructor) {
+            return 'Instructor not found';
+        }
+
+        // Construct instructor information
+        const instructorInfo = `${instructor.firstName} ${instructor.lastName},  ${instructor.email}`;
+        return instructorInfo;
     };
+
+    const filteredCourses = courses.filter((course) => {
+        const instructorInfo = getInstructorInfo(course.instructor);
+        return (
+            course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            course.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (instructorInfo &&
+                instructorInfo
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()))
+        );
+    });
 
     const handleDeleteCourse = async (courseId) => {
         try {
             // Fetch all enrollments
             const enrollmentsResponse = await axios.get('http://localhost:5000/get/enrollement');
             const enrollmentsData = enrollmentsResponse.data;
-    
-      
+
+
             const isCourseInEnrollments = enrollmentsData.some((enrollment) =>
                 enrollment.course === courseId
             );
-    
+
             if (isCourseInEnrollments) {
-         
+
                 toast.error('This course cannot be deleted as it is enrolled by users.');
             } else {
-         
+
                 await axios.delete(`http://localhost:5000/courses/delete/${courseId}`);
                 setCourses((prevCourses) => prevCourses.filter(course => course._id !== courseId));
                 toast.success('Course and associated questions deleted successfully.');
@@ -77,16 +94,16 @@ const AllCourses = () => {
             toast.error('An error occurred while deleting the course.');
         }
     };
-    
-    
+
+
 
     const handleDeployCourse = async (courseId) => {
         try {
-         
+
             await axios.put(`http://localhost:5000/courses/update-deployable/${courseId}`, {
-                deployable: true, 
+                deployable: true,
             });
-            
+
             setCourses((prevCourses) =>
                 prevCourses.map((course) =>
                     course._id === courseId ? { ...course, deployable: true } : course
@@ -94,14 +111,14 @@ const AllCourses = () => {
             );
             const updatedCourse = courses.find((course) => course._id === courseId);
             console.log('Updated Course:', updatedCourse);
-    
+
             toast.success('Course deployed successfully.');
         } catch (error) {
             console.error('Error deploying course:', error);
             toast.error('An error occurred while deploying the course.');
         }
     };
-    
+
     return (
         <>
             <div className="container-admin">
@@ -113,8 +130,13 @@ const AllCourses = () => {
                         </div>
                         <div className="search">
                             <label>
-                                <input type="text" placeholder="Search here" />
-                                <ion-icon name="search-outline"></ion-icon>
+                                <input
+                                    type="text"
+                                    placeholder="Search here"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+
                             </label>
                         </div>
                     </div>
@@ -133,25 +155,24 @@ const AllCourses = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {courses.map((course) => (
-                                        <tr key={course._id}>
-                                            <td>
-                                               
-                                                <Link to={`http://localhost:3000/courseInfo/${course._id}`}>{course.name}</Link>
-                                            </td>
-                                            <td>{course.category}</td>
-                                            <td>{getInstructorInfo(course.instructor)}</td>
-                                            <td className='last-td'>
-                                                <button className="delete-button" onClick={() => handleDeleteCourse(course._id)}>
-                                                    Delete Course
+                                    {filteredCourses.map((course) => (<tr key={course._id}>
+                                        <td>
+
+                                            <Link to={`http://localhost:3000/courseInfo/${course._id}`}>{course.name}</Link>
+                                        </td>
+                                        <td>{course.category}</td>
+                                        <td>{getInstructorInfo(course.instructor)}</td>
+                                        <td className='last-td'>
+                                            <button className="delete-button" onClick={() => handleDeleteCourse(course._id)}>
+                                                Delete Course
+                                            </button>
+                                            {course.deployable === false && (
+                                                <button className="deploy-button" onClick={() => handleDeployCourse(course._id)}>
+                                                    Deploy Course
                                                 </button>
-                                                {course.deployable === false && (
-                                                    <button className="deploy-button" onClick={() => handleDeployCourse(course._id)}>
-                                                        Deploy Course
-                                                    </button>
-                                                )}
-                                            </td>
-                                        </tr>
+                                            )}
+                                        </td>
+                                    </tr>
                                     ))}
                                 </tbody>
                             </table>
@@ -159,7 +180,7 @@ const AllCourses = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer autoClose={3000} /> 
+            <ToastContainer autoClose={3000} />
         </>
     )
 };

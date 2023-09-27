@@ -84,7 +84,6 @@ export default function CourseEdit() {
           updatedCourse
         );
         console.log("Course updated successfully:", response.data);
-        // Reset the updated course state
         const updatedCoursesCopy = { ...updatedCourses };
         delete updatedCoursesCopy[courseId];
         setUpdatedCourses(updatedCoursesCopy);

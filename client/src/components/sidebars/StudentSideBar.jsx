@@ -87,7 +87,7 @@ export default function Sidebar({ course }) {
         </li>
 
         <li>
-          {userScore && userScore <= 2.5 ? (
+          {userScore === null || userScore <= 2.5  ? (
             <Link className="bg-gray-300 opacity-50">
               <span className="icon">
                 <Icons.Lock size={30} />

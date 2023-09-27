@@ -42,7 +42,7 @@ const PasswordReset = () => {
     return (
         <>
       <Navbar imgSrc={Logo} className={"bg-white relative"} />
-        <div className="my-20 mx-10 flex justify-center items-center">
+        <div className="my-[150px] mx-10 flex justify-center items-center">
             {validUrl ? (
                 <form onSubmit={handleSubmit} className="">
                     <h1 className="mb-5 font-bold">Add New Password</h1>

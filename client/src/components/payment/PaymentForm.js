@@ -4,6 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Icons from "../../assets/icons/icons";
+import Loading from "../loading/loading"
 
 const CARD_OPTIONS = {
 	iconStyle: "solid",

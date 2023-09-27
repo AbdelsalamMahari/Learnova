@@ -34,11 +34,13 @@ export default function Sidebar({course}) {
   return (
     <div className="navigation-dash-st">
       <ul>
+        <div className="bg-blue">
         <li>
           <Link to="/">
-            <span className="title text-xl">{course ? course.name : "Course Name Loading..."}</span>
+            <span className="title text-xl text-white">{course ? course.name : "Course Name Loading..."}</span>
           </Link>
         </li>
+        </div>
 
         <li>
           <Link to={`/courseMaterial/${id}`}>

@@ -15,17 +15,6 @@ const EnrollmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  enrollmentStatus: {
-    type: String,
-    enum: ['Enrolled', 'Dropped', 'Completed', 'In Progress'],
-    required: true,
-    default: 'Enrolled',
-  },
-  completionStatus: {
-    type: String,
-    enum: ['Not Started', 'In Progress', 'Completed'],
-    default: 'Not Started',
-  },
   completedChapters: {
     type: [String], 
     default: [], 

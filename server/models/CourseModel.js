@@ -1,3 +1,4 @@
+const { boolean } = require("joi");
 const mongoose = require("mongoose");
 
 const LessonSchema = new mongoose.Schema({
@@ -48,6 +49,10 @@ const CourseSchema = new mongoose.Schema({
   },
   category:{
     type :String ,
+  },
+  deployable:{
+    type:Boolean,
+    default:false
   }
 });
 

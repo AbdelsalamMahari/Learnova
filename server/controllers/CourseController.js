@@ -176,6 +176,28 @@ const getCoursesByInstructorId = async (req, res) => {
 
     res.json(courses);
   } catch (error) {
+    // Handle any errors that occurred during the execution of the try block
+    console.error(error); // You can log the error for debugging purposes
+    res.status(500).json({ message: "An error occurred while fetching courses" });
+  }
+};
+
+const updateDeployable = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const { deployable } = req.body; 
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      { deployable },
+      { new: true }
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.json(updatedCourse);
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
@@ -192,5 +214,6 @@ module.exports = {
   getCoursesByUserId,
   courseBackdrop,
   getCourseBackdrop,
-  getCoursesByInstructorId
+  getCoursesByInstructorId,
+  updateDeployable
 };

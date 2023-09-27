@@ -2,6 +2,7 @@ const Purchase = require("../models/PurchasesModel");
 const Course = require("../models/CourseModel");
 const InstructorBalance = require("../models/InstructorBalanceModel");
 const Balance = require("../models/BalanceModel"); // Import the Balance model
+const {User} = require("../models/UsersModel");
 
 // Create a new purchase
 module.exports.createPurchase = async (req, res) => {
@@ -79,3 +80,37 @@ module.exports.createPurchase = async (req, res) => {
       res.status(500).json({ error: "Server error" });
     }
   };
+
+  module.exports.getAllPurchases = async (req, res) => {
+      try {
+        // Fetch all purchase records
+        const purchases = await Purchase.find({});
+    
+        // Create an array to store formatted purchase data
+        const formattedPurchases = [];
+    
+        // Iterate through the purchase records and fetch related data
+        for (const purchase of purchases) {
+          const user = await User.findById(purchase.userId); // Fetch user information
+          const course = await Course.findById(purchase.courseId); // Fetch course information
+    
+          if (user && course) {
+            // If both user and course data are available, format the purchase data
+            const formattedPurchase = {
+              firstName: user.firstName,
+              lastName: user.lastName,
+              courseName: course.name,
+              amount: purchase.amount,
+            };
+            formattedPurchases.push(formattedPurchase);
+          }
+        }
+    
+        res.status(200).json(formattedPurchases);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "An error occurred while fetching purchases with user information" });
+      
+  };
+}
+  

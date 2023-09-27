@@ -10,6 +10,7 @@ const {
   getCoursesByUserId,
   courseBackdrop,
   getCourseBackdrop,
+  getCoursesByInstructorId,
   updateDeployable,
 } = require("../controllers/CourseController");
 
@@ -21,5 +22,8 @@ router.get("/:id", getCourseById);
 router.put("/update/:id", updateCourse);
 router.delete("/delete/:id", deleteCourse);
 router.get("/instructor/:id", getCoursesByUserId);
+router.get("/instructor/:instructorId/courses", getCoursesByInstructorId); // New route for getting courses by instructor ID
+
+
 router.put("/update-deployable/:id", updateDeployable);
 module.exports = router;

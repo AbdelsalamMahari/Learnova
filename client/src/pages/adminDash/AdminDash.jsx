@@ -5,12 +5,16 @@ import Sidebar from "../../components/sidebars/AdminSideBar";
 import Icons from "../../assets/icons/icons";
 import Logo from "../../assets/images/LearnovaColoredLogo2.png";
 import Cookies from "js-cookie";
+import Loading from "../../components/loading/loading"
 
 export default function AdminDash() {
   const [totalSubscriptionAmount, setTotalSubscriptionAmount] = useState(0);
   const [instructors, setInstructors] = useState([]);
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [recentPurchases, setRecentPurchases] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     // Make a GET request to your backend API to get the total subscription amount
@@ -56,8 +60,37 @@ export default function AdminDash() {
           console.error("Error fetching students:", error);
         });
   }, []);
+
+  useEffect(() => {
+    // Fetch recent purchase data
+    setIsLoading(true); // Set isLoading to true before making the request
+    Axios.get("http://localhost:5000/purchases")
+      .then((response) => {
+        const purchaseData = response.data;
+  
+        // Map the purchase data to the required format
+        const formattedPurchaseData = purchaseData.map((purchase) => ({
+          username: `${purchase.firstName} ${purchase.lastName}`,
+          course: purchase.courseName,
+          balance: `$${purchase.amount}`,
+        }));
+  
+        // Set the formatted purchase data in the state
+        setRecentPurchases(formattedPurchaseData);
+      })
+      .catch((error) => {
+        console.error("Error fetching recent purchases:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set isLoading to false after the request is completed
+      });
+  }, []);
+
   return (
     <>
+            {isLoading ? (
+          <Loading /> // Display loading spinner while data is being fetched
+        ) : (
       <div className="container-admin">
         <Sidebar />
         <div className="main-admin">
@@ -135,203 +168,32 @@ export default function AdminDash() {
               <table>
                 <thead>
                   <tr>
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>Payment</td>
+                    <td>Username</td>
+                    <td>Course</td>
+                    <td>Balance</td>
                     <td>Status</td>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr>
-                    <td>Star Refrigerator</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td>
-                      <span className="status delivered">Delivered</span>
+                {recentPurchases.map((purchase, index) => (
+                    <tr key={index}>
+                      <td>{purchase.username}</td>
+                      <td>{purchase.course}</td>
+                      <td>{purchase.balance}</td>
+                      <td>
+                      <span className="status delivered">Paid</span>
                     </td>
-                  </tr>
-
-                  <tr>
-                    <td>Dell Laptop</td>
-                    <td>$110</td>
-                    <td>Due</td>
-                    <td>
-                      <span className="status pending">Pending</span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Apple Watch</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td>
-                      <span className="status return">Return</span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Addidas Shoes</td>
-                    <td>$620</td>
-                    <td>Due</td>
-                    <td>
-                      <span className="status inProgress">In Progress</span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Star Refrigerator</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td>
-                      <span className="status delivered">Delivered</span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Dell Laptop</td>
-                    <td>$110</td>
-                    <td>Due</td>
-                    <td>
-                      <span className="status pending">Pending</span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Apple Watch</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td>
-                      <span className="status return">Return</span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Addidas Shoes</td>
-                    <td>$620</td>
-                    <td>Due</td>
-                    <td>
-                      <span className="status inProgress">In Progress</span>
-                    </td>
-                  </tr>
+                    </tr>
+                  ))}
+   
                 </tbody>
-              </table>
-            </div>
-
-            <div className="recentCustomers">
-              <div className="cardHeader">
-                <h2>Recent Customers</h2>
-              </div>
-
-              <table>
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer02.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      David <br /> <span>Italy</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer01.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      Amit <br /> <span>India</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer02.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      David <br /> <span>Italy</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer01.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      Amit <br /> <span>India</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer02.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      David <br /> <span>Italy</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer01.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      Amit <br /> <span>India</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer01.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      David <br /> <span>Italy</span>
-                    </h4>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td width="60px">
-                    <div className="imgBx">
-                      <img src="assets/imgs/customer02.jpg" alt="user" />
-                    </div>
-                  </td>
-                  <td>
-                    <h4>
-                      Amit <br /> <span>India</span>
-                    </h4>
-                  </td>
-                </tr>
               </table>
             </div>
           </div>
         </div>
       </div>
+        )}
     </>
   );
 }

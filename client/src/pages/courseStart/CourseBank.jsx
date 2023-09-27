@@ -4,13 +4,13 @@ import axios from "axios";
 import SideBar from "../../components/sidebars/StudentSideBar";
 import Icons from "../../assets/icons/icons";
 import UserInfo from "../../components/users/UserInfo";
-import { Link } from "react-router-dom";
 
 export default function CourseBank() {
   const user = UserInfo();
   const { id } = useParams();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
+  const [courseInfo, setCourseInfo] = useState({}); // Added state for course info
 
   useEffect(() => {
     if (user && user._id) {
@@ -46,7 +46,6 @@ export default function CourseBank() {
           `http://localhost:5000/bank/getAllQuestion/${id}`
         );
         setQuestions(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
@@ -55,10 +54,26 @@ export default function CourseBank() {
     fetchQuestions();
   }, [id]);
 
+  useEffect(() => {
+    // Fetch course information using the provided id
+    async function fetchCourseInfo() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/courses/${id}`
+        );
+        setCourseInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching course information:", error);
+      }
+    }
+
+    fetchCourseInfo();
+  }, [id]);
+
   return (
     <>
       <div className="container-dash-st">
-        <SideBar />
+        <SideBar course={courseInfo}/>
         <div className="main-dash-st">
           <div className="topbar">
             <div className="toggle">
@@ -66,17 +81,17 @@ export default function CourseBank() {
             </div>
           </div>
           <div className="dash-container">
-            <h2>Questions for Course </h2>
+            <h2 className="mb-10 text-xl">Bank Questions for {courseInfo.name} Course</h2>
             <ul>
-              {questions.map((questions, index) => (
+              {questions.map((questionSet, index) => (
                 <li key={index}>
-                  {questions.questions.map((question, questionIndex) => (
-                    <div key={question._id}>
+                  {questionSet.questions.map((question, questionIndex) => (
+                    <div key={question._id} className="mb-5">
                       <p>
                         <strong>Question {questionIndex + 1}:</strong>{" "}
                         {question.questionText}
                       </p>
-                      <p>
+                      <p className="font-bold text-green-600">
                         <strong>Answer:</strong> {question.answer}
                       </p>
                     </div>

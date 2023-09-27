@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Icons from "../../assets/icons/icons";
-import axios from "axios";
 import UserInfo from "../users/UserInfo";
 
 export default function Sidebar({course}) {
   const user = UserInfo();
   const { id } = useParams(); // Get the id from URL params
-  const [isExamsUnlocked, setIsExamsUnlocked] = useState(false);
 
   useEffect(() => {
     // add hovered class to selected list item
@@ -33,32 +31,16 @@ export default function Sidebar({course}) {
     };
   }, []);
 
-  useEffect(() => {
-    if (user && user._id) {
-      axios
-        .get(`http://localhost:5000/subscriptions/${user._id}`)
-        .then((response) => {
-          const data = response.data;
-
-          // Check if the user has a monthly plan
-          if (data.plans.includes("annual") || data.plans.includes("monthly")) {
-            setIsExamsUnlocked(true);
-            console.log(data.plans)
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [user]);
   return (
     <div className="navigation-dash-st">
       <ul>
+        <div className="bg-blue">
         <li>
           <Link to="/">
-            <span className="title text-xl">{course ? course.name : "Course Name Loading..."}</span>
+            <span className="title text-xl text-white">{course ? course.name : "Course Name Loading..."}</span>
           </Link>
         </li>
+        </div>
 
         <li>
           <Link to={`/courseMaterial/${id}`}>

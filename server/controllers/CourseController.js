@@ -163,6 +163,25 @@ const getCoursesByUserId = async (req, res) => {
   }
 };
 
+const getCoursesByInstructorId = async (req, res) => {
+  try {
+    const instructorId = req.params.instructorId;
+
+    // Use Course.find() to find courses for the specified instructor by instructor field
+    const courses = await Course.find({ instructor: instructorId });
+
+    if (!courses || courses.length === 0) {
+      return res.status(404).json({ message: "No courses found for this instructor" });
+    }
+
+    res.json(courses);
+  } catch (error) {
+    // Handle any errors that occurred during the execution of the try block
+    console.error(error); // You can log the error for debugging purposes
+    res.status(500).json({ message: "An error occurred while fetching courses" });
+  }
+};
+
 const updateDeployable = async (req, res) => {
   try {
     const courseId = req.params.id;
@@ -185,6 +204,7 @@ const updateDeployable = async (req, res) => {
 
 
 
+
 module.exports = {
   createCourse,
   getAllCourses,
@@ -194,5 +214,6 @@ module.exports = {
   getCoursesByUserId,
   courseBackdrop,
   getCourseBackdrop,
+  getCoursesByInstructorId,
   updateDeployable
 };

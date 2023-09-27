@@ -60,3 +60,14 @@ module.exports.deleteUserExamScore = async (req, res) => {
   }
 };
 
+module.exports.getExamScoresCountGreaterThanEqual50ByCourseId = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const count = await ExamScore.countDocuments({ courseId, score: { $gte: 50 } }).exec();
+
+    res.json({ count });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+

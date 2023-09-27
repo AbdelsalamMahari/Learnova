@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from 'axios'; 
+import Axios from "axios";
 import "./Home.css";
 import Navbar from "../../layout/navbar/Navbar";
 import Button from "../../components/buttons/button";
 import Icons from "../../assets/icons/icons";
 import Footer from "../../layout/footer/Footer";
-import Logo from "../../assets/images/LearnovaLogo2.png"
-import { useTypewriter, Cursor } from 'react-simple-typewriter'
+import Logo from "../../assets/images/LearnovaLogo2.png";
+import { useTypewriter, Cursor } from "react-simple-typewriter";
 
 export default function Home() {
   const navigate = useNavigate();
 
   const [text] = useTypewriter({
-    words: ['Learning Fuels Creative Thinking', 'Learn to Create', 'Explore, Imagine, Innovate!'],
+    words: [
+      "Learning Fuels Creative Thinking",
+      "Learn to Create",
+      "Explore, Imagine, Innovate!",
+    ],
     loop: {},
     typeSpeed: 60,
     deleteSpeed: 100,
-  })
+  });
 
   const [courses, setCourses] = useState([]);
 
@@ -34,14 +38,24 @@ export default function Home() {
       });
   }, []);
 
+  const [feedbackData, setFeedbackData] = useState([]);
+
+  useEffect(() => {
+    // Fetch feedback data from the provided URL
+    fetch("http://localhost:5000/feedbacks/home")
+      .then((response) => response.json())
+      .then((data) => setFeedbackData(data))
+      .catch((error) => console.error("Error fetching feedback data:", error));
+  }, []);
+
   return (
     <>
       <section className="backdrop-image">
-        <Navbar imgSrc={Logo} className={"text-white"}/>
+        <Navbar imgSrc={Logo} className={"text-white"} />
         <div className="backdrop-section">
           <div className="lg:w-1/2 md:w-full">
             <h1 className="lg:text-6xl font-bold text-white my-8 ">
-              <span>{text}</span> <Cursor cursorColor="#FFA500"/>
+              <span>{text}</span> <Cursor cursorColor="#FFA500" />
             </h1>
             <p className="text-lg text-white my-8">
               Your portal to a world of knowledge and growth. Explore, learn,
@@ -65,15 +79,22 @@ export default function Home() {
             </p>
           </div>
           <div className="flex-1">
-            <Button text="VIEW ALL COURSES" className="float-right" onClick={() => navigate(`/allCourses`)}></Button>
+            <Button
+              text="VIEW ALL COURSES"
+              className="float-right"
+              onClick={() => navigate(`/allCourses`)}
+            ></Button>
           </div>
         </div>
         <div className="flex p-[40px] gap-6 cont-course">
           {/* Map through the first 3 courses */}
           {courses.map((course) => (
-            <div key={course._id} className="flex-1 shadow-2xl bg-white rounded-3xl">
+            <div
+              key={course._id}
+              className="flex-1 shadow-2xl bg-white rounded-3xl"
+            >
               <div>
-              {course.backdrop ? (
+                {course.backdrop ? (
                   <img
                     src={`http://localhost:5000/courses/getBackdrop/${course._id}`}
                     alt="Upload"
@@ -89,7 +110,9 @@ export default function Home() {
               </div>
               <div className="flex flex-col p-5 gap-5">
                 <div>
-                  <h1 className="lg:text-4xl w-full overflow-hidden overflow-ellipsis ">{course.name}</h1>
+                  <h1 className="lg:text-4xl w-full overflow-hidden overflow-ellipsis ">
+                    {course.name}
+                  </h1>
                 </div>
                 <div>
                   <button
@@ -106,7 +129,9 @@ export default function Home() {
                       style={{ width: `${course.progress}%` }}
                     ></div>
                   </div>
-                  <span className="float-right">{course.progress}% Complete</span>
+                  <span className="float-right">
+                    {course.progress}% Complete
+                  </span>
                 </div>
               </div>
             </div>
@@ -223,90 +248,36 @@ export default function Home() {
               Trusted by Thousand of Students and Tutors
             </h1>
           </div>
-          <div className="flex-1 text-4xl font-bold flex items-center justify-center text-center">
-            <h1 className="text-orange">4.8<br></br>Ratings</h1>
-          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 my-[60px]">
-          {/* First Grid Item */}
-          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
-            <div className="profile-home-img shadow-2xl">
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-02.jpg"
-                alt="Profile 1"
-              />
+          {feedbackData.map((feedback, index) => (
+            <div
+              key={index}
+              className="bg-white px-10 rounded-xl profile-home-div my-[30px]"
+            >
+              <div className="profile-home-img shadow-2xl">
+                {feedback.profile.includes("googleusercontent.com") ? (
+                  <img src={feedback.profile} alt={`Profile ${index + 1}`} />
+                ) : feedback.profile ? (
+                  <img
+                    src={`http://localhost:5000/users/userProfile/${feedback.userId}`}
+                    alt={`Profile ${index + 1}`}
+                  />
+                ) : (
+                  <img
+                    src="https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max"
+                    alt={`Default Profile ${index + 1}`}
+                  />
+                )}
+              </div>
+              <div className="mt-4">
+                <p>{`"${feedback.text}"`}</p>
+              </div>
+              <div className="my-4 font-bold">
+                <p>{`${feedback.firstName} ${feedback.lastName}`}</p>
+              </div>
             </div>
-            <div className="mt-4">
-              <p>
-                “Massa amet, at dolor tellus pellentesque aenean in eget massa
-                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
-                vivamus nulla.”
-              </p>
-            </div>
-            <div className="my-4 font-bold">
-              <p>Emma Hart</p>
-            </div>
-          </div>
-
-          {/* Second Grid Item */}
-          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
-            <div className="profile-home-img shadow-2xl">
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-01.jpg"
-                alt="Profile 1"
-              />
-            </div>
-            <div className="mt-4">
-              <p>
-                “Massa amet, at dolor tellus pellentesque aenean in eget massa
-                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
-                vivamus nulla.”
-              </p>
-            </div>
-            <div className="my-4 font-bold">
-              <p>Emma Hart</p>
-            </div>
-          </div>
-
-          {/* Third Grid Item */}
-          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
-            <div className="profile-home-img shadow-2xl">
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-03.jpg"
-                alt="Profile 1"
-              />
-            </div>
-            <div className="mt-4">
-              <p>
-                “Massa amet, at dolor tellus pellentesque aenean in eget massa
-                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
-                vivamus nulla.”
-              </p>
-            </div>
-            <div className="my-4 font-bold">
-              <p>Emma Hart</p>
-            </div>
-          </div>
-
-          {/* Fourth Grid Item */}
-          <div className="bg-white px-10 rounded-xl profile-home-div my-[40px]">
-            <div className="profile-home-img shadow-2xl">
-              <img
-                src="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/10/online-programming-course-review-04.jpg"
-                alt="Profile 1"
-              />
-            </div>
-            <div className="mt-4">
-              <p>
-                “Massa amet, at dolor tellus pellentesque aenean in eget massa
-                tincidunt habitasse volutpat adipiscing sed id sit auctor eu
-                vivamus nulla.”
-              </p>
-            </div>
-            <div className="my-4 font-bold">
-              <p>Emma Hart</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
       <Footer />

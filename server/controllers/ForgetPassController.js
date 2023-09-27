@@ -5,6 +5,7 @@ const sendEmail = require("../utils/sendEmail");
 const Joi = require("joi");
 const passwordComplexity = require("joi-password-complexity");
 const bcrypt = require("bcrypt");
+const { emailResetPass } = require("../utils/templates/EmailResetPass");
 
 // send password link
 module.exports.sendPassLink = async (req, res) => {
@@ -31,7 +32,9 @@ module.exports.sendPassLink = async (req, res) => {
 		}
 		const url = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}/`;
 
-		await sendEmail(user.email, "Password Reset", url);
+		const emailHtml = emailResetPass(url);
+
+		await sendEmail(user.email, "Password Reset", emailHtml);
 
 		res
 			.status(200)

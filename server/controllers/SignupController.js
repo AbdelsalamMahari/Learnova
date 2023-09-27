@@ -3,6 +3,7 @@ const Token = require("../models/TokenModel");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendEmail");
+const { emailVerifyContent } = require("../utils/templates/Emailverify");
 
 //Signup
 module.exports.signup = async (req, res) => {
@@ -34,7 +35,9 @@ module.exports.signup = async (req, res) => {
 
     const url = `${process.env.BASE_URL}/users/${user.id}/verify/${token.token}`;
 
-    await sendEmail(user.email, "Verify Email", url);
+    const emailHtml = emailVerifyContent(user, url);
+
+    await sendEmail(user.email, "Verify Email", emailHtml);
 
     res.status(201).send({
       message:

@@ -45,7 +45,7 @@ const PasswordReset = () => {
         <div className="my-20 mx-10 flex justify-center items-center">
             {validUrl ? (
                 <form onSubmit={handleSubmit} className="">
-                    <h1 className="mb-5">Add New Password</h1>
+                    <h1 className="mb-5 font-bold">Add New Password</h1>
                     <div>
                         <input
                         type="password"
@@ -54,13 +54,13 @@ const PasswordReset = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         required
-                        className="input-field bg-gray-100 px-8 py-4 md:w-96"
+                        className="input-field bg-white px-8 py-4 md:w-96"
                     />
                     {error && <div >{error}</div>}
                     {msg && <div >{msg}</div>}
                     </div>
 
-                    <button type="submit" className="bg-pink text-white font-bold py-2 px-4 mt-5">
+                    <button type="submit" className="bg-orange rounded-full text-white font-bold py-2 px-4 mt-5">
                         Submit
                     </button>
                 </form>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import Icons from "../../assets/icons/icons";
 import UserInfo from "../users/UserInfo";
 
-export default function Sidebar({course}) {
+export default function Sidebar({ course }) {
   const user = UserInfo();
   const { id } = useParams(); // Get the id from URL params
+  const [userScore, setUserScore] = useState(null);
 
   useEffect(() => {
     // add hovered class to selected list item
@@ -31,15 +33,30 @@ export default function Sidebar({course}) {
     };
   }, []);
 
+  useEffect(() => {
+    if (user?._id) {
+      axios
+        .get(`http://localhost:5000/${user._id}/score/${id}`)
+        .then((response) => {
+          setUserScore(response.data.score);
+        })
+        .catch((error) => {
+          console.error("Error fetching user's score:", error);
+        });
+    }
+  }, [user, id]);
+
   return (
     <div className="navigation-dash-st">
       <ul>
         <div className="bg-blue">
-        <li>
-          <Link to="/">
-            <span className="title text-xl text-white">{course ? course.name : "Course Name Loading..."}</span>
-          </Link>
-        </li>
+          <li>
+            <Link to="/">
+              <span className="title text-xl text-white">
+                {course ? course.name : "Course Name Loading..."}
+              </span>
+            </Link>
+          </li>
         </div>
 
         <li>
@@ -70,12 +87,21 @@ export default function Sidebar({course}) {
         </li>
 
         <li>
+          {userScore && userScore <= 2.5 ? (
+            <Link className="bg-gray-300 opacity-50">
+              <span className="icon">
+                <Icons.Lock size={30} />
+              </span>
+              <span className="title">Exams (Locked)</span>
+            </Link>
+          ) : (
             <Link to={`/exam/${id}`}>
               <span className="icon">
                 <Icons.Exam size={30} />
               </span>
               <span className="title">Exams</span>
             </Link>
+          )}
         </li>
 
         <li>

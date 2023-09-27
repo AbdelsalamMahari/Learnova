@@ -4,11 +4,13 @@ import "./AllCourses.css";
 import TopPage from "../../components/topPage/TopPage";
 import { Link } from "react-router-dom";
 import Loading from "../../components/loading/loading";
-import Footer from "../../layout/footer/Footer"
+import Footer from "../../layout/footer/Footer";
+import Icons from "../../assets/icons/icons";
 
 export default function AllCourses() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     axios
@@ -37,7 +39,14 @@ export default function AllCourses() {
   }, []);
 
   // Filter courses with deployable: true
-  const deployableCourses = courses.filter((course) => course.deployable === true);
+  const deployableCourses = courses.filter(
+    (course) => course.deployable === true
+  );
+
+  // Filter courses by search query
+  const filteredCourses = deployableCourses.filter((course) =>
+    course.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -45,12 +54,27 @@ export default function AllCourses() {
         title="All Courses"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-08-free-img.jpg"
       />
-
+      <div className="flex justify-center items-center mt-10">
+        <div className="search">
+          <label>
+            <input
+              type="text"
+              placeholder="Search by course name"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <ion-icon name="search-outline"></ion-icon>
+          </label>
+        </div>
+        <div>
+          <Icons.Search size={30} />
+        </div>
+      </div>
       {isLoading ? (
         <Loading />
       ) : (
         <div className="section2-instructor">
-          {deployableCourses.map((course, index) => (
+          {filteredCourses.map((course, index) => (
             <div className="container2-instructor" key={index}>
               <div className="first2-instructor">
                 {course.backdrop ? (
@@ -68,11 +92,11 @@ export default function AllCourses() {
               <div className="second2-instructor">
                 <h1>{course.name}</h1>
                 <p>
-                  Instructor: {course.instructorData.firstName}{" "}
+                  by: {course.instructorData.firstName}{" "}
                   {course.instructorData.lastName}
                 </p>
                 <Link to={`/courseInfo/${course._id}`}>
-                  <button className="bg-blue rounded w-full p-1 text-white">
+                  <button className="bg-blue rounded w-full p-1 text-white mb-5">
                     See more...
                   </button>
                 </Link>

@@ -10,7 +10,7 @@ import ProfileUser from "./../../components/users/profileUser";
 import ResetPassUser from "./../../components/users/resetPassword";
 import MakeInstructor from "./../../components/users/makeInstructor";
 import "./Profile.css";
-import Loading from '../../components/loading/loading'
+import Loading from "../../components/loading/loading";
 
 export default function Profile() {
   const user = UserInfo();
@@ -105,14 +105,16 @@ export default function Profile() {
                   </div>
                 )}
                 <div>
-                  <button
-                    onClick={handleMakeInstToggle}
-                    className={`${
-                      isMakeInstOpen ? "bg-orange text-white" : "bg-gray-200"
-                    } text-black font-bold py-3 px-4 w-64 hover:bg-orange profile-btns`}
-                  >
-                    Request
-                  </button>
+                  {user && !user.isInstructor && (
+                    <button
+                      onClick={handleMakeInstToggle}
+                      className={`${
+                        isMakeInstOpen ? "bg-orange text-white" : "bg-gray-200"
+                      } text-black font-bold py-3 px-4 w-64 hover:bg-orange profile-btns`}
+                    >
+                      Request
+                    </button>
+                  )}
                 </div>
                 <div>
                   <button
@@ -137,7 +139,7 @@ export default function Profile() {
             </section>
           </>
         ) : (
-          <Loading/>
+          <Loading />
         )}
       </div>
       <Footer />

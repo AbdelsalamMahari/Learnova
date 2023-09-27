@@ -47,7 +47,7 @@ const ForgetPass = () => {
 					onChange={(e) => setEmail(e.target.value)}
 					value={email}
 					required
-					className="input-field bg-gray-100 px-8 py-4 md:w-96"
+					className="input-field bg-white px-8 py-4 md:w-96"
 				/>
 				</div>
 

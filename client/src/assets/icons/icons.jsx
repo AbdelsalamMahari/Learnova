@@ -1,7 +1,7 @@
 import { FaFacebook, FaCrown, FaBars, FaPhoneAlt } from "react-icons/fa";
 import { PiCertificateBold, PiSmileySad, PiStudent, PiChalkboardTeacher, PiExamLight } from "react-icons/pi";
 import { BsClock, BsFillJournalBookmarkFill, BsArrowBarLeft, BsCheckLg, BsQuestionSquare } from "react-icons/bs";
-import { BiBookBookmark, BiDollar, BiBarChartAlt2 } from "react-icons/bi";
+import { BiBookBookmark, BiDollar, BiBarChartAlt2, BiLockAlt } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineArrowUp, AiOutlineHome, AiOutlineUser,AiFillEdit, AiOutlineSearch } from "react-icons/ai";
 import { HiArrowsRightLeft } from "react-icons/hi2";
@@ -44,7 +44,8 @@ const Icons = {
   Arrows: TbArrowsExchange2,
   Feedback: MdOutlineFeedback,
   Chart: BiBarChartAlt2,
-  Admin2: RiAdminLine
+  Admin2: RiAdminLine,
+  Lock: BiLockAlt
 };
 
 export default Icons;

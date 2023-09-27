@@ -23,12 +23,12 @@ const EmailVerify = () => {
   }, [param]);
 
   return (
-    <div className="flex justify-center items-center flex-col bg-wblack111 h-screen">
+    <div className="flex justify-center items-center flex-col h-screen">
       {validUrl ? (
         <div>
           <h1 className="text-5xl flicklogo font-bold">Email verified successfully!</h1>
           <Link to="/login">
-            <button className="bg-pink2 text-white font-bold py-2 px-4 mt-5">Login</button>
+            <button className="bg-orange text-white font-bold py-2 px-4 mt-5 rounded-full">Login</button>
           </Link>
         </div>
       ) : (

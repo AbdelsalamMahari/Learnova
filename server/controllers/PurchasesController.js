@@ -1,8 +1,10 @@
 const Purchase = require("../models/PurchasesModel");
 const Course = require("../models/CourseModel");
 const InstructorBalance = require("../models/InstructorBalanceModel");
-const Balance = require("../models/BalanceModel"); // Import the Balance model
-const {User} = require("../models/UsersModel");
+const Balance = require("../models/BalanceModel");
+const { User } = require("../models/UsersModel");
+const sendEmail = require("../utils/sendEmail");
+const { emailPurchase } = require("../utils/templates/EmailPurchase");
 
 // Create a new purchase
 module.exports.createPurchase = async (req, res) => {
@@ -13,7 +15,7 @@ module.exports.createPurchase = async (req, res) => {
     const purchase = new Purchase({ userId, courseId, amount });
     await purchase.save();
 
-    // Fetch the course to get the instructor's ID
+    // Fetch the course to get the instructor's ID and course name
     const course = await Course.findById(courseId);
 
     if (!course) {
@@ -55,6 +57,14 @@ module.exports.createPurchase = async (req, res) => {
     // Update the general balance with the remaining amount
     generalBalance.balance += remainingAmount;
     await generalBalance.save();
+
+    // Send an email to the user thanking them for the purchase
+    const user = await User.findById(userId);
+    if (user) {
+      const emailHtml = emailPurchase(user, course);
+
+      await sendEmail(user.email, "Thank You for Your Purchase", emailHtml);
+    }
 
     res.status(201).json({ message: "Purchase created successfully" });
   } catch (error) {

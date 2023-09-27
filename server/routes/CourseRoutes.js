@@ -22,7 +22,7 @@ router.get("/:id", getCourseById);
 router.put("/update/:id", updateCourse);
 router.delete("/delete/:id", deleteCourse);
 router.get("/instructor/:id", getCoursesByUserId);
-router.get("/instructor/:instructorId/courses", getCoursesByInstructorId); // New route for getting courses by instructor ID
+router.get("/instructor/:instructorId/courses", getCoursesByInstructorId); 
 
 
 router.put("/update-deployable/:id", updateDeployable);

@@ -15,6 +15,21 @@ export default function Dash() {
   const [totalEnrollments, setTotalEnrollments] = useState(0);
   const [totalCourses, setTotalCourses] = useState(0);
   const [totalSuccess, setTotalSuccess] = useState(0);
+  const [searchText, setSearchText] = useState(""); 
+
+
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const filteredEnrollments = enrollments.filter((enrollment) => {
+    const userFullName = `${enrollment.user.firstName} ${enrollment.user.lastName}`.toLowerCase();
+    const courseName = enrollment.course.name.toLowerCase();
+    const searchLowerCase = searchText.toLowerCase();
+
+    // Check if the search text matches the user's full name or course name
+    return userFullName.includes(searchLowerCase) || courseName.includes(searchLowerCase);
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,21 +121,30 @@ export default function Dash() {
 
   const ExamScoreDisplay = ({ userId, courseId }) => {
     const [examScore, setExamScore] = useState(null);
-
+  
     useEffect(() => {
-      getExamScoreForCourse(userId, courseId).then((score) => {
-        setExamScore(score);
-      });
+      getExamScoreForCourse(userId, courseId)
+        .then((score) => {
+          setExamScore(score);
+        })
+        .catch(() => {
+          console.error(
+            `Error fetching exam score for user ${userId}, course ${courseId}. Setting exam score to null.`
+          );
+          setExamScore(null); // Set exam score to null in case of an error
+        });
     }, [userId, courseId]);
-
+  
+    const displayScore = examScore !== null ? (examScore === 0 ? "In progress!!" : examScore) : "Loading exam score...";
     const examScoreColor = examScore >= 0 && examScore <= 49 ? "red" : "green";
-
+  
     return (
       <div style={{ color: examScoreColor }}>
-        {examScore !== null ? examScore : "Loading exam score..."}
+        {displayScore}
       </div>
     );
   };
+  
 
   useEffect(() => {
     const fetchTotalCourses = async () => {
@@ -150,17 +174,33 @@ export default function Dash() {
       return 0;
     }
   };
-
+  
   useEffect(() => {
     const updateTotalSuccess = async () => {
       if (enrollments.length === 0) return;
-      const courseId = enrollments[0].course._id;
-      const count = await fetchExamScoresCount(courseId);
-      setTotalSuccess(count);
+  
+      // Fetch total success count for each enrollment
+      const successCounts = await Promise.all(
+        enrollments.map(async (enrollment) => {
+          const courseId = enrollment.course._id;
+  
+          // Fetch exam score count only if the course ID matches
+          if (courseId === enrollment.course._id) {
+            const count = await fetchExamScoresCount(courseId);
+            return count;
+          }
+  
+          return 0;
+        })
+      );
+  
+      const totalSuccessCount = successCounts.reduce((acc, count) => acc + count, 0);
+      setTotalSuccess(totalSuccessCount);
     };
-
+  
     updateTotalSuccess();
   }, [enrollments]);
+  
 
   return (
     <>
@@ -176,11 +216,16 @@ export default function Dash() {
               </div>
 
               <div className="search">
-                <label>
-                  <input type="text" placeholder="Search here" />
-                  <ion-icon name="search-outline"></ion-icon>
-                </label>
-              </div>
+          <label>
+            <input
+              type="text"
+              placeholder="Search here"
+              value={searchText}
+              onChange={handleSearch}
+            />
+            <ion-icon name="search-outline"></ion-icon>
+          </label>
+        </div>
               <div className='w-32'>
                 <img src={Logo} alt='logo'></img>
               </div>
@@ -241,13 +286,13 @@ export default function Dash() {
                   <thead>
                     <tr>
                       <th>Student User</th>
-                      <th>Course</th>
+                      <th>Course Name</th>
                       <th>Score Questions</th>
                       <th>Exam Score</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {enrollments.map((enrollment) => (
+                  {filteredEnrollments.map((enrollment) => (
                       <tr key={enrollment._id}>
                         <td>
                           {enrollment.user

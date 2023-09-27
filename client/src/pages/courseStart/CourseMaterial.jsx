@@ -204,7 +204,7 @@ export default function CourseStart() {
                       display: index === currentChapterIndex ? "block" : "none",
                     }}
                   >
-                    {/* ... Render course content here */}
+      
                     <h1 className="course-title">
                       Chapter {index + 1}: {courseItem.title}
                     </h1>

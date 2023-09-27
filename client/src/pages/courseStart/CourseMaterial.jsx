@@ -14,7 +14,13 @@ export default function CourseStart() {
   const [user, setUser] = useState(null);
   const [hasPurchased, setHasPurchased] = useState(false);
   const imgURL = "/courseimages/";
-  const [enrollmentData, setEnrollmentData] = useState({ completedChapters: [], }); // Initialize with empty completedChapters
+  const [enrollmentData, setEnrollmentData] = useState({
+    completedChapters: [],
+  }); // Initialize with empty completedChapters
+  const [isCurrentChapterCompleted, setIsCurrentChapterCompleted] = useState(
+    false
+  );
+  const [CoursePercentage, SetCoursePercentage] = useState(0);
 
   useEffect(() => {
     async function fetchCourseContent() {
@@ -60,7 +66,7 @@ export default function CourseStart() {
             setHasPurchased(true);
           } else {
             // Redirect to '/nopage' using navigate
-            navigate('/nopage');
+            navigate("/nopage");
           }
         }
       } catch (error) {
@@ -71,18 +77,17 @@ export default function CourseStart() {
     fetchDataPurchase();
   }, [user, course, navigate]);
 
-const[CoursePercentage,SetCoursePercentage]=useState(0)
   const handleNextChapter = () => {
     if (currentChapterIndex < course.content.length - 1) {
       setCurrentChapterIndex(currentChapterIndex + 1);
-      
+      setIsCurrentChapterCompleted(false); // Reset completion status when moving to the next chapter
     }
   };
 
   const handlePreviousChapter = () => {
     if (currentChapterIndex > 0) {
       setCurrentChapterIndex(currentChapterIndex - 1);
-      console.log(CoursePercentage)
+      setIsCurrentChapterCompleted(false); // Reset completion status when moving to the previous chapter
     }
   };
 
@@ -90,13 +95,13 @@ const[CoursePercentage,SetCoursePercentage]=useState(0)
     if (course && enrollmentData) {
       const currentChapter = course.content[currentChapterIndex];
       const AddPercentage = 100 / course.content.length;
-      const updatedCoursePercentage = CoursePercentage + AddPercentage; 
-      SetCoursePercentage(updatedCoursePercentage); 
-  
+      const updatedCoursePercentage = CoursePercentage + AddPercentage;
+      SetCoursePercentage(updatedCoursePercentage);
+
       try {
         if (!enrollmentData.completedChapters.includes(currentChapter.title)) {
           enrollmentData.completedChapters.push(currentChapter.title);
-  
+
           await axios.put(
             `http://localhost:5000/update/enrollement/${enrollmentData._id}`,
             {
@@ -104,75 +109,77 @@ const[CoursePercentage,SetCoursePercentage]=useState(0)
               completedPercentage: updatedCoursePercentage, // Send the updated percentage to the database
             }
           );
-  
+
           setEnrollmentData((prevEnrollmentData) => ({
             ...prevEnrollmentData,
             completedChapters: enrollmentData.completedChapters,
           }));
+
+          // Set the current chapter as completed
+          setIsCurrentChapterCompleted(true);
         }
       } catch (error) {
         console.error("Error marking chapter as completed:", error);
       }
     }
   };
-  
 
-useEffect(() => {
-  async function fetchUserData() {
-    const userInfo = await fetchUserInfoFromToken();
-    setUser(userInfo);
-  }
+  useEffect(() => {
+    async function fetchUserData() {
+      const userInfo = await fetchUserInfoFromToken();
+      setUser(userInfo);
+    }
 
-  fetchUserData();
-}, []);
+    fetchUserData();
+  }, []);
 
-useEffect(() => {
-  const fetchCourseAndEnrollmentData = async () => {
-    try {
-      const [courseResponse, enrollmentsResponse] = await Promise.all([
-        fetch(`http://localhost:5000/courses/${id}`),
-        axios.get(`http://localhost:5000/get/enrollement`),
-      ]);
+  useEffect(() => {
+    const fetchCourseAndEnrollmentData = async () => {
+      try {
+        const [courseResponse, enrollmentsResponse] = await Promise.all([
+          fetch(`http://localhost:5000/courses/${id}`),
+          axios.get(`http://localhost:5000/get/enrollement`),
+        ]);
 
-      if (courseResponse.ok) {
-        const courseData = await courseResponse.json();
-        setCourse(courseData);
-      } else {
-        console.error("Error fetching course content");
-      }
+        if (courseResponse.ok) {
+          const courseData = await courseResponse.json();
+          setCourse(courseData);
+        } else {
+          console.error("Error fetching course content");
+        }
 
-      if (enrollmentsResponse.status === 200) {
-        const enrollments = enrollmentsResponse.data;
+        if (enrollmentsResponse.status === 200) {
+          const enrollments = enrollmentsResponse.data;
 
-        if (user && user._id) {
-          const matchingEnrollment = enrollments.find(
-            (enrollment) =>
-              enrollment.user === user._id && enrollment.course === id
-          );
+          if (user && user._id) {
+            const matchingEnrollment = enrollments.find(
+              (enrollment) =>
+                enrollment.user === user._id && enrollment.course === id
+            );
 
-          if (matchingEnrollment) {
-            setEnrollmentData(matchingEnrollment);
+            if (matchingEnrollment) {
+              setEnrollmentData(matchingEnrollment);
+            } else {
+              console.error("Matching enrollment not found.");
+            }
           } else {
-            console.error("Matching enrollment not found.");
+            console.error("User information not available.");
           }
         } else {
-          console.error("User information not available.");
+          console.error("Error fetching enrollments");
         }
-      } else {
-        console.error("Error fetching enrollments");
+      } catch (error) {
+        console.error("Error fetching course and enrollment data:", error);
       }
-    } catch (error) {
-      console.error("Error fetching course and enrollment data:", error);
-    }
-  };
+    };
 
-  fetchCourseAndEnrollmentData();
-}, [id, user]);
-
-
+    fetchCourseAndEnrollmentData();
+  }, [id, user]);
 
   const isChapterCompleted = course
-    ? enrollmentData.completedChapters.includes(course.content[currentChapterIndex]?.title)
+    ? enrollmentData.completedChapters.includes(
+        course.content[currentChapterIndex]?.title
+      )
     : false;
 
   return (
@@ -226,6 +233,30 @@ useEffect(() => {
                         Previous
                       </button>
                       <button
+          className={`navigation-btn2 ${
+            enrollmentData &&
+            enrollmentData.completedChapters.includes(
+              courseItem.title
+            )
+              ? "completed-btn"
+              : ""
+          }`}
+          onClick={handleCompleteChapter}
+          disabled={
+            enrollmentData &&
+            enrollmentData.completedChapters.includes(
+              courseItem.title
+            )
+          }
+        >
+          {enrollmentData &&
+          enrollmentData.completedChapters.includes(
+            courseItem.title
+          )
+            ? "Completed"
+            : "Complete"}
+        </button>
+                      <button
                         className="navigation-btn"
                         onClick={handleNextChapter}
                         disabled={
@@ -234,8 +265,6 @@ useEffect(() => {
                       >
                         Next
                       </button>
-
-                      <button   className="navigation-btn" onClick={handleCompleteChapter}>Complete</button>
                     </div>
                   </div>
                 ))

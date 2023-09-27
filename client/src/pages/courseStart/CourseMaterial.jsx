@@ -14,6 +14,7 @@ export default function CourseStart() {
   const [user, setUser] = useState(null);
   const [hasPurchased, setHasPurchased] = useState(false);
   const imgURL = "/courseimages/";
+  const [enrollmentData, setEnrollmentData] = useState({ completedChapters: [], }); // Initialize with empty completedChapters
 
   useEffect(() => {
     async function fetchCourseContent() {
@@ -70,17 +71,109 @@ export default function CourseStart() {
     fetchDataPurchase();
   }, [user, course, navigate]);
 
+const[CoursePercentage,SetCoursePercentage]=useState(0)
   const handleNextChapter = () => {
     if (currentChapterIndex < course.content.length - 1) {
       setCurrentChapterIndex(currentChapterIndex + 1);
+      
     }
   };
 
   const handlePreviousChapter = () => {
     if (currentChapterIndex > 0) {
       setCurrentChapterIndex(currentChapterIndex - 1);
+      console.log(CoursePercentage)
     }
   };
+
+  const handleCompleteChapter = async () => {
+    if (course && enrollmentData) {
+      const currentChapter = course.content[currentChapterIndex];
+      const AddPercentage = 100 / course.content.length;
+      const updatedCoursePercentage = CoursePercentage + AddPercentage; 
+      SetCoursePercentage(updatedCoursePercentage); 
+  
+      try {
+        if (!enrollmentData.completedChapters.includes(currentChapter.title)) {
+          enrollmentData.completedChapters.push(currentChapter.title);
+  
+          await axios.put(
+            `http://localhost:5000/update/enrollement/${enrollmentData._id}`,
+            {
+              completedChapters: enrollmentData.completedChapters,
+              completedPercentage: updatedCoursePercentage, // Send the updated percentage to the database
+            }
+          );
+  
+          setEnrollmentData((prevEnrollmentData) => ({
+            ...prevEnrollmentData,
+            completedChapters: enrollmentData.completedChapters,
+          }));
+        }
+      } catch (error) {
+        console.error("Error marking chapter as completed:", error);
+      }
+    }
+  };
+  
+
+useEffect(() => {
+  async function fetchUserData() {
+    const userInfo = await fetchUserInfoFromToken();
+    setUser(userInfo);
+  }
+
+  fetchUserData();
+}, []);
+
+useEffect(() => {
+  const fetchCourseAndEnrollmentData = async () => {
+    try {
+      const [courseResponse, enrollmentsResponse] = await Promise.all([
+        fetch(`http://localhost:5000/courses/${id}`),
+        axios.get(`http://localhost:5000/get/enrollement`),
+      ]);
+
+      if (courseResponse.ok) {
+        const courseData = await courseResponse.json();
+        setCourse(courseData);
+      } else {
+        console.error("Error fetching course content");
+      }
+
+      if (enrollmentsResponse.status === 200) {
+        const enrollments = enrollmentsResponse.data;
+
+        if (user && user._id) {
+          const matchingEnrollment = enrollments.find(
+            (enrollment) =>
+              enrollment.user === user._id && enrollment.course === id
+          );
+
+          if (matchingEnrollment) {
+            setEnrollmentData(matchingEnrollment);
+          } else {
+            console.error("Matching enrollment not found.");
+          }
+        } else {
+          console.error("User information not available.");
+        }
+      } else {
+        console.error("Error fetching enrollments");
+      }
+    } catch (error) {
+      console.error("Error fetching course and enrollment data:", error);
+    }
+  };
+
+  fetchCourseAndEnrollmentData();
+}, [id, user]);
+
+
+
+  const isChapterCompleted = course
+    ? enrollmentData.completedChapters.includes(course.content[currentChapterIndex]?.title)
+    : false;
 
   return (
     <>
@@ -141,6 +234,8 @@ export default function CourseStart() {
                       >
                         Next
                       </button>
+
+                      <button   className="navigation-btn" onClick={handleCompleteChapter}>Complete</button>
                     </div>
                   </div>
                 ))

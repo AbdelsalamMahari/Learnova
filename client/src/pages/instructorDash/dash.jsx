@@ -35,10 +35,9 @@ export default function Dash() {
                     const response = await Axios.get(
                         `http://localhost:5000/get/enrollments/instructor/${user._id}`
                     );
-                    const totalEnrollments = response.data.length;  // Calculate total enrollments
-                    setTotalEnrollments(totalEnrollments);  // Update total enrollments state
+                    const totalEnrollments = response.data.length;
+                    setTotalEnrollments(totalEnrollments);
                     setEnrollments(response.data);
-                    
                 }
             } catch (error) {
                 console.error("Error fetching enrollments:", error);
@@ -55,7 +54,7 @@ export default function Dash() {
             );
             return response.data.score;
         } catch (error) {
-            console.error(`Error fetching score for user ${userId}, course ${courseId}:`, error);
+            console.error(`Error fetching score for user ${userId}, course ${courseId}:, error`);
             return 0; // Return 0 if an error occurs
         }
     };
@@ -86,7 +85,7 @@ export default function Dash() {
             );
             return response.data.score;
         } catch (error) {
-            console.error(`Error fetching exam score for user ${userId}, course ${courseId}:`, error);
+            console.error(`Error fetching exam score for user ${userId}, course ${courseId}:, error`);
             return 0; // Return 0 if an error occurs
         }
     };

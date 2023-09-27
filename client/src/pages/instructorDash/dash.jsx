@@ -13,7 +13,8 @@ export default function Dash() {
     const [enrollments, setEnrollments] = useState([]);
     const [totalEnrollments, setTotalEnrollments] = useState(0);
     const [totalCourses, setTotalCourses] = useState(0);
-
+    const [totalSuccess, setTotalSuccess] = useState(0);
+    
     useEffect(() => {
         // Make a GET request to your backend API to get the total subscription amount
         if (user && user._id) {
@@ -122,6 +123,34 @@ export default function Dash() {
         fetchTotalCourses();
     }, [user]);
 
+
+    const fetchExamScoresCount = async (courseId) => {
+        try {
+          const response = await Axios.get(
+            `http://localhost:5000/countScores/${courseId}`
+          );
+          return response.data.count;
+        } catch (error) {
+          console.error(`Error fetching exam scores count for course ${courseId}:`, error);
+          return 0;
+        }
+      };
+    
+      useEffect(() => {
+        const updateTotalSuccess = async () => {
+          if (enrollments.length === 0) return;
+    
+          // Assuming courseId is the course for which you want to fetch the count
+          const courseId = enrollments[0].course._id; // Adjust this based on your actual course ID logic
+    
+          const count = await fetchExamScoresCount(courseId);
+          setTotalSuccess(count);
+        };
+    
+        updateTotalSuccess();
+      }, [enrollments]); // Update when enrollments change
+    
+
     return (
         <>
             <div className="container-dash">
@@ -168,9 +197,9 @@ export default function Dash() {
                         </div>
 
                         <div className="card">
-                            <div>
-                                <div className="numbers">284</div>
-                                <div className="cardName">Comments</div>
+                        <div>
+                                <div className="numbers">{totalSuccess}</div>
+                                <div className="cardName">Total Success</div>
                             </div>
 
                             <div className="iconBx">

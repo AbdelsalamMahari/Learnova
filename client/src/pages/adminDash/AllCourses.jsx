@@ -54,16 +54,31 @@ const AllCourses = () => {
 
     const handleDeleteCourse = async (courseId) => {
         try {
-            // Delete course and associated questions
-            await axios.delete(`http://localhost:5000/delete/${courseId}`);
-            // Remove the deleted course from the state
-            setCourses((prevCourses) => prevCourses.filter(course => course._id !== courseId));
-            toast.success('Course and associated questions deleted successfully.');
+            // Fetch all enrollments
+            const enrollmentsResponse = await axios.get('http://localhost:5000/get/enrollement');
+            const enrollmentsData = enrollmentsResponse.data;
+    
+      
+            const isCourseInEnrollments = enrollmentsData.some((enrollment) =>
+                enrollment.course === courseId
+            );
+    
+            if (isCourseInEnrollments) {
+         
+                toast.error('This course cannot be deleted as it is enrolled by users.');
+            } else {
+         
+                await axios.delete(`http://localhost:5000/courses/delete/${courseId}`);
+                setCourses((prevCourses) => prevCourses.filter(course => course._id !== courseId));
+                toast.success('Course and associated questions deleted successfully.');
+            }
         } catch (error) {
             console.error('Error deleting course and associated questions:', error);
             toast.error('An error occurred while deleting the course.');
         }
     };
+    
+    
 
     const handleDeployCourse = async (courseId) => {
         try {

@@ -1,0 +1,11 @@
+.progress-fill{
+    background-color: coral;
+    border-radius: 5px;
+    padding-left: 2px;
+}
+
+.bar-percentage{
+padding: 1px;
+left: 0%;
+color: white;
+}

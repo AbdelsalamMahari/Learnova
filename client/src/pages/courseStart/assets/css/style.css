@@ -12,6 +12,14 @@
   padding: 4px;
   width: 80px;
 }
+
+.navigation-btn2{
+  background-color: #e9b10a;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+  width: 100px;
+}
 .course-navigation{
   width: 100%;
   display: flex;

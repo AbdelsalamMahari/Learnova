@@ -53,7 +53,7 @@ const AllCourses = () => {
         }
 
         // Construct instructor information
-        const instructorInfo = `${instructor.firstName} ${instructor.lastName},  ${instructor.email}`;
+        const instructorInfo = `${instructor.firstName} ${instructor.lastName}`;
         return instructorInfo;
     };
 
@@ -150,7 +150,7 @@ const AllCourses = () => {
                                     <tr>
                                         <th>Course Name</th>
                                         <th>Category</th>
-                                        <th>Instructor Information</th>
+                                        <th>Instructor Name</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

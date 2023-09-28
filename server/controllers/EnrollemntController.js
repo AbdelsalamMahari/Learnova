@@ -94,6 +94,7 @@ module.exports.getEnrollmentsByInstructorId = async (req, res) => {
           enrollmentStatus: enrollment.enrollmentStatus,
           completionStatus: enrollment.completionStatus,
           completedChapters: enrollment.completedChapters,
+          completedPercentage:enrollment.completedPercentage,
           grade: enrollment.grade,
           // Add more fields as needed
         });

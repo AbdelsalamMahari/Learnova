@@ -39,42 +39,43 @@ export default function MyCourses() {
         backgroundImageUrl="https://wallpaperaccess.com/full/1691795.jpg"
       />
       <section className="section2-instructor">
-        <div className="container2-instructor">
-            {EnrollmentData.map((enrollment, index) => (
-              <Link to={`/courseInfo/${enrollment.course}`} key={enrollment._id}>
-                {CourseData[index] ? (
-                  <>
-                    <div className="first2-instructor">
-                      <img
-                        src={`http://localhost:5000/courses/getBackdrop/${enrollment.course}`}
-                        alt="Upload"
-                        className="w-28 h-28 rounded-full object-cover"
-                      />
+        {EnrollmentData.map((enrollment, index) => (
+          <div className="container2-instructor" key={enrollment._id}>
+            {CourseData[index] ? (
+              <>
+                <div className="first2-instructor">
+                  <img
+                    src={`http://localhost:5000/courses/getBackdrop/${enrollment.course}`}
+                    alt="Upload"
+                    className="w-28 h-28 rounded-full object-cover"
+                  />
+                </div>
+                <div className="second2-instructor">
+                  <h1 className="text-xl font-semibold">
+                    {CourseData[index].name}
+                  </h1>
+                  <div>
+                    <div className="h-4 bg-gray-300 rounded-full w-full">
+                      <div
+                        className="h-full bg-orange rounded-full"
+                        style={{ width: `${enrollment.completedPercentage}%` }}
+                      ></div>
                     </div>
-                    <div className="second2-instructor">
-                      <h1 className="text-xl font-semibold">
-                        {CourseData[index].name}
-                      </h1>
-                      <div>
-                        <div className="h-4 bg-gray-300 rounded-full w-full">
-                          <div
-                            className="h-full bg-orange rounded-full"
-                            style={{ width: `${enrollment.completedPercentage}%` }}
-                          ></div>
-                        </div>
-                        <span className="float-right">
-                          {enrollment.completedPercentage}% Complete
-                        </span>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <p>Course data loading...</p>
-                )}
-              </Link>
-            ))}
+                    <span className="float-right">
+                      {enrollment.completedPercentage}% Complete
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="first2-instructor">
+                <p>Course data loading...</p>
+              </div>
+            )}
           </div>
+        ))}
       </section>
+
 
 
       <Footer />

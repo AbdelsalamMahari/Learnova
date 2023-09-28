@@ -10,6 +10,7 @@ const Certificate = () => {
    const [course, setCourse] = useState('');
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
+   const [instructor, setInstructor] = useState({});
 
    useEffect(() => {
       // Fetch course name and user details using Axios
@@ -21,6 +22,11 @@ const Certificate = () => {
           setCourse(courseResponse.data);
           setFirstName(userResponse.data.firstName);
           setLastName(userResponse.data.lastName);
+
+            // Fetch instructor information using the instructor ID from the course data
+            const instructorResponse = await axios.get(`http://localhost:5000/users/find/${course.instructor}`);
+            setInstructor(instructorResponse.data);
+  
         } catch (error) {
           console.error(error);
           // Handle error, e.g., display an error message
@@ -28,7 +34,7 @@ const Certificate = () => {
       }
  
       fetchData();
-    }, [id, user]);
+    }, [id, user, course.instructor]);
 
    const generatePDF = () => {
      const input = document.getElementById('certificate');
@@ -91,7 +97,7 @@ const Certificate = () => {
                   </div>
                   <div className="second-signature">
                      <span className="pm-credits-inst">Instructor Signature:</span>
-                     <span className="pm-second-sig"><p>Instructor</p></span>
+                     <span className="pm-second-sig"><p>{instructor.firstName} {instructor.lastName}</p></span>
                      <hr className='dm-name-under' />
                   </div>
                   </div>

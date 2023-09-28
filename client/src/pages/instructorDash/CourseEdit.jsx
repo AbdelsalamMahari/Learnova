@@ -264,15 +264,16 @@ export default function CourseEdit() {
                       </div>
                     ) : (
                       <>
-                        <button onClick={() => toggleCourseContent(course)}>
+                        <button onClick={() => toggleCourseContent(course)} className="bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none ">
                           Show Course Content
                         </button>
-                        <button onClick={handleCloseCourseContent}>Cancel</button>
+                      
                       </>
                     )}
-                    <button onClick={() => handleUpdateCourse(course._id)}>
+                    <button onClick={() => handleUpdateCourse(course._id)} className="bg-green-500  text-white font-bold py-2 px-4 rounded focus:outline-none ">
                       Update Course
                     </button>
+                    <button onClick={handleCloseCourseContent} className="bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none ">Cancel</button>
                   </li>
                 ))}
               </ul>

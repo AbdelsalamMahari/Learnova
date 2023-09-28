@@ -18,10 +18,10 @@ export default function MyCourses() {
         const filteredEnrollments = response.data.filter(enrollment => enrollment.user === user._id);
         setEnrollmentData(filteredEnrollments);
         console.log(filteredEnrollments)
-        const coursePromises = filteredEnrollments.map(enrollment => 
+        const coursePromises = filteredEnrollments.map(enrollment =>
           axios.get(`http://localhost:5000/courses/${enrollment.course}`)
         );
-        
+
         const courseResponses = await Promise.all(coursePromises);
         const courseData = courseResponses.map(response => response.data);
         setCourseData(courseData);
@@ -38,37 +38,45 @@ export default function MyCourses() {
         title="My Courses"
         backgroundImageUrl="https://wallpaperaccess.com/full/1691795.jpg"
       />
-      <div className="main-container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {EnrollmentData.map((enrollment, index) => (
-            <Link
-              to={`/courseInfo/${enrollment.course}`} 
-              key={enrollment._id}
-              className="bg-white rounded p-4 m-2"
-            >
-              {CourseData[index] ? (
-                <>
-                  <img
-                    src={`http://localhost:5000/courses/getBackdrop/${enrollment.course}`}
-                    alt="Upload"
-                    style={{ height: '200px', objectFit: 'cover', width: '400px' }}
-                    className='rounded'
-                  />
-                  <p className="text-xl font-semibold">{CourseData[index].name}</p>
-                  <div className="custom-progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{ width: `${enrollment.completedPercentage}%` }}
-                    ><p className='bar-percentage'>{enrollment.completedPercentage}%</p></div>
-                  </div>
-                </>
-              ) : (
-                <p>Course data loading...</p>
-              )}
-            </Link>
-          ))}
-        </div>
-      </div>
+      <section className="section2-instructor">
+        <div className="container2-instructor">
+            {EnrollmentData.map((enrollment, index) => (
+              <Link to={`/courseInfo/${enrollment.course}`} key={enrollment._id}>
+                {CourseData[index] ? (
+                  <>
+                    <div className="first2-instructor">
+                      <img
+                        src={`http://localhost:5000/courses/getBackdrop/${enrollment.course}`}
+                        alt="Upload"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                    </div>
+                    <div className="second2-instructor">
+                      <h1 className="text-xl font-semibold">
+                        {CourseData[index].name}
+                      </h1>
+                      <div>
+                        <div className="h-4 bg-gray-300 rounded-full w-full">
+                          <div
+                            className="h-full bg-orange rounded-full"
+                            style={{ width: `${enrollment.completedPercentage}%` }}
+                          ></div>
+                        </div>
+                        <span className="float-right">
+                          {enrollment.completedPercentage}% Complete
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <p>Course data loading...</p>
+                )}
+              </Link>
+            ))}
+          </div>
+      </section>
+
+
       <Footer />
     </>
   );

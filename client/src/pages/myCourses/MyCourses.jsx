@@ -54,6 +54,11 @@ export default function MyCourses() {
                   <h1 className="text-xl font-semibold">
                     {CourseData[index].name}
                   </h1>
+                  <Link to={`/courseInfo/${enrollment.course}`}>
+                  <button className="bg-blue rounded w-full p-1 text-white mb-5">
+                    Continue...
+                  </button>
+                </Link>
                   <div>
                     <div className="h-4 bg-gray-300 rounded-full w-full">
                       <div

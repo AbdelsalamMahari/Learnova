@@ -111,7 +111,7 @@ export default function CourseEdit() {
                 {courses.map((course) => (
                   <li
                     key={course._id}
-                    className={`flex-1 shadow-2xl bg-white rounded-2 m-2 ${
+                    className={`flex-1 shadow-2xl p-5 rounded-lg bg-white rounded-2 m-2 ${
                       expandedCourse !== course._id ? "w-16/32" : "w-full"
                     }`}
                   >

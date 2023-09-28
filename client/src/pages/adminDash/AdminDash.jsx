@@ -189,6 +189,54 @@ export default function AdminDash() {
                   </thead>
 
                   <tbody>
+                  <tr>
+                        <td>Ali Nahle</td>
+                        <td>MERN Stack</td>
+                        <td>120$</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Abdelsalam Mahari</td>
+                        <td>MERN Stack</td>
+                        <td>120$</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mohamad Fawaz</td>
+                        <td>MERN Stack</td>
+                        <td>120$</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Ali Nahle</td>
+                        <td>MERN Stack</td>
+                        <td>120$</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Abdelsalam Mahari</td>
+                        <td>MERN Stack</td>
+                        <td>120$</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mohamad Fawaz</td>
+                        <td>Html Course</td>
+                        <td>55$</td>
+                        <td>
+                          <span className="status delivered">Paid</span>
+                        </td>
+                      </tr>
                   {filteredRecentPurchases.map((purchase, index) => (
                       <tr key={index}>
                         <td>{purchase.username}</td>

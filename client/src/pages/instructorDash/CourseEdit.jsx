@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
 import { fetchUserInfoFromToken } from "../../utils/fetchUser/FetchUser";
-
+import { toast, ToastContainer } from 'react-toastify';
 export default function CourseEdit() {
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
@@ -33,6 +33,32 @@ export default function CourseEdit() {
 
     fetchData();
   }, []);
+  const handleDeleteCourse = async (courseId) => {
+    try {
+        
+        const enrollmentsResponse = await axios.get('http://localhost:5000/get/enrollement');
+        const enrollmentsData = enrollmentsResponse.data;
+
+
+        const isCourseInEnrollments = enrollmentsData.some((enrollment) =>
+            enrollment.course === courseId
+        );
+
+        if (isCourseInEnrollments) {
+
+            toast.error('This course cannot be deleted as it is enrolled by users.');
+        } else {
+
+            await axios.delete(`http://localhost:5000/courses/delete/${courseId}`);
+            setCourses((prevCourses) => prevCourses.filter(course => course._id !== courseId));
+            toast.success('Course and associated questions deleted successfully.');
+        }
+    } catch (error) {
+        console.error('Error deleting course and associated questions:', error);
+        toast.error('An error occurred while deleting the course.');
+    }
+};
+
 
   const toggleCourseContent = (course) => {
     if (expandedCourse === course._id) {
@@ -115,6 +141,7 @@ export default function CourseEdit() {
                       expandedCourse !== course._id ? "w-16/32" : "w-full"
                     }`}
                   >
+                    <button onClick={() => handleDeleteCourse(course._id)}>Delete</button>
                       <label className="block text-gray-700 font-bold mb-2">
                               Course Title:
                             </label>
@@ -281,6 +308,7 @@ export default function CourseEdit() {
           )}
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 }

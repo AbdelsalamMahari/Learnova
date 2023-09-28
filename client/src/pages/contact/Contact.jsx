@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import TopPage from "../../components/topPage/TopPage";
 import Footer from "../../layout/footer/Footer";
 import "./Contact.css";
@@ -51,6 +51,7 @@ export default function Contact() {
 
   return (
     <>
+    <ToastContainer/>
       <TopPage
         title="Get in Touch"
         backgroundImageUrl="https://websitedemos.net/online-courses-02/wp-content/uploads/sites/542/2020/02/bg-06-free-img.jpg"

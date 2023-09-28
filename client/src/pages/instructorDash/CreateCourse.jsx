@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "../../components/sidebars/InstructorSideBar";
 import Icons from "../../assets/icons/icons";
 import UserInfo from "../../components/users/UserInfo";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function CreateCourse() {
   const user = UserInfo();
@@ -190,7 +191,6 @@ export default function CreateCourse() {
           "http://localhost:5000/image/upload",
           imageFormData
         );
-
         console.log("Image uploaded successfully:", imageUploadResponse.data);
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -223,7 +223,9 @@ export default function CreateCourse() {
         "http://localhost:5000/courses/create",
         formDataToSend
       );
-
+      toast.success("Course created successfully", {
+        theme: "colored",
+      });
       console.log("Course created successfully:", response.data);
     } catch (error) {
       console.error("Error creating course:", error);
@@ -232,6 +234,7 @@ export default function CreateCourse() {
 
   return (
     <>
+    <ToastContainer/>
       <div className="container-dash">
         <Sidebar />
         <div className="main-dash">
@@ -402,7 +405,7 @@ export default function CreateCourse() {
                 ))}
                 <button
                   type="button"
-                  className="border border-black bg-white text-black px-4 py-2 rounded hover:bg-blue-700 mr-2"
+                  className="border border-black bg-white text-black px-4 py-2 rounded hover:bg-blue-700 m-2"
                   onClick={() => addSubtitle(chapterIndex)}
                 >
                   Add Subtitle and Content

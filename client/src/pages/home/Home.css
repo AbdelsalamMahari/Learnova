@@ -90,10 +90,16 @@ body{
   .backdrop-image, .backdrop-image::after, .backdrop-image::before{
     height: 70vh;
   }
+  .head-h1{
+    font-size: 50px;
+  }
 }
 @media screen and (max-width: 900px){
   .exp-blue-sec, .choose-us{
     flex-direction: column;
+  }
+  .head-h1{
+    font-size: 30px;
   }
 }
 

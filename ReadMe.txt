@@ -17,7 +17,7 @@ required dependencies to run the project
 
 4-in the server folder, also create a .env file where in this file we require:
 
-MONGODB_URL="your mongodb connection linl"
+MONGODB_URL="your mongodb connection link"
 PORT = 5000
 SECRET_KEY = "a secret key for using jwt you can get from reading the documentation at :https://jwt.io/introduction"
 

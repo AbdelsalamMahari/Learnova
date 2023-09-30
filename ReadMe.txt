@@ -7,8 +7,8 @@ upload courses alongside loginand logout and many other functionalities.
 1-To use our website use git bash  or any other cmd to clone the project using the link:https://github.com/AbdelsalamMahari/Learnova.git
 (git clone https://github.com/AbdelsalamMahari/Learnova.git)
 
-2-after cloning the website, enter the client folder using "cd client" and type in npm install,
-similarly open another cmd and type in "cd server" and also type in npm install to download the
+2-after cloning the website, enter the client folder using "cd client" and type in "npm install",
+similarly open another cmd and type in "cd server" and also type in "npm install" to download the
 required dependencies to run the project
 
 3-in the client folder,add in a .env file and this .env we require:

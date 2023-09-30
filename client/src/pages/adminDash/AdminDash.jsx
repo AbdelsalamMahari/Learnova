@@ -172,7 +172,7 @@ export default function AdminDash() {
             <div className="details">
               <div className="recentOrders">
                 <div className="cardHeader">
-                  <h2>Recent Orders</h2>
+                  <h2>Recent Purchases</h2>
                   <a href="/" className="btn">
                     View All
                   </a>
